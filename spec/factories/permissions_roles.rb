@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :permissions_role do
     role nil
     permission nil

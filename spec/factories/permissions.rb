@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :permission do
     action "MyString"
     description "MyText"

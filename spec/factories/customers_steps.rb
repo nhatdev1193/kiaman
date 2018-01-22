@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :customers_step do
     step nil
     customer nil

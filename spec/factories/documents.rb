@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :document do
     user nil
     customer nil
