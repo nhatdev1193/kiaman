@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122082435) do
+ActiveRecord::Schema.define(version: 20180122083253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,18 @@ ActiveRecord::Schema.define(version: 20180122082435) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action", "resource_type", "deleted_at"], name: "idx_unique_action", unique: true
+  end
+
+  create_table "permissions_roles", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "permission_id", null: false
+    t.bigint "organization_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_permissions_roles_on_organization_id"
+    t.index ["permission_id"], name: "index_permissions_roles_on_permission_id"
+    t.index ["role_id"], name: "index_permissions_roles_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -62,4 +74,7 @@ ActiveRecord::Schema.define(version: 20180122082435) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "permissions_roles", "organizations"
+  add_foreign_key "permissions_roles", "permissions"
+  add_foreign_key "permissions_roles", "roles"
 end
