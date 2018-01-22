@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122083253) do
+ActiveRecord::Schema.define(version: 20180122091231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,11 +70,26 @@ ActiveRecord::Schema.define(version: 20180122083253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.bigint "role_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "deleted_at"
+    t.string "address"
+    t.string "phone"
+    t.string "mobile_phone", null: false
+    t.integer "failed_attemps", default: 0, null: false
+    t.datetime "locked_at"
+    t.datetime "unlock_token"
+    t.index ["email", "deleted_at"], name: "idx_unique_email", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["mobile_phone", "deleted_at"], name: "idx_unique_mobile_phone", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "permissions_roles", "organizations"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
+  add_foreign_key "users", "organizations"
+  add_foreign_key "users", "roles"
 end
