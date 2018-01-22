@@ -23,7 +23,7 @@ PreCommit:
  AuthorName:
    enabled: false
 
-
+#
 #  TrailingWhitespace:
 #    enabled: true
 #    exclude:
