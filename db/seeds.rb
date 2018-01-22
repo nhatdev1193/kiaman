@@ -5,5 +5,39 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = CreateAdminService.new.call
-puts 'CREATED ADMIN USER: ' << user.email
+
+def create_organizations
+  organization = Organization.create(name: 'Kim An HQ', parent_id: 0, level: 1)
+
+  puts "CREATED ORGANIZATION - #{organization.name}"
+end
+
+def create_roles
+  roles_name = %w[admin manager evaluator collector]
+  roles = []
+  roles_name.each_with_index do |name, idx|
+    roles.push({ name: name, description: "#{name} role", level: idx + 1 })
+  end
+  Role.create(roles)
+
+  p "CREATED ROLES - #{roles_name.join(',')}"
+end
+
+def create_admin_users
+  organization = Organization.first
+  admin_role = Role.find_by(name: 'admin')
+
+  user = User.find_or_create_by!(email: Rails.application.secrets.admin_email) do |u|
+    u.mobile_phone = Faker::PhoneNumber.cell_phone
+    u.password = Rails.application.secrets.admin_password
+    u.password_confirmation = Rails.application.secrets.admin_password
+    u.role = admin_role
+    u.organization = organization
+  end
+
+  p 'CREATED ADMIN USER: ' << user.email
+end
+
+create_organizations
+create_roles
+create_admin_users
