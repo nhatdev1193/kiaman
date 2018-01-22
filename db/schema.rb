@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122135839) do
+ActiveRecord::Schema.define(version: 20180122140326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,19 @@ ActiveRecord::Schema.define(version: 20180122135839) do
     t.index ["customer_id"], name: "index_documents_on_customer_id"
     t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.bigint "step_id"
+    t.bigint "contract_kind_id"
+    t.string "name", null: false
+    t.boolean "is_template", default: true, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_kind_id"], name: "index_forms_on_contract_kind_id"
+    t.index ["name", "deleted_at"], name: "idx_unique_form_name", unique: true
+    t.index ["step_id"], name: "index_forms_on_step_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -190,6 +203,8 @@ ActiveRecord::Schema.define(version: 20180122135839) do
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
   add_foreign_key "documents", "users"
+  add_foreign_key "forms", "contract_kinds"
+  add_foreign_key "forms", "steps"
   add_foreign_key "permissions_roles", "organizations"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
