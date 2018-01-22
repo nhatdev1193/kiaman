@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122111309) do
+ActiveRecord::Schema.define(version: 20180122135405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,15 @@ ActiveRecord::Schema.define(version: 20180122111309) do
     t.index ["name", "deleted_at"], name: "idx_unique_role_name", unique: true
   end
 
+  create_table "step_conditions", force: :cascade do |t|
+    t.bigint "step_id"
+    t.text "condition", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_step_conditions_on_step_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.integer "prev_step_id"
     t.bigint "contract_kind_id"
@@ -164,6 +173,7 @@ ActiveRecord::Schema.define(version: 20180122111309) do
   add_foreign_key "permissions_roles", "organizations"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
+  add_foreign_key "step_conditions", "steps"
   add_foreign_key "steps", "contract_kinds"
   add_foreign_key "users", "organizations"
   add_foreign_key "users", "roles"
