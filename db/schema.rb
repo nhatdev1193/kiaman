@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122143334) do
+ActiveRecord::Schema.define(version: 20180122143903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,16 @@ ActiveRecord::Schema.define(version: 20180122143334) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payment_schedules", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.datetime "pay_date", null: false
+    t.float "pay_amount", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_payment_schedules_on_contract_id"
+  end
+
   create_table "permissions", force: :cascade do |t|
     t.string "action", null: false
     t.text "description"
@@ -200,6 +210,15 @@ ActiveRecord::Schema.define(version: 20180122143334) do
     t.index ["name", "contract_kind_id", "deleted_at"], name: "idx_unique_step_name", unique: true
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "payment_schedule_id", null: false
+    t.float "amount", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_schedule_id"], name: "index_transactions_on_payment_schedule_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -246,11 +265,13 @@ ActiveRecord::Schema.define(version: 20180122143334) do
   add_foreign_key "form_input_values", "forms"
   add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
+  add_foreign_key "payment_schedules", "contracts"
   add_foreign_key "permissions_roles", "organizations"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
   add_foreign_key "step_conditions", "steps"
   add_foreign_key "steps", "contract_kinds"
+  add_foreign_key "transactions", "payment_schedules"
   add_foreign_key "users", "organizations"
   add_foreign_key "users", "roles"
 end
