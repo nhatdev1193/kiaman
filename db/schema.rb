@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122135405) do
+ActiveRecord::Schema.define(version: 20180122135839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20180122135405) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customers_steps", force: :cascade do |t|
+    t.bigint "step_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "contract_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "approved_at"
+    t.datetime "rejected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_customers_steps_on_contract_id"
+    t.index ["customer_id"], name: "index_customers_steps_on_customer_id"
+    t.index ["step_id"], name: "index_customers_steps_on_step_id"
+    t.index ["user_id"], name: "index_customers_steps_on_user_id"
   end
 
   create_table "document_kinds", force: :cascade do |t|
@@ -167,6 +183,10 @@ ActiveRecord::Schema.define(version: 20180122135405) do
   add_foreign_key "contracts", "contract_kinds"
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "users"
+  add_foreign_key "customers_steps", "contracts"
+  add_foreign_key "customers_steps", "customers"
+  add_foreign_key "customers_steps", "steps"
+  add_foreign_key "customers_steps", "users"
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
   add_foreign_key "documents", "users"
