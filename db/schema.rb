@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122102222) do
+ActiveRecord::Schema.define(version: 20180122103631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,23 @@ ActiveRecord::Schema.define(version: 20180122102222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "deleted_at"], name: "idx_unique_document_kind_name", unique: true
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "customer_id"
+    t.bigint "document_kind_id", null: false
+    t.string "filename", null: false
+    t.string "url", null: false
+    t.string "physic_path", null: false
+    t.string "content_type", null: false
+    t.integer "size", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_documents_on_customer_id"
+    t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -102,6 +119,9 @@ ActiveRecord::Schema.define(version: 20180122102222) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "documents", "customers"
+  add_foreign_key "documents", "document_kinds"
+  add_foreign_key "documents", "users"
   add_foreign_key "permissions_roles", "organizations"
   add_foreign_key "permissions_roles", "permissions"
   add_foreign_key "permissions_roles", "roles"
