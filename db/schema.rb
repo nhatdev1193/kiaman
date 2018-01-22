@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122141152) do
+ActiveRecord::Schema.define(version: 20180122141505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,20 @@ ActiveRecord::Schema.define(version: 20180122141152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["kind", "deleted_at"], name: "idx_unique_form_input_kind", unique: true
+  end
+
+  create_table "form_input_values", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.bigint "form_id", null: false
+    t.bigint "form_input_kind_id", null: false
+    t.json "form_input_condition_ids", null: false
+    t.datetime "deleted_at"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_form_input_values_on_contract_id"
+    t.index ["form_id"], name: "index_form_input_values_on_form_id"
+    t.index ["form_input_kind_id"], name: "index_form_input_values_on_form_input_kind_id"
   end
 
   create_table "forms", force: :cascade do |t|
@@ -218,6 +232,9 @@ ActiveRecord::Schema.define(version: 20180122141152) do
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
   add_foreign_key "documents", "users"
+  add_foreign_key "form_input_values", "contracts"
+  add_foreign_key "form_input_values", "form_input_kinds"
+  add_foreign_key "form_input_values", "forms"
   add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "permissions_roles", "organizations"
