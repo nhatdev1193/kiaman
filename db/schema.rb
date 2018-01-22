@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122140326) do
+ActiveRecord::Schema.define(version: 20180122140826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,14 @@ ActiveRecord::Schema.define(version: 20180122140326) do
     t.index ["customer_id"], name: "index_documents_on_customer_id"
     t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "form_input_kinds", force: :cascade do |t|
+    t.string "kind", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind", "deleted_at"], name: "idx_unique_form_input_kind", unique: true
   end
 
   create_table "forms", force: :cascade do |t|
