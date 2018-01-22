@@ -9,6 +9,6 @@ class CreateRoles < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :roles, [:name, :deleted_at], name: 'idx_unique_name', unique: true
+    add_index :roles, [:name, :deleted_at], name: 'idx_unique_role_name', unique: true
   end
 end
