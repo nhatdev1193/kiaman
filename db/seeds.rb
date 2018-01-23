@@ -13,7 +13,7 @@ def create_organizations
 end
 
 def create_roles
-  roles_name = %w[admin manager evaluator collector]
+  roles_name = %w[admin manager sale evaluator collector]
   roles = []
   roles_name.each_with_index do |name, idx|
     roles.push({ name: name, description: "#{name} role", level: idx + 1 })
