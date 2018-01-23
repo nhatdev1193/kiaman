@@ -1,6 +1,4 @@
-class CustomersStep < ApplicationRecord
-  acts_as_paranoid
-
+class CustomersStep < SoftDeleteBaseModel
   belongs_to :step
   belongs_to :customer
   belongs_to :contract

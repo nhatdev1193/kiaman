@@ -1,5 +1,3 @@
-class Organization < ApplicationRecord
-  acts_as_paranoid
-
+class Organization < SoftDeleteBaseModel
   validates :name, presence: true
 end

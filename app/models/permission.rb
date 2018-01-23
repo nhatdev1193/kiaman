@@ -1,5 +1,3 @@
-class Permission < ApplicationRecord
-  acts_as_paranoid
-
+class Permission < SoftDeleteBaseModel
   validates :action, :resource_type, presence: true
 end

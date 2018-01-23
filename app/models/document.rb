@@ -1,6 +1,4 @@
-class Document < ApplicationRecord
-  acts_as_paranoid
-
+class Document < SoftDeleteBaseModel
   belongs_to :user
   belongs_to :customer
   belongs_to :document_kind

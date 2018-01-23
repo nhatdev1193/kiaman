@@ -1,5 +1,3 @@
-class FormInputCondition < ApplicationRecord
-  acts_as_paranoid
-
+class FormInputCondition < SoftDeleteBaseModel
   validates :condition, presence: true
 end

@@ -1,6 +1,4 @@
-class PermissionsRole < ApplicationRecord
-  acts_as_paranoid
-
+class PermissionsRole < SoftDeleteBaseModel
   belongs_to :role
   belongs_to :permission
   belongs_to :organization
