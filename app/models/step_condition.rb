@@ -1,6 +1,4 @@
-class StepCondition < ApplicationRecord
-  acts_as_paranoid
-
+class StepCondition < SoftDeleteBaseModel
   belongs_to :step
 
   validates :condition, presence: true

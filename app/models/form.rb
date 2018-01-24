@@ -1,6 +1,4 @@
-class Form < ApplicationRecord
-  acts_as_paranoid
-
+class Form < SoftDeleteBaseModel
   belongs_to :step
   belongs_to :contract_kind
 

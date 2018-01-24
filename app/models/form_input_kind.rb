@@ -1,5 +1,3 @@
-class FormInputKind < ApplicationRecord
-  acts_as_paranoid
-
+class FormInputKind < SoftDeleteBaseModel
   validates :kind, presence: true
 end

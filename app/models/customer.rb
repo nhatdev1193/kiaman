@@ -1,3 +1,2 @@
-class Customer < ApplicationRecord
-  acts_as_paranoid
+class Customer < SoftDeleteBaseModel
 end

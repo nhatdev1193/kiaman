@@ -1,5 +1,3 @@
-class DocumentKind < ApplicationRecord
-  acts_as_paranoid
-
+class DocumentKind < SoftDeleteBaseModel
   validates :name, presence: true
 end
