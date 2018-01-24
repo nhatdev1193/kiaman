@@ -28,6 +28,7 @@ group :development do
 
   gem 'overcommit'
   gem 'rubocop', require: false
+  gem 'letter_opener'
 end
 
 group :test do
