@@ -1,4 +1,4 @@
-inherit_from: .rubocop_todo.yml
+inherit_from: ./.rubocop_todo.yml
 
 AllCops:
   Exclude:
@@ -10,5 +10,11 @@ Style/Documentation:
 Metrics/BlockLength:
   Enabled: false
 
-Style/BlockComments:
+Metrics/MethodLength:
+  Max: 13
+
+Metrics/AbcSize:
+  Max: 20
+
+Style/ClassAndModuleChildren:
   Enabled: false

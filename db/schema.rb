@@ -10,10 +10,214 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224203311) do
+ActiveRecord::Schema.define(version: 20180122143903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contract_kinds", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.json "step_ids", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "deleted_at"], name: "idx_unique_contract_kind_name", unique: true
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "contract_kind_id", null: false
+    t.string "current_workflow", null: false
+    t.string "current_step", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_kind_id"], name: "index_contracts_on_contract_kind_id"
+    t.index ["customer_id"], name: "index_contracts_on_customer_id"
+    t.index ["user_id"], name: "index_contracts_on_user_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "customers_steps", force: :cascade do |t|
+    t.bigint "step_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "contract_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "approved_at"
+    t.datetime "rejected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_customers_steps_on_contract_id"
+    t.index ["customer_id"], name: "index_customers_steps_on_customer_id"
+    t.index ["step_id"], name: "index_customers_steps_on_step_id"
+    t.index ["user_id"], name: "index_customers_steps_on_user_id"
+  end
+
+  create_table "document_kinds", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "deleted_at"], name: "idx_unique_document_kind_name", unique: true
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "customer_id"
+    t.bigint "document_kind_id", null: false
+    t.string "filename", null: false
+    t.string "url", null: false
+    t.string "physic_path", null: false
+    t.string "content_type", null: false
+    t.integer "size", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_documents_on_customer_id"
+    t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "form_input_conditions", force: :cascade do |t|
+    t.string "condition", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "form_input_kinds", force: :cascade do |t|
+    t.string "kind", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind", "deleted_at"], name: "idx_unique_form_input_kind", unique: true
+  end
+
+  create_table "form_input_values", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.bigint "form_id", null: false
+    t.bigint "form_input_kind_id", null: false
+    t.json "form_input_condition_ids", null: false
+    t.datetime "deleted_at"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_form_input_values_on_contract_id"
+    t.index ["form_id"], name: "index_form_input_values_on_form_id"
+    t.index ["form_input_kind_id"], name: "index_form_input_values_on_form_input_kind_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.bigint "step_id"
+    t.bigint "contract_kind_id"
+    t.string "name", null: false
+    t.boolean "is_template", default: true, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_kind_id"], name: "index_forms_on_contract_kind_id"
+    t.index ["name", "deleted_at"], name: "idx_unique_form_name", unique: true
+    t.index ["step_id"], name: "index_forms_on_step_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "parent_id"
+    t.integer "level"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payment_schedules", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.datetime "pay_date", null: false
+    t.float "pay_amount", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_payment_schedules_on_contract_id"
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string "action", null: false
+    t.text "description"
+    t.string "resource_type", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action", "resource_type", "deleted_at"], name: "idx_unique_action", unique: true
+  end
+
+  create_table "permissions_roles", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "permission_id", null: false
+    t.bigint "organization_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_permissions_roles_on_organization_id"
+    t.index ["permission_id"], name: "index_permissions_roles_on_permission_id"
+    t.index ["role_id"], name: "index_permissions_roles_on_role_id"
+  end
+
+  create_table "revisions", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.string "kind", null: false
+    t.text "value"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.integer "level", default: 1, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "deleted_at"], name: "idx_unique_role_name", unique: true
+  end
+
+  create_table "step_conditions", force: :cascade do |t|
+    t.bigint "step_id"
+    t.text "condition", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_step_conditions_on_step_id"
+  end
+
+  create_table "steps", force: :cascade do |t|
+    t.integer "prev_step_id"
+    t.bigint "contract_kind_id"
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_kind_id"], name: "index_steps_on_contract_kind_id"
+    t.index ["name", "contract_kind_id", "deleted_at"], name: "idx_unique_step_name", unique: true
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "payment_schedule_id", null: false
+    t.float "amount", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_schedule_id"], name: "index_transactions_on_payment_schedule_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,7 +233,45 @@ ActiveRecord::Schema.define(version: 20140224203311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.bigint "role_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "deleted_at"
+    t.string "address"
+    t.string "phone"
+    t.string "mobile_phone", null: false
+    t.integer "failed_attemps", default: 0, null: false
+    t.datetime "locked_at"
+    t.datetime "unlock_token"
+    t.index ["email", "deleted_at"], name: "idx_unique_user_email", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["mobile_phone", "deleted_at"], name: "idx_unique_user_mobile_phone", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
+
+  add_foreign_key "contracts", "contract_kinds"
+  add_foreign_key "contracts", "customers"
+  add_foreign_key "contracts", "users"
+  add_foreign_key "customers_steps", "contracts"
+  add_foreign_key "customers_steps", "customers"
+  add_foreign_key "customers_steps", "steps"
+  add_foreign_key "customers_steps", "users"
+  add_foreign_key "documents", "customers"
+  add_foreign_key "documents", "document_kinds"
+  add_foreign_key "documents", "users"
+  add_foreign_key "form_input_values", "contracts"
+  add_foreign_key "form_input_values", "form_input_kinds"
+  add_foreign_key "form_input_values", "forms"
+  add_foreign_key "forms", "contract_kinds"
+  add_foreign_key "forms", "steps"
+  add_foreign_key "payment_schedules", "contracts"
+  add_foreign_key "permissions_roles", "organizations"
+  add_foreign_key "permissions_roles", "permissions"
+  add_foreign_key "permissions_roles", "roles"
+  add_foreign_key "step_conditions", "steps"
+  add_foreign_key "steps", "contract_kinds"
+  add_foreign_key "transactions", "payment_schedules"
+  add_foreign_key "users", "organizations"
+  add_foreign_key "users", "roles"
 end
