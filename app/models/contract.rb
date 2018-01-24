@@ -1,6 +1,4 @@
-class Contract < ApplicationRecord
-  acts_as_paranoid
-
+class Contract < SoftDeleteBaseModel
   belongs_to :customer
   belongs_to :user
   belongs_to :contract_kind

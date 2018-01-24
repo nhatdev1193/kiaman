@@ -1,6 +1,4 @@
-class FormInputValue < ApplicationRecord
-  acts_as_paranoid
-
+class FormInputValue < SoftDeleteBaseModel
   belongs_to :contract
   belongs_to :form
   belongs_to :form_input_kind
