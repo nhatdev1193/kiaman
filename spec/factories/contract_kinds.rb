@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contract_kind do
     name 'MyString'
     step_ids 'MyString'

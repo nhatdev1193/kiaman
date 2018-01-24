@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :document_kind do
     name "MyString"
     description "MyText"

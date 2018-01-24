@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :step do
     prev_step_id 1
     contract_kind nil
