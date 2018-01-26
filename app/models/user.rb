@@ -7,4 +7,6 @@ class User < SoftDeleteBaseModel
   belongs_to :organization
   belongs_to :role
   has_many :permissions, through: :role
+
+  validates :email, :role_id, :organization_id, :mobile_phone, presence: true
 end
