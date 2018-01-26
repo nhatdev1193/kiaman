@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
   devise_for :staffs, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
-  resources :staffs
+
+  # Staff Routes
+  # ====================================
+  namespace :staff, url: '/' do
+
+  end
+
+  # Admin Routes
+  # ====================================
+  namespace :admin, url: '/admin' do
+    resources :staffs
+
+    root to: 'visitors#index'
+  end
 end

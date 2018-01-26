@@ -1,4 +1,4 @@
-class StaffsController < ApplicationController
+class Admin::StaffsController < ApplicationController
   before_action :authenticate_staff!
   before_action :set_staff, only: [:show, :edit, :update]
 
@@ -18,7 +18,7 @@ class StaffsController < ApplicationController
     @staff.password_confirmation = Rails.application.secrets.staff_password
 
     if @staff.save
-      redirect_to @staff, notice: 'Staff was successfully created.'
+      redirect_to [:admin, @staff], notice: 'Staff was successfully created.'
     else
       render :new
     end
@@ -28,7 +28,7 @@ class StaffsController < ApplicationController
 
   def update
     if @staff.update(staff_params)
-      redirect_to staffs_path, notice: 'Staff was successfully updated.'
+      redirect_to admin_staffs_path, notice: 'Staff was successfully updated.'
     else
       render :edit
     end
