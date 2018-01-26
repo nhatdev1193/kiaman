@@ -3,6 +3,6 @@ FactoryBot.define do
     step nil
     customer nil
     contract nil
-    user nil
+    staff nil
   end
 end

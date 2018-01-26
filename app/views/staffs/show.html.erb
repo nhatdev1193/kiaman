@@ -1,8 +1,8 @@
 <%- excluded_keys = ['encrypted_password', 'reset_password_token'] %>
-<%- attributes = @user.attributes.reject { |k, v| excluded_keys.include?(k) } %>
-<%- klass = @user.class %>
+<%- attributes = @staff.attributes.reject { |k, v| excluded_keys.include?(k) } %>
+<%- klass = @staff.class %>
 
-<h3>User</h3>
+<h3>Staff</h3>
 
 <div class="row">
   <div class="col-md-12 col-xs-12">

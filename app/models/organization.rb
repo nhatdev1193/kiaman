@@ -1,7 +1,5 @@
 class Organization < SoftDeleteBaseModel
-  
-  has_many :users
-  
-  validates :name, presence: true
+  has_many :staffs
 
+  validates :name, presence: true
 end
