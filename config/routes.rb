@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :staffs, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
+  ROLE_NAMES = Role.pluck :name
 
-  # Staff Routes
-  # ====================================
-  namespace :staff, url: '/' do
+  ROLE_NAMES.each do |role|
+    namespace role.to_sym do
+      devise_for :staffs, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
 
-  end
+      resources :staffs
+      resources :visitors, only: [:index]
+      resources :pages, only: [] do
+        get 'about', on: :collection
+      end
 
-  # Admin Routes
-  # ====================================
-  namespace :admin, url: '/admin' do
-    resources :staffs
-
-    root to: 'visitors#index'
+      root to: 'visitors#index'
+    end
   end
 end
