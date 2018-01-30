@@ -1,5 +1,4 @@
-class Admin::StaffsController < ApplicationController
-  before_action :authenticate_admin_staff!
+class Admin::StaffsController < Admin::BaseController
   before_action :set_staff, only: [:show, :edit, :update]
 
   def index

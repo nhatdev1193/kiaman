@@ -5,8 +5,24 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def after_sign_in_path_for(resource)
+    if resource.admin?
+      admin_root_url
+    else
+      staff_root_url
+    end
+  end
+
+  def after_sign_out_path_for(_resource)
+    if ['admin'].include?(@role_slug)
+      new_admin_session_url
+    else
+      new_staff_session_url
+    end
+  end
+
   def role_slug
-    @role_slug = request.params[:controller].split('/').first || 'admin'
+    @role_slug = request.path.split('/').reject(&:empty?).first || 'staff'
   end
 
   def configure_permitted_parameters

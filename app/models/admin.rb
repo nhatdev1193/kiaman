@@ -1,3 +1,3 @@
-class Staff < StaffBase
+class Admin < StaffBase
   self.table_name = 'staffs'
 end
