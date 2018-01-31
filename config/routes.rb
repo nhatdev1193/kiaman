@@ -1,40 +1,20 @@
 Rails.application.routes.draw do
+
   devise_for :staffs,
-             path: 'staff',
+             path: ':role_name',
              controllers: {
-               sessions: 'staff/staff_devise/sessions',
-               passwords: 'staff/staff_devise/passwords',
-               registrations: 'staff/staff_devise/registrations'
+                 sessions: 'staff/staff_devise/sessions',
+                 passwords: 'staff/staff_devise/passwords',
+                 registrations: 'staffs/staff_devise/registrations'
              },
              path_names: {
-               sign_in: 'login',
-               sign_out: 'logout',
-               sign_up: 'register'
+                 sign_in: 'login',
+                 sign_out: 'logout',
+                 edit: 'password'
              }
 
-  devise_for :admins,
-             path: 'admin',
-             controllers: {
-               sessions: 'admin/admin_devise/sessions',
-               passwords: 'admin/admin_devise/passwords',
-               registrations: 'admin/admin_devise/registrations'
-             },
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout',
-               sign_up: 'register'
-             }
-
-  namespace :admin do
+  namespace :admin, path: 'admin' do
     resources :staffs
-
-    root to: 'dashboard#index'
-  end
-
-  namespace :staff do
-    resources :staffs, only: [:index]
-
-    root to: 'dashboard#index'
   end
 
   resources :visitors, only: [:index]

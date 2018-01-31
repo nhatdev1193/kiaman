@@ -1,6 +1,8 @@
 class StaffBase < SoftDeleteBaseModel
   self.abstract_class = true
 
+  attr_reader :role_name
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,6 +13,10 @@ class StaffBase < SoftDeleteBaseModel
   has_many :permissions, through: :role
 
   validates :email, :role_id, :organization_id, :mobile_phone, presence: true
+
+  def role_name
+    role.name
+  end
 
   def admin?
     role.name == 'admin'
