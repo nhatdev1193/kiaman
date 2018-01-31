@@ -25,7 +25,7 @@ class Admin::OrganizationsController < Admin::BaseController
 
   def update
     if @organization.update(organization_params)
-      redirect_to admin_organizations_path, notice: 'Organization was successfully updated.'
+      redirect_to [:admin, @organization], notice: 'Organization was successfully updated.'
     else
       render :edit
     end
