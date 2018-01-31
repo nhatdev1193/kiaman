@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <%= form_for [:admin, @organization] do |f| %>
+      <% if @organization.errors.any? %>
+        <% @organization.errors.full_messages.each do |msg| %>
+          <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= content_tag :div, msg %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :level %>
+        <%= f.number_field :level, min: 1, value: 1, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :organization %>
+        <%= f.collection_select :parent_id, Organization.all, :id, :name, prompt: 'Select', class: 'form-control' %>
+      </div>
+      <%= link_to 'Back', admin_organizations_path %>
+       <%= f.submit class: 'button right' %>
+    <% end %>
+  </div>
+</div>

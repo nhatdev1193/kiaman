@@ -7,4 +7,5 @@
 <% end %>
 <% if staff_signed_in? && current_staff.admin? %>
   <li><%= link_to 'Staffs', admin_staffs_path %></li>
+  <li><%= link_to 'Organizations', admin_organizations_path %></li>
 <% end %>
