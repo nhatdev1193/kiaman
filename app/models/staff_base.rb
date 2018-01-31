@@ -15,4 +15,14 @@ class StaffBase < SoftDeleteBaseModel
   def admin?
     role.name == 'admin'
   end
+
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    role_name = conditions[:params].fetch(:role_name).downcase
+    conditions.delete(:params)
+    where(conditions.to_h)
+      .joins(:role).where('roles.name = ?', role_name)
+      .first
+  end
 end
