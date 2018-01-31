@@ -27,8 +27,8 @@ Layout/EmptyLines:
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
     - 'db/schema.rb'
-    - 'spec/features/users/user_delete_spec.rb'
-    - 'spec/features/users/user_show_spec.rb'
+    - 'spec/features/staffs/staff_delete_spec.rb'
+    - 'spec/features/staffs/staff_show_spec.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -52,7 +52,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
 # SupportedStyles: final_newline, final_blank_line
 Layout/TrailingBlankLines:
   Exclude:
-    - 'spec/features/users/user_delete_spec.rb'
+    - 'spec/features/staffs/staff_delete_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -118,10 +118,10 @@ Style/MixinUsage:
   Exclude:
     - 'bin/setup'
     - 'bin/update'
-    - 'spec/features/users/user_delete_spec.rb'
-    - 'spec/features/users/user_edit_spec.rb'
-    - 'spec/features/users/user_index_spec.rb'
-    - 'spec/features/users/user_show_spec.rb'
+    - 'spec/features/staffs/staff_delete_spec.rb'
+    - 'spec/features/staffs/staff_edit_spec.rb'
+    - 'spec/features/staffs/staff_index_spec.rb'
+    - 'spec/features/staffs/staff_show_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

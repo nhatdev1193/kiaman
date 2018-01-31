@@ -1,10 +1,10 @@
-<% if user_signed_in? %>
-  <li><%= link_to 'Edit account', edit_user_registration_path %></li>
-  <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+<% if staff_signed_in? %>
+  <li><%= link_to 'Edit account', edit_staff_registration_path(current_staff.role_name) %></li>
+  <li><%= link_to 'Sign out', destroy_staff_session_path(current_staff.role_name), :method=>'delete' %></li>
 <% else %>
-  <li><%= link_to 'Sign in', new_user_session_path %></li>
-  <li><%= link_to 'Sign up', new_user_registration_path %></li>
+  <li><%= link_to 'Sign in', new_staff_session_path(params[:role_name]) %></li>
+  <li><%= link_to 'Sign up', new_staff_registration_path(params[:role_name]) %></li>
 <% end %>
-<% if user_signed_in? %>
-  <li><%= link_to 'Users', users_path %></li>
+<% if staff_signed_in? && current_staff.admin? %>
+  <li><%= link_to 'Staffs', admin_staffs_path %></li>
 <% end %>
