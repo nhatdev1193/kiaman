@@ -1,8 +1,8 @@
 class Admin::OrganizationsController < Admin::BaseController
-  before_action :set_organization, only: [:show, :edit, :update]
+  before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.with_deleted
   end
 
   def show; end
@@ -31,6 +31,15 @@ class Admin::OrganizationsController < Admin::BaseController
     end
   end
 
+  def destroy
+    msg = if @organization.deleted? && @organization.recover
+            'Organization was successfully recovered.'
+          elsif @organization.destroy
+            'Organization was successfully deleted.'
+          end
+    redirect_to admin_organizations_path, notice: msg
+  end
+
   private
 
   def organization_params
@@ -38,6 +47,6 @@ class Admin::OrganizationsController < Admin::BaseController
   end
 
   def set_organization
-    @organization = Organization.find params[:id]
+    @organization = Organization.with_deleted.find params[:id]
   end
 end
