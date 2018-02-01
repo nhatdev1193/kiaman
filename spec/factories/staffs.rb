@@ -6,5 +6,6 @@ FactoryBot.define do
     mobile_phone Faker::PhoneNumber.cell_phone
     role nil
     organization nil
+    deleted_at nil
   end
 end
