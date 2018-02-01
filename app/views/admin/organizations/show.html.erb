@@ -1,8 +1,7 @@
-<%- excluded_keys = ['encrypted_password', 'reset_password_token'] %>
-<%- attributes = @staff.attributes.reject { |k, v| excluded_keys.include?(k) } %>
-<%- klass = @staff.class %>
+<%- attributes = @organization.attributes %>
+<%- klass = @organization.class %>
 
-<h3>Staff</h3>
+<h3>organization</h3>
 
 <div class="row">
   <div class="col-md-12 col-xs-12">
@@ -27,12 +26,12 @@
         <tr>
           <td></td>
           <td>
-            <%= link_to 'Back', admin_staffs_path %>
-            <%= link_to 'Edit', edit_admin_staff_path(@staff) %>
-            <% if @staff.deleted? %>
-              <%= link_to 'Recover', admin_staff_path(@staff), method: :delete %>
+            <%= link_to 'Back', admin_organizations_path %>
+            <%= link_to 'Edit', edit_admin_organization_path(@organization) %>
+            <% if @organization.deleted? %>
+              <%= link_to 'Recover', admin_organization_path(@organization), method: :delete %>
             <% else %>
-              <%= link_to 'Delete', admin_staff_path(@staff), method: :delete %>
+              <%= link_to 'Delete', admin_organization_path(@organization), method: :delete %>
             <% end %>
           </td>
         </tr>

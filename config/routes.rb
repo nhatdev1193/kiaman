@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
-
   devise_for :staffs,
              path: ':role_name',
              controllers: {
-                 sessions: 'staff/staff_devise/sessions',
-                 passwords: 'staff/staff_devise/passwords',
-                 registrations: 'staffs/staff_devise/registrations'
+               sessions: 'staff/staff_devise/sessions',
+               passwords: 'staff/staff_devise/passwords',
+               registrations: 'staffs/staff_devise/registrations'
              },
              path_names: {
-                 sign_in: 'login',
-                 sign_out: 'logout',
-                 edit: 'password'
+               sign_in: 'login',
+               sign_out: 'logout',
+               edit: 'password'
              }
 
   Role.all.map(&:name).each do |role_name|
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
       case role_name
         when 'admin'
           resources :staffs
+          resources :organizations
       end
 
       root :to => redirect("#{role_name}/login")

@@ -1,8 +1,8 @@
 class Admin::StaffsController < Admin::BaseController
-  before_action :set_staff, only: [:show, :edit, :update]
+  before_action :set_staff, only: [:show, :edit, :update, :destroy]
 
   def index
-    @staffs = Staff.all
+    @staffs = Staff.with_deleted
   end
 
   def show; end
@@ -27,10 +27,19 @@ class Admin::StaffsController < Admin::BaseController
 
   def update
     if @staff.update(staff_params)
-      redirect_to admin_staffs_path, notice: 'Staff was successfully updated.'
+      redirect_to [:admin, @staff], notice: 'Staff was successfully updated.'
     else
       render :edit
     end
+  end
+
+  def destroy
+    msg = if @staff.deleted? && @staff.recover
+            'Staff was successfully recovered.'
+          elsif @staff.destroy
+            'Srganization was successfully deleted.'
+          end
+    redirect_to admin_staffs_path, notice: msg
   end
 
   private
@@ -40,6 +49,6 @@ class Admin::StaffsController < Admin::BaseController
   end
 
   def set_staff
-    @staff = Staff.find params[:id]
+    @staff = Staff.with_deleted.find params[:id]
   end
 end

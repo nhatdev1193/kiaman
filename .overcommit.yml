@@ -18,12 +18,10 @@
 PreCommit:
  RuboCop:
    enabled: true
-   on_warn: pass # Ignore warnings
-
+   on_warn: pass
  AuthorName:
    enabled: false
 
-#
 #  TrailingWhitespace:
 #    enabled: true
 #    exclude:
