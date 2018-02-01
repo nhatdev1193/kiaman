@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Admin::OrganizationsController, type: :controller do
   let(:admin_role) { create(:role, name: 'admin', level: 1) }
-  let(:ho_organization) { create(:organization, name: 'Kim An HQ') }
+  let(:ho_organization) { create(:organization, name: 'Kim An HO') }
   let(:admin) { create(:staff, role: admin_role, organization: ho_organization) }
 
   before { sign_in admin }

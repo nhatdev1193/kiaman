@@ -27,7 +27,7 @@ class Admin::StaffsController < Admin::BaseController
 
   def update
     if @staff.update(staff_params)
-      redirect_to admin_staffs_path, notice: 'Staff was successfully updated.'
+      redirect_to [:admin, @staff], notice: 'Staff was successfully updated.'
     else
       render :edit
     end
