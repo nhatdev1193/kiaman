@@ -8,7 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+      <%
+        home_url = params[:role_name]
+        if staff_signed_in?
+          home_url = send("#{current_staff.role_name}_root_path")
+        end
+      %>
+      <%= link_to 'Home', home_url, class: 'navbar-brand' %>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
