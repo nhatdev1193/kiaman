@@ -13,11 +13,15 @@ Rails.application.routes.draw do
                  edit: 'password'
              }
 
-  namespace :admin, path: 'admin' do
-    resources :staffs
+  Role.all.map(&:name).each do |role_name|
+    namespace role_name, path: role_name do
+      # Routes only for admin
+      case role_name
+        when 'admin'
+          resources :staffs
+      end
+
+      root :to => redirect("#{role_name}/login")
+    end
   end
-
-  resources :visitors, only: [:index]
-
-  root to: 'visitors#index'
 end
