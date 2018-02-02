@@ -18,11 +18,6 @@ class StaffBase < SoftDeleteBaseModel
     role.name
   end
 
-  def admin?
-    role.name == 'admin'
-  end
-
-
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     role_name = conditions[:params].fetch(:role_name).downcase
@@ -30,5 +25,15 @@ class StaffBase < SoftDeleteBaseModel
     where(conditions.to_h)
       .joins(:role).where('roles.name = ?', role_name)
       .first
+  end
+
+  #
+  # Dynamically create instance methods to check role of staff
+  #
+  roles_name = Role.all.map(&:name)
+  roles_name.each do |role_name|
+    define_method "#{role_name}?" do
+      role.name == role_name
+    end
   end
 end

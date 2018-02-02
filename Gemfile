@@ -23,6 +23,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'rails_layout'
   gem 'spring-commands-rspec'
 
@@ -42,4 +43,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'acts_as_paranoid', github: 'ActsAsParanoid/acts_as_paranoid'
+gem 'paranoia', '~> 2.2'
