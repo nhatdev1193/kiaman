@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def after_sign_in_path_for(_resource)
+  def after_sign_in_path_for(resource)
     send("#{resource.role_name}_root_path")
   end
 
-  def after_sign_out_path_for(_resource)
+  def after_sign_out_path_for(resource)
     if params[:role_name].nil?
       root_path
     else
