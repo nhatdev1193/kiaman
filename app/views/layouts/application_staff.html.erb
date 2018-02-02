@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= favicon_link_tag 'icon.ico' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Kim An CRM" %></title>
+    <%= display_meta_tags title: content_for?(:title) ? "#{yield(:title)} | ISYS" : "Rails Devise",
+                          description: content_for?(:description) ? yield(:description) : "Rails Devise",
+                          noindex: true %>
+    <%= stylesheet_link_tag 'application_staff', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application_staff', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="hold-transition skin-blue <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
+    <div class="wrapper">
+      <% if staff_signed_in? %>
+          <header class="main-header">
+            <%= render 'staff/partials/top_navbar' %>
+          </header>
+
+          <aside class="main-sidebar">
+            <%= render 'staff/partials/sidebar' %>
+          </aside>
+      <% end %>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </section>
+      </div>
+    </div><!-- ./wrapper -->
+  </body>
+</html>
