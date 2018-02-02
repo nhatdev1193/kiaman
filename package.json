@@ -1,0 +1,15 @@
+{
+  "name": "KimanCRM",
+  "version": "0.0.1",
+  "authors": [
+    "Dang Nguyen <pandabamboo90@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "admin-lte": "^2.4.2",
+    "jqvmap": "^1.5.1",
+    "lodash": "^4.17.4",
+    "postscribe": "^2.0.8"
+  }
+}
