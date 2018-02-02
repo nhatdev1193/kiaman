@@ -21,7 +21,7 @@ Rails.application.routes.draw do
           resources :organizations
       end
 
-      root :to => redirect("#{role_name}/login")
+      root to: "#{role_name}#dashboard"
     end
   end
 end

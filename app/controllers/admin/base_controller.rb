@@ -5,6 +5,6 @@ class Admin::BaseController < ApplicationController
   protected
 
   def require_admin
-    redirect_to staff_root_path unless current_staff.admin?
+    redirect_to admin_root_path unless current_staff.admin?
   end
 end
