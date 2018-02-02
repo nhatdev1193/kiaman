@@ -21,7 +21,7 @@ Rails.application.routes.draw do
           resources :organizations
       end
 
-      root to: "#{role_name}#dashboard"
+      root to: 'dashboard#index'
     end
   end
 end
