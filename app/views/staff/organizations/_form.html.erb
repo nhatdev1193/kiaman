@@ -1,9 +1,3 @@
-<%
-  # Only get organizations which can become parent id for the current organization
-  selectable_organizations =  Organization.where.not(id: @organization.id)
-                                          .where('level < ?', @organization.level)
-%>
-
 <div class="box box-info">
 
   <div class="box-header with-border">

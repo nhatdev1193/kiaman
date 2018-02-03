@@ -6,7 +6,6 @@ FactoryBot.define do
     mobile_phone Faker::PhoneNumber.cell_phone
     address { Faker::Address.street_address }
     phone { Faker::PhoneNumber.phone_number }
-    role { create :role }
     organization { create :organization }
     deleted_at nil
   end

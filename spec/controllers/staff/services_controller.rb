@@ -1,24 +1,15 @@
 require 'rails_helper'
 
-describe Admin::ServicesController, type: :controller do
+describe Staff::ServicesController, type: :controller do
   let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:ho_organization) { create(:organization, name: 'Kim An HO') }
-  let(:admin) { create(:staff, role: admin_role, organization: ho_organization) }
+  let(:admin) { create(:staff, roles: [admin_role], organization: ho_organization) }
 
   before { sign_in admin }
 
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
-      expect(response).to be_success
-    end
-  end
-
-  describe 'GET #show' do
-    let(:service) { create(:service) }
-
-    it 'returns a success response' do
-      get :show, params: { id: service.id }
       expect(response).to be_success
     end
   end
@@ -44,7 +35,7 @@ describe Admin::ServicesController, type: :controller do
 
       it 'redirects to the created service' do
         action
-        expect(response).to redirect_to(admin_service_path(Service.last))
+        expect(response).to redirect_to(staff_services_path)
       end
     end
 
@@ -92,7 +83,7 @@ describe Admin::ServicesController, type: :controller do
 
       it 'redirects to the service' do
         action
-        expect(response).to redirect_to(admin_service_path(service))
+        expect(response).to redirect_to(staff_services_path)
       end
     end
 
@@ -116,7 +107,7 @@ describe Admin::ServicesController, type: :controller do
 
     it 'redirects to the service list' do
       action
-      expect(response).to redirect_to admin_services_path
+      expect(response).to redirect_to staff_services_path
     end
   end
 
@@ -131,7 +122,7 @@ describe Admin::ServicesController, type: :controller do
 
     it 'redirects to the service list' do
       action
-      expect(response).to redirect_to admin_services_path
+      expect(response).to redirect_to staff_services_path
     end
   end
 end

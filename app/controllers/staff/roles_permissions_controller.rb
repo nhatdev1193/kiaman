@@ -1,4 +1,4 @@
-class Admin::RolesPermissionsController < Admin::BaseController
+class Staff::RolesPermissionsController < Staff::BaseController
   before_action :set_permission, only: [:show, :edit, :update, :destroy]
 
   # GET /permissions
@@ -10,8 +10,7 @@ class Admin::RolesPermissionsController < Admin::BaseController
 
   # GET /permissions/1
   # GET /permissions/1.json
-  def show
-  end
+  def show; end
 
   # GET /permissions/new
   def new
@@ -19,8 +18,7 @@ class Admin::RolesPermissionsController < Admin::BaseController
   end
 
   # GET /permissions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /permissions
   # POST /permissions.json
@@ -63,13 +61,14 @@ class Admin::RolesPermissionsController < Admin::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_permission
-      @permission = Permission.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def permission_params
-      params.fetch(:permission, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_permission
+    @permission = Permission.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def permission_params
+    params.fetch(:permission, {})
+  end
 end

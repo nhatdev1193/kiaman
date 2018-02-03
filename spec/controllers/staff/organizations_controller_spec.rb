@@ -1,24 +1,15 @@
 require 'rails_helper'
 
-describe Admin::OrganizationsController, type: :controller do
+describe Staff::OrganizationsController, type: :controller do
   let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:ho_organization) { create(:organization, name: 'Kim An HO') }
-  let(:admin) { create(:staff, role: admin_role, organization: ho_organization) }
+  let(:admin) { create(:staff, roles: [admin_role], organization: ho_organization) }
 
   before { sign_in admin }
 
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
-      expect(response).to be_success
-    end
-  end
-
-  describe 'GET #show' do
-    let(:organization) { create(:organization) }
-
-    it 'returns a success response' do
-      get :show, params: { id: organization.id }
       expect(response).to be_success
     end
   end
@@ -42,7 +33,7 @@ describe Admin::OrganizationsController, type: :controller do
 
       it 'redirects to the created organization' do
         action
-        expect(response).to redirect_to(admin_organization_path(Organization.last))
+        expect(response).to redirect_to(staff_organizations_path)
       end
     end
 
@@ -90,7 +81,7 @@ describe Admin::OrganizationsController, type: :controller do
 
       it 'redirects to the organization' do
         action
-        expect(response).to redirect_to(admin_organization_path(organization))
+        expect(response).to redirect_to(staff_organizations_path)
       end
     end
 
@@ -114,7 +105,7 @@ describe Admin::OrganizationsController, type: :controller do
 
     it 'redirects to the organization list' do
       action
-      expect(response).to redirect_to(admin_organizations_path)
+      expect(response).to redirect_to(staff_organizations_path)
     end
   end
 
@@ -129,7 +120,7 @@ describe Admin::OrganizationsController, type: :controller do
 
     it 'redirects to the organization list' do
       action
-      expect(response).to redirect_to(admin_organizations_path)
+      expect(response).to redirect_to(staff_organizations_path)
     end
   end
 end

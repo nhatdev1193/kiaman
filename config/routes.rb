@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   namespace 'staff', path: 'staff' do
     get '/dashboard', to: 'dashboard#index'
 
-    resources :staffs
-    resources :organizations
+    resources :staffs, except: [:show]
+    resources :organizations, except: [:show]
     resources :roles_permissions
-    resources :services
+    resources :services, except: [:show]
   end
 
   root to: 'staff/dashboard#index'
