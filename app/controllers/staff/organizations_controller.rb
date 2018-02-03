@@ -1,11 +1,9 @@
-class Admin::OrganizationsController < Admin::BaseController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+class Staff::OrganizationsController < Staff::BaseController
+  before_action :set_organization, only: [:edit, :update, :destroy]
 
   def index
     @organizations = Organization.with_deleted
   end
-
-  def show; end
 
   def new
     @organization = Organization.new
@@ -37,7 +35,7 @@ class Admin::OrganizationsController < Admin::BaseController
           elsif @organization.destroy
             'Organization was successfully deleted.'
           end
-    redirect_to admin_organizations_path, notice: msg
+    redirect_to staff_organizations_path, notice: msg
   end
 
   private

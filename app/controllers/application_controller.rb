@@ -4,14 +4,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    send("#{resource.role_name}_root_path")
+    staff_dashboard_url
   end
 
   def after_sign_out_path_for(resource)
-    if params[:role_name].nil?
-      root_path
-    else
-      new_staff_session_url(params[:role_name])
-    end
+    new_staff_session_url
   end
 end

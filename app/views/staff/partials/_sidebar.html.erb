@@ -10,22 +10,23 @@
 
 <section class="sidebar">
   <ul class="sidebar-menu">
-    <%= nav_link 'Dashboard', send("#{current_staff.role_name}_root_path"), 'tachometer' %>
+    <%= nav_link 'Dashboard', staff_dashboard_path, 'tachometer' %>
 
     <!-- Menu items for only admin -->
     <% if current_staff.admin? %>
       <li class="header">Organization Management</li>
-      <%= nav_link 'Organizations', admin_organizations_path, 'sitemap' %>
-      <%= nav_link 'Staffs', admin_staffs_path, 'id-card' %>
+      <%= nav_link 'Organizations', staff_organizations_path, 'sitemap' %>
+      <%= nav_link 'Staffs', staff_staffs_path, 'id-card' %>
+      <%= nav_link 'Roles & Permissions', staff_roles_permissions_path, 'key' %>
 
       <li class="header">Services Management</li>
-      <%= nav_link 'Services', admin_services_path, 'cogs' %>
-      <%= nav_link 'Steps', admin_staffs_path, 'paw' %>
+      <%= nav_link 'Services', staff_services_path, 'cogs' %>
+      <%= nav_link 'Steps', staff_staffs_path, 'paw' %>
     <% end %>
 
     <li class="header">Others</li>
     <li>
-      <%= link_to destroy_staff_session_path(current_staff.role_name), method: :delete do %>
+      <%= link_to destroy_staff_session_path, method: :delete do %>
         <%= fa_icon 'sign-out' %>Logout
       <% end %>
     </li>

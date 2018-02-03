@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :staffs,
-             path: ':role_name',
+             path: '/',
              controllers: {
                sessions: 'staff/staff_devise/sessions',
                passwords: 'staff/staff_devise/passwords',
@@ -12,18 +12,14 @@ Rails.application.routes.draw do
                edit: 'password'
              }
 
-  # TODO: check roles data before migration
-  Role.all.map(&:name).each do |role_name|
-    namespace role_name, path: role_name do
-      # Routes only for admin
-      case role_name
-      when 'admin'
-        resources :staffs
-        resources :organizations
-        resources :services
-      end
+  namespace 'staff', path: 'staff' do
+    get '/dashboard', to: 'dashboard#index'
 
-      root to: 'dashboard#index'
-    end
+    resources :staffs
+    resources :organizations
+    resources :roles_permissions
+    resources :services
   end
+
+  root to: 'staff/dashboard#index'
 end

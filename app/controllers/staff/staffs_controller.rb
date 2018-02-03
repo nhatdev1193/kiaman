@@ -1,11 +1,9 @@
-class Admin::StaffsController < Admin::BaseController
-  before_action :set_staff, only: [:show, :edit, :update, :destroy]
+class Staff::StaffsController < Staff::BaseController
+  before_action :set_staff, only: [:edit, :update, :destroy]
 
   def index
     @staffs = Staff.with_deleted
   end
-
-  def show; end
 
   def new
     @staff = Staff.new
@@ -39,7 +37,7 @@ class Admin::StaffsController < Admin::BaseController
           elsif @staff.destroy
             'Srganization was successfully deleted.'
           end
-    redirect_to admin_staffs_path, notice: msg
+    redirect_to staff_staffs_path, notice: msg
   end
 
   private
