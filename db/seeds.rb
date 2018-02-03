@@ -23,21 +23,6 @@ def create_roles
   p "CREATED ROLES - #{roles_name.join(',')}"
 end
 
-def create_admin
-  organization = Organization.first
-  admin_role = Role.find_by(name: 'admin')
-
-  staff = Staff.find_or_create_by!(email: Rails.application.secrets.admin_email) do |u|
-    u.mobile_phone = Faker::PhoneNumber.cell_phone
-    u.password = Rails.application.secrets.admin_password
-    u.password_confirmation = Rails.application.secrets.admin_password
-    u.role = admin_role
-    u.organization = organization
-  end
-
-  p 'CREATED ADMIN staff: ' << staff.email
-end
-
 def create_staffs
   organization = Organization.first
   roles_name = Role.all
@@ -59,5 +44,4 @@ end
 
 create_organizations
 create_roles
-create_admin
 create_staffs
