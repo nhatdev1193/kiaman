@@ -86,3 +86,4 @@ pickle-email-*.html
 # vendors
 node_modules
 *_debug.*
+passenger.*
