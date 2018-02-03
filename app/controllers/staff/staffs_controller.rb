@@ -1,11 +1,10 @@
 class Staff::StaffsController < Staff::BaseController
-  before_action :set_staff, only: [:show, :edit, :update, :destroy]
+  before_action :set_staff, only: [:edit, :update, :destroy]
+  before_action :roles, only: [:new, :edit, :create, :update]
 
   def index
     @staffs = Staff.with_deleted
   end
-
-  def show; end
 
   def new
     @staff = Staff.new
@@ -13,11 +12,9 @@ class Staff::StaffsController < Staff::BaseController
 
   def create
     @staff = Staff.new(staff_params)
-    @staff.password = Rails.application.secrets.staff_password
-    @staff.password_confirmation = Rails.application.secrets.staff_password
 
     if @staff.save
-      redirect_to [:admin, @staff], notice: 'Staff was successfully created.'
+      redirect_to staff_staffs_path, notice: 'Staff was successfully created.'
     else
       render :new
     end
@@ -26,29 +23,38 @@ class Staff::StaffsController < Staff::BaseController
   def edit; end
 
   def update
+    if params[:staff][:password].blank? && staff_params[:password_confirmation].blank?
+      params[:staff].delete(:password)
+      params[:staff].delete(:password_confirmation)
+    end
+
     if @staff.update(staff_params)
-      redirect_to [:admin, @staff], notice: 'Staff was successfully updated.'
+      redirect_to staff_staffs_path, notice: 'Staff was successfully updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    msg = if @staff.deleted? && @staff.recover
-            'Staff was successfully recovered.'
+    msg = if @staff.deleted? && @staff.restore
+            'Staff was successfully restored.'
           elsif @staff.destroy
             'Srganization was successfully deleted.'
           end
-    redirect_to admin_staffs_path, notice: msg
+    redirect_to staff_staffs_path, notice: msg
   end
 
   private
 
   def staff_params
-    params.require(:staff).permit(:email, :name, :role_id, :organization_id, :address, :phone, :mobile_phone)
+    params.require(:staff).permit(:email, :password, :password_confirmation, :name, :organization_id, :address, :phone, :mobile_phone, role_ids: [])
   end
 
   def set_staff
     @staff = Staff.with_deleted.find params[:id]
+  end
+
+  def roles
+    @roles = Role.all
   end
 end

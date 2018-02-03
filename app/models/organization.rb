@@ -1,7 +1,7 @@
 class Organization < SoftDeleteBaseModel
   has_many :staffs
   has_many :children, class_name: 'Organization', foreign_key: 'parent_id'
-  belongs_to :parent, class_name: 'Organization'
+  belongs_to :parent, class_name: 'Organization', optional: true
 
   validates :name, :level, presence: true
 end

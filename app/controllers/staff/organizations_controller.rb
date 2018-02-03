@@ -1,11 +1,9 @@
 class Staff::OrganizationsController < Staff::BaseController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:edit, :update, :destroy]
 
   def index
     @organizations = Organization.with_deleted
   end
-
-  def show; end
 
   def new
     @organization = Organization.new
@@ -15,7 +13,7 @@ class Staff::OrganizationsController < Staff::BaseController
     @organization = Organization.new(organization_params)
 
     if @organization.save
-      redirect_to [:admin, @organization], notice: 'Organization was successfully created.'
+      redirect_to staff_organizations_path, notice: 'Organization was successfully created.'
     else
       render :new
     end
@@ -25,19 +23,19 @@ class Staff::OrganizationsController < Staff::BaseController
 
   def update
     if @organization.update(organization_params)
-      redirect_to [:admin, @organization], notice: 'Organization was successfully updated.'
+      redirect_to staff_organizations_path, notice: 'Organization was successfully updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    msg = if @organization.deleted? && @organization.recover
-            'Organization was successfully recovered.'
+    msg = if @organization.deleted? && @organization.restore
+            'Organization was successfully restoreed.'
           elsif @organization.destroy
             'Organization was successfully deleted.'
           end
-    redirect_to admin_organizations_path, notice: msg
+    redirect_to staff_organizations_path, notice: msg
   end
 
   private

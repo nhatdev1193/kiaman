@@ -1,11 +1,11 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-    Organizations
+    Services
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-    Organizations
+    Services
 <% end %>
 
 <div class="box box-info">
@@ -16,28 +16,26 @@
           <tr>
             <td>ID</td>
             <td>Name</td>
-            <td>Level</td>
-            <td>Parent</td>
+            <td>Description</td>
             <td></td>
           </tr>
         </thead>
         <tbody>
-          <% @organizations.each do |organization| %>
+          <% @services.each do |service| %>
             <tr>
-              <td><%= organization.id %></td>
-              <td><%= organization.name %></td>
-              <td><%= organization.level %></td>
-              <td><%= organization.parent&.name || '' %></td>
+              <td><%= service.id %></td>
+              <td><%= service.name %></td>
+              <td><%= service.description %></td>
               <td>
-                <%= link_to edit_staff_organization_path(organization), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_service_path(service), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
-                <% if organization.deleted? %>
-                  <%= link_to staff_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                <% if service.deleted? %>
+                  <%= link_to staff_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
                 <% else %>
-                  <%= link_to staff_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                  <%= link_to staff_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
@@ -50,8 +48,8 @@
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= link_to new_staff_organization_path, class: 'btn btn-primary btn-flat pull-left' do %>
-      <%= fa_icon 'plus' %> New organization
+    <%= link_to new_staff_service_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New service
     <% end %>
   </div><!-- /.box-footer -->
 </div><!-- /.box -->

@@ -1,24 +1,15 @@
 require 'rails_helper'
 
-describe Admin::StaffsController, type: :controller do
+describe Staff::StaffsController, type: :controller do
   let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:ho_organization) { create(:organization, name: 'Kim An HO') }
-  let(:admin) { create(:staff, role: admin_role, organization: ho_organization) }
+  let(:admin) { create(:staff, roles: [admin_role], organization: ho_organization) }
 
   before { sign_in admin }
 
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
-      expect(response).to be_success
-    end
-  end
-
-  describe 'GET #show' do
-    let(:staff) { create(:staff) }
-
-    it 'returns a success response' do
-      get :show, params: { id: staff.id }
       expect(response).to be_success
     end
   end
@@ -36,7 +27,7 @@ describe Admin::StaffsController, type: :controller do
     context 'with valid params' do
       let(:role) { create(:role) }
       let(:organization) { create(:organization) }
-      let(:staff_attributes) { attributes_for(:staff, role_id: role.id, organization_id: organization.id) }
+      let(:staff_attributes) { attributes_for(:staff, role_ids: [role.id], organization_id: organization.id) }
 
       it 'creates a new staff' do
         expect { action }.to change(Staff, :count).by(1)
@@ -44,7 +35,7 @@ describe Admin::StaffsController, type: :controller do
 
       it 'redirects to the created staff' do
         action
-        expect(response).to redirect_to(admin_staff_path(Staff.last))
+        expect(response).to redirect_to(staff_staffs_path)
       end
     end
 
@@ -67,7 +58,7 @@ describe Admin::StaffsController, type: :controller do
     end
 
     context 'with invalid role_id param' do
-      let(:staff_attributes) { attributes_for(:staff, role_id: '') }
+      let(:staff_attributes) { attributes_for(:staff, roles: []) }
 
       it "returns a success response (i.e. to display the 'new' template)" do
         action
@@ -86,7 +77,7 @@ describe Admin::StaffsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    let(:staff) { create(:staff) }
+    let(:staff) { create(:staff, roles: [admin_role]) }
 
     it 'returns a success response' do
       get :edit, params: { id: staff.id }
@@ -95,7 +86,7 @@ describe Admin::StaffsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let!(:staff) { create(:staff) }
+    let!(:staff) { create(:staff, roles: [admin_role]) }
     let(:action) { put :update, params: { id: staff.id, staff: staff_attributes } }
 
     context 'with valid params' do
@@ -110,7 +101,7 @@ describe Admin::StaffsController, type: :controller do
 
       it 'redirects to the staff' do
         action
-        expect(response).to redirect_to(admin_staff_path(staff))
+        expect(response).to redirect_to(staff_staffs_path)
       end
     end
 
@@ -125,7 +116,7 @@ describe Admin::StaffsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:staff) { create(:staff) }
+    let!(:staff) { create(:staff, roles: [admin_role]) }
     let(:action) { delete :destroy, params: { id: staff.id } }
 
     it 'destroys the requested staff' do
@@ -134,12 +125,12 @@ describe Admin::StaffsController, type: :controller do
 
     it 'redirects to the staff list' do
       action
-      expect(response).to redirect_to admin_staffs_path
+      expect(response).to redirect_to staff_staffs_path
     end
   end
 
   describe 'RECOVER #destroy' do
-    let!(:staff) { create(:staff, deleted_at: Time.now) }
+    let!(:staff) { create(:staff, roles: [admin_role], deleted_at: Time.now) }
     let(:action) { delete :destroy, params: { id: staff.id } }
 
     it 'recovers the requested staff' do
@@ -149,7 +140,7 @@ describe Admin::StaffsController, type: :controller do
 
     it 'redirects to the staff list' do
       action
-      expect(response).to redirect_to admin_staffs_path
+      expect(response).to redirect_to staff_staffs_path
     end
   end
 end

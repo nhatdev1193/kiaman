@@ -12,13 +12,13 @@ Rails.application.routes.draw do
                edit: 'password'
              }
 
-  # Role.all.map(&:name).each do |role_name|
   namespace 'staff', path: 'staff' do
     get '/dashboard', to: 'dashboard#index'
 
-    resources :staffs
-    resources :organizations
+    resources :staffs, except: [:show]
+    resources :organizations, except: [:show]
     resources :roles_permissions
+    resources :services, except: [:show]
   end
 
   root to: 'staff/dashboard#index'
