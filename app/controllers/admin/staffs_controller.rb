@@ -34,8 +34,8 @@ class Admin::StaffsController < Admin::BaseController
   end
 
   def destroy
-    msg = if @staff.deleted? && @staff.recover
-            'Staff was successfully recovered.'
+    msg = if @staff.deleted? && @staff.restore
+            'Staff was successfully restored.'
           elsif @staff.destroy
             'Srganization was successfully deleted.'
           end

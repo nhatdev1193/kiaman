@@ -24,15 +24,8 @@
           </tr>
         <% end %>
         <tr>
-          <td></td>
           <td>
-            <%= link_to 'Back', admin_organizations_path %>
-            <%= link_to 'Edit', edit_admin_organization_path(@organization) %>
-            <% if @organization.deleted? %>
-              <%= link_to 'Recover', admin_organization_path(@organization), method: :delete %>
-            <% else %>
-              <%= link_to 'Delete', admin_organization_path(@organization), method: :delete %>
-            <% end %>
+              <%= link_to 'Back', admin_organizations_path, class: 'btn btn-default' %>
           </td>
         </tr>
       </tbody>

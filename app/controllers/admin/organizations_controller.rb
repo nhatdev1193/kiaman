@@ -32,8 +32,8 @@ class Admin::OrganizationsController < Admin::BaseController
   end
 
   def destroy
-    msg = if @organization.deleted? && @organization.recover
-            'Organization was successfully recovered.'
+    msg = if @organization.deleted? && @organization.restore
+            'Organization was successfully restoreed.'
           elsif @organization.destroy
             'Organization was successfully deleted.'
           end

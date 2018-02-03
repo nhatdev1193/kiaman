@@ -26,14 +26,23 @@
               <td><%= staff.name %></td>
               <td><%= staff.email %></td>
               <td>
-                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-orange' do %>
-                    <%= fa_icon 'edit' %> Edit
+                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-blue' do %>
+                  <%= fa_icon 'info-circle' %> Detail
+                <% end %>
+                <%= link_to edit_admin_staff_path(staff), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
                 <% end %>
                 <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-gray' do %>
-                    <%= fa_icon 'lock' %> Lock
+                  <%= fa_icon 'lock' %> Lock
                 <% end %>
-                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat btn-danger' do %>
+                <% if staff.deleted? %>
+                  <%= link_to admin_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to admin_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
                     <%= fa_icon 'trash' %> Delete
+                  <% end %>
                 <% end %>
               </td>
             </tr>

@@ -29,8 +29,20 @@
               <td><%= organization.level %></td>
               <td><%= organization.parent&.name || '' %></td>
               <td>
-                <%= link_to [:admin, organization], class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to [:admin, organization], class: 'btn btn-xs btn-flat bg-blue' do %>
+                  <%= fa_icon 'info-circle' %> Detail
+                <% end %>
+                <%= link_to edit_admin_organization_path(organization), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if organization.deleted? %>
+                  <%= link_to admin_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to admin_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
                 <% end %>
               </td>
             </tr>

@@ -25,16 +25,9 @@
           </tr>
         <% end %>
         <tr>
-          <td></td>
-          <td>
-            <%= link_to 'Back', admin_staffs_path %>
-            <%= link_to 'Edit', edit_admin_staff_path(@staff) %>
-            <% if @staff.deleted? %>
-              <%= link_to 'Recover', admin_staff_path(@staff), method: :delete %>
-            <% else %>
-              <%= link_to 'Delete', admin_staff_path(@staff), method: :delete %>
-            <% end %>
-          </td>
+            <td>
+                <%= link_to 'Back', admin_staffs_path, class: 'btn btn-default' %>
+            </td>
         </tr>
       </tbody>
     </table>

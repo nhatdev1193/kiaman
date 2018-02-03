@@ -27,6 +27,7 @@ class StaffBase < SoftDeleteBaseModel
       .first
   end
 
+  # TODO: check roles data before migration
   #
   # Dynamically create instance methods to check role of staff
   #
