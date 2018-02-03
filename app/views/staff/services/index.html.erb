@@ -27,9 +27,6 @@
               <td><%= service.name %></td>
               <td><%= service.description %></td>
               <td>
-                <%= link_to [:admin, service], class: 'btn btn-xs btn-flat bg-blue' do %>
-                  <%= fa_icon 'info-circle' %> Detail
-                <% end %>
                 <%= link_to edit_staff_service_path(service), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>

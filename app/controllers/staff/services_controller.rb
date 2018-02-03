@@ -1,11 +1,9 @@
-class Admin::ServicesController < Admin::BaseController
+class Staff::ServicesController < Staff::BaseController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   def index
     @services = Service.with_deleted
   end
-
-  def show; end
 
   def new
     @service = Service.new
@@ -15,7 +13,7 @@ class Admin::ServicesController < Admin::BaseController
     @service = Service.new(service_params)
 
     if @service.save
-      redirect_to [:admin, @service], notice: 'Service was successfully created.'
+      redirect_to staff_services_path, notice: 'Service was successfully created.'
     else
       render :new
     end
@@ -25,7 +23,7 @@ class Admin::ServicesController < Admin::BaseController
 
   def update
     if @service.update(service_params)
-      redirect_to [:admin, @service], notice: 'Service was successfully updated.'
+      redirect_to staff_services_path, notice: 'Service was successfully updated.'
     else
       render :edit
     end
@@ -37,7 +35,7 @@ class Admin::ServicesController < Admin::BaseController
           elsif @service.destroy
             'Service was successfully deleted.'
           end
-    redirect_to admin_services_path, notice: msg
+    redirect_to staff_services_path, notice: msg
   end
 
   private

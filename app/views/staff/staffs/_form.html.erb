@@ -19,6 +19,14 @@
         <%= f.email_field :email, class: 'form-control' %>
       </div>
       <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+      <div class="form-group">
         <%= f.label :address %>
         <%= f.text_field :address, class: 'form-control' %>
       </div>
@@ -32,7 +40,14 @@
       </div>
       <div class="form-group">
         <%= f.label :role %>
-        <%= f.collection_select :role_id, Role.all, :id, :name, prompt: 'Select', class: 'form-control' %>
+        <% @roles.each do |role| %>
+          <div class="checkbox">
+            <label>
+              <%= f.check_box :role_ids, { multiple: true }, role.id, nil %>
+              <%= role.name %>
+            </label>
+          </div>
+        <% end %>
       </div>
       <div class="form-group">
         <%= f.label :organization %>
