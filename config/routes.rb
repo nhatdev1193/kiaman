@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :staffs,
-             path: ':role_name',
+             path: '/',
              controllers: {
                sessions: 'staff/staff_devise/sessions',
                passwords: 'staff/staff_devise/passwords',
@@ -12,16 +12,14 @@ Rails.application.routes.draw do
                edit: 'password'
              }
 
-  Role.all.map(&:name).each do |role_name|
-    namespace role_name, path: role_name do
-      # Routes only for admin
-      case role_name
-        when 'admin'
-          resources :staffs
-          resources :organizations
-      end
+  # Role.all.map(&:name).each do |role_name|
+  namespace 'staff', path: 'staff' do
+    get '/dashboard', to: 'dashboard#index'
 
-      root to: 'dashboard#index'
-    end
+    resources :staffs
+    resources :organizations
+    resources :roles_permissions
   end
+
+  root to: 'staff/dashboard#index'
 end

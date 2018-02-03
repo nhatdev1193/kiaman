@@ -1,5 +1,5 @@
 class Role < SoftDeleteBaseModel
-  has_many :staffs
+  has_and_belongs_to_many :staffs, join_table: 'staffs_roles'
   has_and_belongs_to_many :permissions
 
   validates :name, presence: true, uniqueness: true
