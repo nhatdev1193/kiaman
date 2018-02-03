@@ -11,12 +11,14 @@
 <div class="box box-info">
   <div class="box-body">
     <div class="table-responsive">
-      <table class="table no-margin">
+      <table class="table table-hover table-bordered table-striped no-margin">
         <thead>
         <tr>
-          <td>ID</td>
-          <td>Name</td>
-          <td>Email</td>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -25,15 +27,15 @@
               <td><%= staff.id %></td>
               <td><%= staff.name %></td>
               <td><%= staff.email %></td>
-              <td><%= staff.role_name %></td>
+              <td><%= staff.roles.map(&:name).map(&:capitalize).join(' - ') %></td>
               <td>
-                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to [:staff, staff], class: 'btn btn-xs btn-flat bg-orange' do %>
                     <%= fa_icon 'edit' %> Edit
                 <% end %>
-                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-gray' do %>
+                <%= link_to [:staff, staff], class: 'btn btn-xs btn-flat bg-gray' do %>
                     <%= fa_icon 'lock' %> Lock
                 <% end %>
-                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat btn-danger' do %>
+                <%= link_to [:staff, staff], class: 'btn btn-xs btn-flat btn-danger' do %>
                     <%= fa_icon 'trash' %> Delete
                 <% end %>
               </td>

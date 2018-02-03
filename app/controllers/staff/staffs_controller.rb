@@ -1,4 +1,4 @@
-class Admin::StaffsController < Admin::BaseController
+class Staff::StaffsController < Staff::BaseController
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
 
   def index
