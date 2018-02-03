@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :service do
-    name 'MyString'
-    description 'MyText'
+    name { Faker::Hipster.word }
+    description { Faker::Lorem.sentence }
+    deleted_at nil
   end
 end
