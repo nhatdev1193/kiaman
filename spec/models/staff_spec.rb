@@ -9,7 +9,7 @@ describe Staff do
     expect(@staff.email).to match 'staff@example.com'
   end
 
-  it { is_expected.to belong_to(:role) }
+  it { is_expected.to have_and_belong_to_many(:roles) }
   it { is_expected.to belong_to(:organization) }
   it { is_expected.to have_many(:permissions) }
 end
