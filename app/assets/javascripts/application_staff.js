@@ -14,4 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/dist/js/bootstrap.js
-//= require_tree .
+//= require fastclick/lib/fastclick.js
+//= require select2/dist/js/select2.full.js
+//= require_tree ./common
+//= require_tree ./staff
+
+let ready = function () {
+  $('.select2').select2();
+};
+document.addEventListener('turbolinks:load', ready);
