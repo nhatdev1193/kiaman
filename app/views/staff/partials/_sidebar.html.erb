@@ -1,0 +1,33 @@
+<%
+  additional_active_conditions = {
+    users_index: [{ controller_path: 'admin/users', action_name: 'show' }],
+    users_new: [{ controller_path: 'admin/users', action_name: 'new' }, { controller_path: 'admin/users', action_name: 'confirm' }],
+    monthly_reports_index: [{ controller_path: 'admin/monthly_reports', action_name: 'new' }, { controller_path: 'admin/monthly_reports', action_name: 'confirm' }],
+    investments_index: [{ controller_path: 'admin/investments', action_name: 'new' }, { controller_path: 'admin/investments', action_name: 'confirm' }],
+    admins_index: [{ controller_path: 'admin/admins', action_name: 'new' }, { controller_path: 'admin/admins', action_name: 'edit' }],
+  }
+%>
+
+<section class="sidebar">
+  <ul class="sidebar-menu">
+    <%= nav_link 'Dashboard', send("#{current_staff.role_name}_root_path"), 'tachometer' %>
+
+    <!-- Menu items for only admin -->
+    <% if current_staff.admin? %>
+      <li class="header">Organization Management</li>
+      <%= nav_link 'Organizations', admin_organizations_path, 'sitemap' %>
+      <%= nav_link 'Staffs', admin_staffs_path, 'id-card' %>
+
+      <li class="header">Services Management</li>
+      <%= nav_link 'Services', admin_staffs_path, 'cogs' %>
+      <%= nav_link 'Steps', admin_staffs_path, 'paw' %>
+    <% end %>
+
+    <li class="header">Others</li>
+    <li>
+      <%= link_to destroy_staff_session_path(current_staff.role_name), method: :delete do %>
+        <%= fa_icon 'sign-out' %>Logout
+      <% end %>
+    </li>
+  </ul>
+</section><!-- /.sidebar -->

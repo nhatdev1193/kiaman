@@ -1,28 +1,48 @@
-<div class="container">
-  <div class="row">
-    <h3>Organizations</h3>
-    <div class="column">
-      <table class="table table-hover">
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Organizations
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Organizations
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin">
         <thead>
           <tr>
             <td>ID</td>
             <td>Name</td>
             <td>Level</td>
             <td>Parent</td>
-            <td>Deleted at</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
           <% @organizations.each do |organization| %>
             <tr>
-              <%= render organization %>
+              <td><%= organization.id %></td>
+              <td><%= organization.name %></td>
+              <td><%= organization.level %></td>
+              <td><%= organization.parent&.name || '' %></td>
+              <td>
+                <%= link_to [:admin, organization], class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="row">
-    <%= link_to 'New organization', new_admin_organization_path %>
-  </div>
-</div>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_admin_organization_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New organization
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->
