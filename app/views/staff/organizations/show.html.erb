@@ -26,12 +26,12 @@
         <tr>
           <td></td>
           <td>
-            <%= link_to 'Back', admin_organizations_path %>
-            <%= link_to 'Edit', edit_admin_organization_path(@organization) %>
+            <%= link_to 'Back', staff_organizations_path %>
+            <%= link_to 'Edit', edit_staff_organization_path(@organization) %>
             <% if @organization.deleted? %>
-              <%= link_to 'Recover', admin_organization_path(@organization), method: :delete %>
+              <%= link_to 'Recover', staff_organization_path(@organization), method: :delete %>
             <% else %>
-              <%= link_to 'Delete', admin_organization_path(@organization), method: :delete %>
+              <%= link_to 'Delete', staff_organization_path(@organization), method: :delete %>
             <% end %>
           </td>
         </tr>

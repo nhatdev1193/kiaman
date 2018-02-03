@@ -38,7 +38,7 @@
         <%= f.label :organization %>
         <%= f.collection_select :organization_id, Organization.all, :id, :name, prompt: 'Select', class: 'form-control' %>
       </div>
-      <%= link_to 'Back', admin_staffs_path %>
+      <%= link_to 'Back', staff_staffs_path %>
       <%= f.submit class: 'button right' %>
     <% end %>
   </div>

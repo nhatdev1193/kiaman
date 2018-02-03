@@ -1,4 +1,4 @@
-class Admin::OrganizationsController < Admin::BaseController
+class Staff::OrganizationsController < Staff::BaseController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   def index
