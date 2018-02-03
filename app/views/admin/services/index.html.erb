@@ -1,0 +1,58 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Services
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Services
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <tr>
+              <td><%= service.id %></td>
+              <td><%= service.name %></td>
+              <td><%= service.description %></td>
+              <td>
+                <%= link_to [:admin, service], class: 'btn btn-xs btn-flat bg-blue' do %>
+                  <%= fa_icon 'info-circle' %> Detail
+                <% end %>
+                <%= link_to edit_admin_service_path(service), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if service.deleted? %>
+                  <%= link_to admin_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to admin_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_admin_service_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New service
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

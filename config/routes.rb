@@ -12,13 +12,15 @@ Rails.application.routes.draw do
                edit: 'password'
              }
 
+  # TODO: check roles data before migration
   Role.all.map(&:name).each do |role_name|
     namespace role_name, path: role_name do
       # Routes only for admin
       case role_name
-        when 'admin'
-          resources :staffs
-          resources :organizations
+      when 'admin'
+        resources :staffs
+        resources :organizations
+        resources :services
       end
 
       root to: 'dashboard#index'

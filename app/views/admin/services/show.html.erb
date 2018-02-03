@@ -1,0 +1,34 @@
+<%- attributes = @service.attributes %>
+<%- klass = @service.class %>
+
+<h3>service</h3>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>Attribute</td>
+          <td>Value</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% attributes.each do |key, value| %>
+          <tr>
+            <td>
+              <strong>
+                <%= klass.human_attribute_name(key) %>
+              </strong>
+            </td>
+            <td><%= value %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+              <%= link_to 'Back', admin_services_path, class: 'btn btn-default' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
