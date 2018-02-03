@@ -2,7 +2,7 @@ class Staff::OrganizationsController < Staff::BaseController
   before_action :set_organization, only: [:edit, :update, :destroy]
 
   def index
-    @organizations = Organization.with_deleted
+    @organizations = Organization.all.order(:level)
   end
 
   def new

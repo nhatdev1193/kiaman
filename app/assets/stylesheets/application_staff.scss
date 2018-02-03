@@ -11,9 +11,9 @@
  * file per style scope.
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
 @import "font-awesome";
+@import "bootstrap/dist/css/bootstrap.css";
+@import "select2/dist/css/select2.css";
 @import "admin-lte/dist/css/AdminLTE.css";
 @import "admin-lte/dist/css/skins/skin-green.css";
 

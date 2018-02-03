@@ -1,7 +1,11 @@
-<div class="container">
-  <div class="row">
-    <h3>Create new organization</h3>
-  </div>
-</div>
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Organizations
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Organizations <small>Add new</small>
+<% end %>
 
 <%= render 'form' %>
