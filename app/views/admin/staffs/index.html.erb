@@ -1,27 +1,51 @@
-<div class="container">
-  <div class="row">
-    <h3>Staffs</h3>
-    <div class="column">
-      <table class="table">
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Staffs
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Staffs
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin">
         <thead>
-          <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Deleted at</td>
-          </tr>
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Email</td>
+        </tr>
         </thead>
         <tbody>
-          <% @staffs.each do |staff| %>
+        <% @staffs.each do |staff| %>
             <tr>
-              <%= render staff %>
+              <td><%= staff.id %></td>
+              <td><%= staff.name %></td>
+              <td><%= staff.email %></td>
+              <td>
+                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-orange' do %>
+                    <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat bg-gray' do %>
+                    <%= fa_icon 'lock' %> Lock
+                <% end %>
+                <%= link_to [:admin, staff], class: 'btn btn-xs btn-flat btn-danger' do %>
+                    <%= fa_icon 'trash' %> Delete
+                <% end %>
+              </td>
             </tr>
-          <% end %>
+        <% end %>
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="row">
-    <%= link_to 'New staff', new_admin_staff_path %>
-  </div>
-</div>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_admin_staff_path, class: 'btn btn-primary btn-flat pull-left' do %>
+        <%= fa_icon 'plus' %> New staff
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->
