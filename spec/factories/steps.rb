@@ -1,8 +1,11 @@
 FactoryBot.define do
   factory :step do
-    prev_step_id 1
-    contract_kind nil
-    name 'MyString'
-    description 'MyText'
+    name { Faker::Hipster.word }
+    description { Faker::Lorem.sentence }
+    parent_id nil
+    service { create(:service) }
+    prev_step_id nil
+    next_step_id nil
+    form_id nil
   end
 end
