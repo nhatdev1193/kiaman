@@ -1,5 +1,4 @@
 class Organization < SoftDeleteBaseModel
-
   # Associations
   has_many :staffs
   has_many :children, class_name: 'Organization', foreign_key: 'parent_id'
@@ -12,7 +11,7 @@ class Organization < SoftDeleteBaseModel
   before_save :set_level
 
   # Scopes
-  scope :can_become_parent, ->(current_organization) {
+  scope :can_become_parent, lambda { |current_organization|
     if current_organization.id.nil?
       all
     else
@@ -20,7 +19,6 @@ class Organization < SoftDeleteBaseModel
            .where('level <= ?', current_organization.level) # Must be at higher level
     end
   }
-
 
   # Private methods
   private
