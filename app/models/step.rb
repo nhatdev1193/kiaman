@@ -9,7 +9,7 @@ class Step < SoftDeleteBaseModel
   validates :name, presence: true, uniqueness: true
   validates :service, presence: true
 
-  scope :can_become_parent, lambda { |current_step|
+  scope :can_become_parent, ->(current_step) {
     if current_step.id.nil?
       all
     else

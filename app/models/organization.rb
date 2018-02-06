@@ -11,7 +11,7 @@ class Organization < SoftDeleteBaseModel
   before_save :set_level
 
   # Scopes
-  scope :can_become_parent, lambda { |current_organization|
+  scope :can_become_parent, ->(current_organization) {
     if current_organization.id.nil?
       all
     else
