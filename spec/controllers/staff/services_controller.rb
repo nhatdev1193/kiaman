@@ -33,7 +33,7 @@ describe Staff::ServicesController, type: :controller do
         expect { action }.to change(Service, :count).by(1)
       end
 
-      it 'redirects to the created service' do
+      it 'redirects to the services list' do
         action
         expect(response).to redirect_to(staff_services_path)
       end
@@ -81,7 +81,7 @@ describe Staff::ServicesController, type: :controller do
         expect(service.name).to eq 'updated name'
       end
 
-      it 'redirects to the service' do
+      it 'redirects to the services list' do
         action
         expect(response).to redirect_to(staff_services_path)
       end
@@ -105,7 +105,7 @@ describe Staff::ServicesController, type: :controller do
       expect { action }.to change(Service, :count).by(-1)
     end
 
-    it 'redirects to the service list' do
+    it 'redirects to the services list' do
       action
       expect(response).to redirect_to staff_services_path
     end

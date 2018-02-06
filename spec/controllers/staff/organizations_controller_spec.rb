@@ -31,7 +31,7 @@ describe Staff::OrganizationsController, type: :controller do
         expect { action }.to change(Organization, :count).by(1)
       end
 
-      it 'redirects to the created organization' do
+      it 'redirects to the organizations list' do
         action
         expect(response).to redirect_to(staff_organizations_path)
       end
@@ -39,15 +39,6 @@ describe Staff::OrganizationsController, type: :controller do
 
     context 'with invalid name param' do
       let(:organization_attributes) { attributes_for(:organization, name: '') }
-
-      it "returns a success response (i.e. to display the 'new' template)" do
-        action
-        expect(response).to be_success
-      end
-    end
-
-    context 'with invalid level param' do
-      let(:organization_attributes) { attributes_for(:organization, level: nil) }
 
       it "returns a success response (i.e. to display the 'new' template)" do
         action
@@ -70,16 +61,15 @@ describe Staff::OrganizationsController, type: :controller do
     let(:action) { put :update, params: { id: organization.id, organization: organization_attributes } }
 
     context 'with valid params' do
-      let(:organization_attributes) { { name: 'updated name', level: 5 } }
+      let(:organization_attributes) { { name: 'updated name' } }
 
       it 'updates the requested organization' do
         action
         organization.reload
         expect(organization.name).to eq 'updated name'
-        expect(organization.level).to eq 5
       end
 
-      it 'redirects to the organization' do
+      it 'redirects to the organizations list' do
         action
         expect(response).to redirect_to(staff_organizations_path)
       end

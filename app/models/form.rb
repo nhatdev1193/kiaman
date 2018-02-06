@@ -1,5 +1,5 @@
 class Form < SoftDeleteBaseModel
-  belongs_to :step
+  has_many :steps
   belongs_to :contract_kind
 
   validates :name, presence: true, uniqueness: true

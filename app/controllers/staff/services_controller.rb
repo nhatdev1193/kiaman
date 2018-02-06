@@ -1,5 +1,5 @@
 class Staff::ServicesController < Staff::BaseController
-  before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_service, only: [:edit, :update, :destroy]
 
   def index
     @services = Service.with_deleted

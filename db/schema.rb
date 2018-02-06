@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203062956) do
+ActiveRecord::Schema.define(version: 20180205040513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,14 +245,17 @@ ActiveRecord::Schema.define(version: 20180203062956) do
 
   create_table "steps", force: :cascade do |t|
     t.integer "prev_step_id"
-    t.bigint "contract_kind_id"
     t.string "name", null: false
     t.text "description"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contract_kind_id"], name: "index_steps_on_contract_kind_id"
-    t.index ["name", "contract_kind_id", "deleted_at"], name: "idx_unique_step_name", unique: true
+    t.integer "parent_id"
+    t.bigint "service_id"
+    t.integer "next_step_id"
+    t.bigint "form_id"
+    t.index ["form_id"], name: "index_steps_on_form_id"
+    t.index ["service_id"], name: "index_steps_on_service_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -287,6 +290,7 @@ ActiveRecord::Schema.define(version: 20180203062956) do
   add_foreign_key "staffs_roles", "roles"
   add_foreign_key "staffs_roles", "staffs"
   add_foreign_key "step_conditions", "steps"
-  add_foreign_key "steps", "contract_kinds"
+  add_foreign_key "steps", "forms"
+  add_foreign_key "steps", "services"
   add_foreign_key "transactions", "payment_schedules"
 end

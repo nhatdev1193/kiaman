@@ -1,5 +1,4 @@
 class Organization < SoftDeleteBaseModel
-
   # Associations
   has_many :staffs
   has_many :children, class_name: 'Organization', foreign_key: 'parent_id'
@@ -20,7 +19,6 @@ class Organization < SoftDeleteBaseModel
            .where('level <= ?', current_organization.level) # Must be at higher level
     end
   }
-
 
   # Private methods
   private

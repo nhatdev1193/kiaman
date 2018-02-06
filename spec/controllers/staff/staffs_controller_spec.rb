@@ -33,7 +33,7 @@ describe Staff::StaffsController, type: :controller do
         expect { action }.to change(Staff, :count).by(1)
       end
 
-      it 'redirects to the created staff' do
+      it 'redirects to the staffs list' do
         action
         expect(response).to redirect_to(staff_staffs_path)
       end
@@ -99,7 +99,7 @@ describe Staff::StaffsController, type: :controller do
         expect(staff.address).to eq 'updated address'
       end
 
-      it 'redirects to the staff' do
+      it 'redirects to the staffs list' do
         action
         expect(response).to redirect_to(staff_staffs_path)
       end
