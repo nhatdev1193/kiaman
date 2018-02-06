@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     resources :staffs, except: [:show]
     resources :organizations, except: [:show]
+    resources :roles, except: [:show]
     resources :roles_permissions
     resources :services, except: [:show]
     resources :steps, except: [:show]
