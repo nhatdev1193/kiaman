@@ -1,0 +1,55 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    permissions
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    permissions
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @permissions.each do |permission| %>
+            <tr>
+              <td><%= permission.id %></td>
+              <td><%= permission.name %></td>
+              <td><%= permission.description %></td>
+              <td>
+                <%= link_to edit_staff_permission_path(permission), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if permission.deleted? %>
+                  <%= link_to staff_permission_path(permission), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_permission_path(permission), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_permission_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New permission
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->
