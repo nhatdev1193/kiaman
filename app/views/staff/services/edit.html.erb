@@ -1,7 +1,11 @@
-<div class="container">
-  <div class="row">
-    <h3>Edit service</h3>
-  </div>
-</div>
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Services
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Services <small>Edit</small>
+<% end %>
 
 <%= render 'form' %>
