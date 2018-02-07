@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206105700) do
+ActiveRecord::Schema.define(version: 20180207045539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,18 +174,6 @@ ActiveRecord::Schema.define(version: 20180206105700) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "permissions_roles", force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "permission_id", null: false
-    t.bigint "organization_id"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_permissions_roles_on_organization_id"
-    t.index ["permission_id"], name: "index_permissions_roles_on_permission_id"
-    t.index ["role_id"], name: "index_permissions_roles_on_role_id"
-  end
-
   create_table "revisions", force: :cascade do |t|
     t.integer "item_id", null: false
     t.string "kind", null: false
@@ -203,6 +191,18 @@ ActiveRecord::Schema.define(version: 20180206105700) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "deleted_at"], name: "idx_unique_role_name", unique: true
+  end
+
+  create_table "roles_permissions", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "permission_id", null: false
+    t.bigint "organization_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_roles_permissions_on_organization_id"
+    t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
+    t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -292,9 +292,9 @@ ActiveRecord::Schema.define(version: 20180206105700) do
   add_foreign_key "form_input_values", "forms"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"
-  add_foreign_key "permissions_roles", "organizations"
-  add_foreign_key "permissions_roles", "permissions"
-  add_foreign_key "permissions_roles", "roles"
+  add_foreign_key "roles_permissions", "organizations"
+  add_foreign_key "roles_permissions", "permissions"
+  add_foreign_key "roles_permissions", "roles"
   add_foreign_key "staffs", "organizations"
   add_foreign_key "staffs_roles", "roles"
   add_foreign_key "staffs_roles", "staffs"

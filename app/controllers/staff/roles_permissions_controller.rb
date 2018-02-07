@@ -1,74 +1,48 @@
 class Staff::RolesPermissionsController < Staff::BaseController
-  before_action :set_permission, only: [:show, :edit, :update, :destroy]
 
-  # GET /permissions
-  # GET /permissions.json
+  # GET /roles_permissions
   def index
     @roles = Role.where.not(name: 'admin').includes(:permissions)
     @permissions = Permission.all
   end
 
-  # GET /permissions/1
-  # GET /permissions/1.json
-  def show; end
-
-  # GET /permissions/new
-  def new
-    @permission = Permission.new
-  end
-
-  # GET /permissions/1/edit
-  def edit; end
-
-  # POST /permissions
-  # POST /permissions.json
-  def create
-    @permission = Permission.new(permission_params)
-
-    respond_to do |format|
-      if @permission.save
-        format.html { redirect_to @permission, notice: 'Permission was successfully created.' }
-        format.json { render :show, status: :created, location: @permission }
-      else
-        format.html { render :new }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /permissions/1
-  # PATCH/PUT /permissions/1.json
+  # PATCH/PUT /roles_permissions
   def update
-    respond_to do |format|
-      if @permission.update(permission_params)
-        format.html { redirect_to @permission, notice: 'Permission was successfully updated.' }
-        format.json { render :show, status: :ok, location: @permission }
-      else
-        format.html { render :edit }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
+    initial_roles_permissions_vals = roles_permissions_params[:initial_roles_permissions_vals].split(',')
+    selected_roles_permissions_vals = roles_permissions_params[:selected_roles_permissions_vals].split(',')
+
+    # Filter records which will be deleted
+    deleted_records = initial_roles_permissions_vals.reject { |v| selected_roles_permissions_vals.include?(v) }
+
+    # Filter new records which will be added
+    new_records = selected_roles_permissions_vals.reject{ |v| initial_roles_permissions_vals.include?(v) }
+
+
+    #
+    # Database operations
+    #
+
+    # Delete records
+    RolePermission.transaction do
+      deleted_records.map do |str|
+        role_id, permission_id = str.split('_')
+        RolePermission.find_by(role_id: role_id.to_i, permission_id: permission_id.to_i).delete
+      end
+
+      # Create new records
+      new_records.map do |str|
+        role_id, permission_id = str.split('_')
+        RolePermission.create!(role_id: role_id.to_i, permission_id: permission_id.to_i)
       end
     end
+
+    redirect_to staff_roles_permissions_path, notice: 'Roles & permissions successfully updated.'
   end
 
-  # DELETE /permissions/1
-  # DELETE /permissions/1.json
-  def destroy
-    @permission.destroy
-    respond_to do |format|
-      format.html { redirect_to permissions_url, notice: 'Permission was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_permission
-    @permission = Permission.find(params[:id])
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def permission_params
-    params.fetch(:permission, {})
+  def roles_permissions_params
+    params.permit(:initial_roles_permissions_vals, :selected_roles_permissions_vals)
   end
 end
