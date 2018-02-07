@@ -13,7 +13,7 @@
     <!-- form start -->
 
     <div class="table-responsive">
-      <table class="table no-margin">
+      <table class="table table-hover table-bordered table-striped no-margin">
         <thead>
         <tr>
           <th></th>
@@ -23,7 +23,6 @@
         </tr>
         </thead>
         <tbody>
-
           <% @permissions.each do |permission| %>
             <tr>
               <th><%= permission.name %></th>
@@ -37,7 +36,6 @@
               <% end %>
             </tr>
           <% end %>
-
         </tbody>
       </table>
     </div><!-- /.table-responsive -->
