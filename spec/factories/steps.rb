@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :step do
-    name { Faker::Hipster.word }
+    name { Faker::Hipster.unique.word }
     description { Faker::Lorem.sentence }
     parent_id nil
     service { create(:service) }

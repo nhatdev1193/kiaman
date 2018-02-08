@@ -33,10 +33,10 @@ def create_staffs
       s.password = 'password'
       s.password_confirmation = 'password'
       s.organization = organization
+      s.roles << role
     end
 
     staff.save!
-    staff.roles << role
 
     p "CREATED Staff: #{staff.email}"
   end

@@ -1,40 +1,52 @@
-include Warden::Test::Helpers
-Warden.test_mode!
+feature 'Edit staff' do
+  include_context 'a logged in admin'
 
-# Feature: Staff edit
-#   As a staff
-#   I want to edit my staff profile
-#   So I can change my email address
-feature 'Staff edit', :devise do
-  after(:each) do
-    Warden.test_reset!
+  before do
+    role = create :role
+    create_list :staff, 5, roles: [role]
+    visit staff_staffs_path
   end
 
-  # Scenario: Staff changes email address
-  #   Given I am signed in
-  #   When I change my email address
-  #   Then I see an account updated message
-  scenario 'staff changes email address' do
-    staff = FactoryBot.create(:staff)
-    login_as(staff, scope: :staff)
-    visit edit_staff_registration_path(staff)
-    fill_in 'Email', with: 'newemail@example.com'
-    fill_in 'Current password', with: staff.password
-    click_button 'Update'
-    txts = [I18n.t('devise.registrations.updated'), I18n.t('devise.registrations.update_needs_confirmation')]
-    expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*/)
+  scenario 'admin edit the last staff' do
+    other_role = create :role
+    organization = create :organization
+
+    find_all('a', text: 'Edit').last.click
+
+    fill_in 'staff_name', with: 'updated name'
+    fill_in 'staff_email', with: 'updated_email@example.com'
+    fill_in 'staff_address', with: 'updated address'
+    fill_in 'staff_phone', with: '381234567'
+    fill_in 'staff_mobile_phone', with: '0123456789'
+    find(:css, "#staff_role_ids_#{other_role.id}").set(true)
+    find("option[value='#{organization.id}']").select_option
+
+    click_button 'Update Staff'
+
+    expect(page).to have_content 'updated name'
+    expect(page).to have_content 'updated_email@example.com'
+    expect(page).to have_content other_role.name.humanize
   end
 
-  # Scenario: Staff cannot edit another staff's profile
-  #   Given I am signed in
-  #   When I try to edit another staff's profile
-  #   Then I see my own 'edit profile' page
-  scenario "staff cannot cannot edit another staff's profile", :me do
-    me = FactoryBot.create(:staff)
-    other = FactoryBot.create(:staff, email: 'other@example.com')
-    login_as(me, scope: :staff)
-    visit edit_staff_registration_path(other)
-    expect(page).to have_content 'Edit Staff'
-    expect(page).to have_field('Email', with: me.email)
+  context 'admin edit staff with invalid data' do
+    scenario 'invalid email' do
+      find_all('a', text: 'Edit').last.click
+
+      fill_in 'staff_email', with: ''
+
+      click_button 'Update Staff'
+
+      expect(page).to have_content "Email can't be blank"
+    end
+
+    scenario 'invalid mobile phone' do
+      find_all('a', text: 'Edit').last.click
+
+      fill_in 'staff_mobile_phone', with: ''
+
+      click_button 'Update Staff'
+
+      expect(page).to have_content "Mobile phone can't be blank"
+    end
   end
 end
