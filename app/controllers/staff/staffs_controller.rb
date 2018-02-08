@@ -3,7 +3,7 @@ class Staff::StaffsController < Staff::BaseController
   before_action :roles, only: [:new, :edit, :create, :update]
 
   def index
-    @staffs = Staff.with_deleted
+    @staffs = Staff.with_deleted.includes(:organization)
   end
 
   def new

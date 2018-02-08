@@ -42,8 +42,6 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     ast (2.3.0)
-    autoprefixer-rails (7.2.5)
-      execjs
     bcrypt (3.1.11)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
@@ -52,9 +50,6 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.17.0)
@@ -147,6 +142,8 @@ GEM
     powerpack (0.1.1)
     public_suffix (3.0.1)
     puma (3.11.2)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
@@ -268,7 +265,6 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap-sass
   byebug
   capybara
   coffee-rails (~> 4.2)
@@ -288,6 +284,7 @@ DEPENDENCIES
   passenger
   pg (~> 0.18)
   puma (~> 3.7)
+  pundit
   rails (~> 5.1.4)
   rails_layout
   rspec-rails

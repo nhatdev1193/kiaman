@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205040513) do
+ActiveRecord::Schema.define(version: 20180207045539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "condition_groups", force: :cascade do |t|
+    t.bigint "form_input_value_id"
+    t.bigint "step_id"
+    t.integer "group_number"
+    t.datetime "deleted_at"
+    t.index ["form_input_value_id"], name: "index_condition_groups_on_form_input_value_id"
+    t.index ["step_id"], name: "index_condition_groups_on_step_id"
+  end
+
+  create_table "conditions", force: :cascade do |t|
+    t.string "condition", null: false
+    t.integer "condition_for", null: false
+    t.datetime "deleted_at"
+  end
 
   create_table "contract_kinds", force: :cascade do |t|
     t.string "name", null: false
@@ -88,45 +103,48 @@ ActiveRecord::Schema.define(version: 20180205040513) do
   end
 
   create_table "form_input_conditions", force: :cascade do |t|
-    t.string "condition", null: false
+    t.text "value", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "form_input_kinds", force: :cascade do |t|
-    t.string "kind", null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["kind", "deleted_at"], name: "idx_unique_form_input_kind", unique: true
+    t.bigint "condition_id", null: false
+    t.bigint "condition_group_id", null: false
+    t.bigint "form_input_value_id", null: false
+    t.index ["condition_group_id"], name: "index_form_input_conditions_on_condition_group_id"
+    t.index ["condition_id"], name: "index_form_input_conditions_on_condition_id"
+    t.index ["form_input_value_id"], name: "index_form_input_conditions_on_form_input_value_id"
   end
 
   create_table "form_input_values", force: :cascade do |t|
-    t.bigint "contract_id", null: false
     t.bigint "form_id", null: false
-    t.bigint "form_input_kind_id", null: false
-    t.json "form_input_condition_ids", null: false
     t.datetime "deleted_at"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contract_id"], name: "index_form_input_values_on_contract_id"
+    t.integer "kind", null: false
+    t.string "field", null: false
     t.index ["form_id"], name: "index_form_input_values_on_form_id"
-    t.index ["form_input_kind_id"], name: "index_form_input_values_on_form_input_kind_id"
   end
 
   create_table "forms", force: :cascade do |t|
     t.bigint "step_id"
-    t.bigint "contract_kind_id"
     t.string "name", null: false
     t.boolean "is_template", default: true, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contract_kind_id"], name: "index_forms_on_contract_kind_id"
+    t.integer "item_id", null: false
     t.index ["name", "deleted_at"], name: "idx_unique_form_name", unique: true
     t.index ["step_id"], name: "index_forms_on_step_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "deleted_at"], name: "idx_unique_items_name", unique: true
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -149,25 +167,11 @@ ActiveRecord::Schema.define(version: 20180205040513) do
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.string "action", null: false
+    t.string "name", null: false
     t.text "description"
-    t.string "resource_type", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["action", "resource_type", "deleted_at"], name: "idx_unique_action", unique: true
-  end
-
-  create_table "permissions_roles", force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "permission_id", null: false
-    t.bigint "organization_id"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_permissions_roles_on_organization_id"
-    t.index ["permission_id"], name: "index_permissions_roles_on_permission_id"
-    t.index ["role_id"], name: "index_permissions_roles_on_role_id"
   end
 
   create_table "revisions", force: :cascade do |t|
@@ -187,6 +191,18 @@ ActiveRecord::Schema.define(version: 20180205040513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "deleted_at"], name: "idx_unique_role_name", unique: true
+  end
+
+  create_table "roles_permissions", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "permission_id", null: false
+    t.bigint "organization_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_roles_permissions_on_organization_id"
+    t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
+    t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -234,15 +250,6 @@ ActiveRecord::Schema.define(version: 20180205040513) do
     t.index ["staff_id"], name: "index_staffs_roles_on_staff_id"
   end
 
-  create_table "step_conditions", force: :cascade do |t|
-    t.bigint "step_id"
-    t.text "condition", null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["step_id"], name: "index_step_conditions_on_step_id"
-  end
-
   create_table "steps", force: :cascade do |t|
     t.integer "prev_step_id"
     t.string "name", null: false
@@ -267,6 +274,8 @@ ActiveRecord::Schema.define(version: 20180205040513) do
     t.index ["payment_schedule_id"], name: "index_transactions_on_payment_schedule_id"
   end
 
+  add_foreign_key "condition_groups", "form_input_values"
+  add_foreign_key "condition_groups", "steps"
   add_foreign_key "contracts", "contract_kinds"
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "staffs"
@@ -277,19 +286,18 @@ ActiveRecord::Schema.define(version: 20180205040513) do
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
   add_foreign_key "documents", "staffs"
-  add_foreign_key "form_input_values", "contracts"
-  add_foreign_key "form_input_values", "form_input_kinds"
+  add_foreign_key "form_input_conditions", "condition_groups"
+  add_foreign_key "form_input_conditions", "conditions"
+  add_foreign_key "form_input_conditions", "form_input_values"
   add_foreign_key "form_input_values", "forms"
-  add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"
-  add_foreign_key "permissions_roles", "organizations"
-  add_foreign_key "permissions_roles", "permissions"
-  add_foreign_key "permissions_roles", "roles"
+  add_foreign_key "roles_permissions", "organizations"
+  add_foreign_key "roles_permissions", "permissions"
+  add_foreign_key "roles_permissions", "roles"
   add_foreign_key "staffs", "organizations"
   add_foreign_key "staffs_roles", "roles"
   add_foreign_key "staffs_roles", "staffs"
-  add_foreign_key "step_conditions", "steps"
   add_foreign_key "steps", "forms"
   add_foreign_key "steps", "services"
   add_foreign_key "transactions", "payment_schedules"

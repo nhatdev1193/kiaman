@@ -16,10 +16,17 @@
 //= require bootstrap/dist/js/bootstrap.js
 //= require fastclick/lib/fastclick.js
 //= require select2/dist/js/select2.full.js
+//= require admin-lte/plugins/iCheck/icheck.js
 //= require_tree ./common
 //= require_tree ./staff
 
 let ready = function () {
   $('.select2').select2();
+
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].i-check, input[type="radio"].i-check').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass   : 'iradio_square-green'
+  })
 };
 document.addEventListener('turbolinks:load', ready);
