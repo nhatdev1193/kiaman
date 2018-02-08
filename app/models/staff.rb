@@ -13,11 +13,8 @@ class Staff < SoftDeleteBaseModel
   #
   # Dynamically create instance methods to check role of staff
   #
-  roles_name = Role.all.map(&:name)
-  roles_name.each do |role_name|
-    define_method "#{role_name}?" do
-      true
-      # roles.all.map(&:name).include?(role_name)
-    end
+  def has_role?(roles_arr)
+    role_names = roles_arr.dup.map(&:to_s)
+    (roles.pluck(:name) & role_names).size.positive?
   end
 end

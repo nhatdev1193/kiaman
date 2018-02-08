@@ -13,7 +13,7 @@
     <%= nav_link 'Dashboard', staff_dashboard_path, 'tachometer' %>
 
     <!-- Menu items for only admin -->
-    <% if current_staff.admin? %>
+    <% if current_staff.has_role?([:admin]) %>
       <li class="header">Organization Management</li>
       <%= nav_link 'Organizations', staff_organizations_path, 'sitemap' %>
       <%= nav_link 'Staffs', staff_staffs_path, 'id-card' %>
