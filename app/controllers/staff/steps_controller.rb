@@ -2,6 +2,11 @@ class Staff::StepsController < Staff::BaseController
   before_action :set_step, only: [:edit, :update, :destroy]
 
   def index
+    unless Service.count.positive?
+      flash.now[:warning] = "No service available.
+                            Click #{view_context.link_to('here', new_staff_service_path)}
+                            to create one Service first.".html_safe
+    end
     @steps = Step.with_deleted
   end
 
