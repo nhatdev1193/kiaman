@@ -10,7 +10,7 @@
 
 <div class="box box-info">
   <%= form_with url: staff_roles_path, method: :get, local: true,
-                scope: :query, class: 'form-horizontal',
+                scope: :search_conditions, class: 'form-horizontal',
                 html: { role: 'form' } do |f| %>
     <div class="box-header with-border">
       <h3 class="box-title">Search</h3>
@@ -21,13 +21,15 @@
         <%= f.label :name, class: 'control-label col-sm-3' %>
 
         <div class="col-sm-6">
-          <%= f.text_field :name, class: 'form-control', value: @search_params[:name] %>
+          <%= f.text_field :name, class: 'form-control', value: @search_conditions&.fetch(:name) %>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-          <%= f.submit 'Search', class: 'btn btn-success btn-flat' %>
+          <button type="submit" class="btn btn-success btn-flat">
+            <%= fa_icon 'search' %> Search
+          </button>
         </div>
       </div>
     </div><!-- /.box-body -->
@@ -53,15 +55,15 @@
               <td><%= role.name %></td>
               <td><%= role.level %></td>
               <td>
-                <%= link_to edit_staff_role_path(role, query: @search_params), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_role_path(role), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
                 <% if role.deleted? %>
-                  <%= link_to staff_role_path(role, query: @search_params), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                  <%= link_to staff_role_path(role), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
                 <% else %>
-                  <%= link_to staff_role_path(role, query: @search_params), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                  <%= link_to staff_role_path(role), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
