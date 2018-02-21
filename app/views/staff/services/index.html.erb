@@ -39,6 +39,11 @@
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
+                <% unless service.steps.count.positive? %>
+                  <%= link_to new_staff_step_path, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'plus' %> Add step for service
+                  <% end %>
+                <% end %>
               </td>
             </tr>
           <% end %>
