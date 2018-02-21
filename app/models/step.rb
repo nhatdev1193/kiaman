@@ -8,6 +8,7 @@ class Step < SoftDeleteBaseModel
 
   validates :name, presence: true, uniqueness: true
   validates :service, presence: true
+  validate :cannot_same_step
 
   scope :can_become_parent, ->(current_step) {
     if current_step.id.nil?
@@ -16,4 +17,13 @@ class Step < SoftDeleteBaseModel
       where.not(id: current_step.id)
     end
   }
+
+  private
+
+  # rubocop:disable all
+  def cannot_same_step
+    errors.add(:base, 'Parent step and next step can not be same.') if parent_id.present? && next_step_id.present? && parent_id == next_step_id
+    errors.add(:base, 'Parent step and previous step can not be same.') if parent_id.present? && prev_step_id.present? && parent_id == prev_step_id
+    errors.add(:base, 'Next step and previous step can not be same.') if next_step_id.present? && prev_step_id.present? && next_step_id == prev_step_id
+  end
 end

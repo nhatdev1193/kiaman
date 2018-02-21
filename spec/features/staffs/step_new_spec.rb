@@ -55,5 +55,41 @@ feature 'Add new step' do
 
       expect(page).to have_content "Service can't be blank"
     end
+
+    scenario 'invalid parent step and next step' do
+      fill_in 'step_name', with: 'new name'
+      fill_in 'step_description', with: 'new description'
+      find("#step_parent_id option[value='#{@parent_step.id}']").select_option
+      find("#step_next_step_id option[value='#{@parent_step.id}']").select_option
+      find("#step_prev_step_id option[value='#{@prev_step.id}']").select_option
+
+      click_button 'Create Step'
+
+      expect(page).to have_content 'Parent step and next step can not be same'
+    end
+
+    scenario 'invalid parent step and prev step' do
+      fill_in 'step_name', with: 'new name'
+      fill_in 'step_description', with: 'new description'
+      find("#step_parent_id option[value='#{@parent_step.id}']").select_option
+      find("#step_next_step_id option[value='#{@next_step.id}']").select_option
+      find("#step_prev_step_id option[value='#{@parent_step.id}']").select_option
+
+      click_button 'Create Step'
+
+      expect(page).to have_content 'Parent step and previous step can not be same'
+    end
+
+    scenario 'invalid next step and previous step' do
+      fill_in 'step_name', with: 'new name'
+      fill_in 'step_description', with: 'new description'
+      find("#step_parent_id option[value='#{@parent_step.id}']").select_option
+      find("#step_next_step_id option[value='#{@next_step.id}']").select_option
+      find("#step_prev_step_id option[value='#{@next_step.id}']").select_option
+
+      click_button 'Create Step'
+
+      expect(page).to have_content 'Next step and previous step can not be same'
+    end
   end
 end
