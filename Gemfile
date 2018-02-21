@@ -11,7 +11,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'passenger'
 gem 'meta-tags'
 gem 'font-awesome-rails'
-gem 'pundit'
 
 group :development, :test do
   gem 'byebug', platform: :mri
