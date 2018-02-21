@@ -55,6 +55,16 @@ describe Staff::StepsController, type: :controller do
         expect(response).to be_success
       end
     end
+
+    context 'with invalid parent step, next step and prev step' do
+      let(:step) { create(:step) }
+      let(:step_attributes) { attributes_for(:step, parent_id: step.id, next_step_id: step.id, prev_step_id: step.id) }
+
+      it "returns a success response (i.e. to display the 'new' template)" do
+        action
+        expect(response).to be_success
+      end
+    end
   end
 
   describe 'GET #edit' do
