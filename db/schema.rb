@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207045539) do
+ActiveRecord::Schema.define(version: 20180222070634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20180207045539) do
   create_table "contract_kinds", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.json "step_ids", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -28,15 +27,11 @@ ActiveRecord::Schema.define(version: 20180207045539) do
   create_table "contracts", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "contract_kind_id", null: false
-    t.string "current_workflow", null: false
-    t.string "current_step", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "staff_id", null: false
     t.index ["contract_kind_id"], name: "index_contracts_on_contract_kind_id"
     t.index ["customer_id"], name: "index_contracts_on_customer_id"
-    t.index ["staff_id"], name: "index_contracts_on_staff_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -48,16 +43,16 @@ ActiveRecord::Schema.define(version: 20180207045539) do
   create_table "customers_steps", force: :cascade do |t|
     t.bigint "step_id", null: false
     t.bigint "customer_id", null: false
-    t.bigint "contract_id", null: false
     t.datetime "deleted_at"
-    t.datetime "approved_at"
-    t.datetime "rejected_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "staff_id", null: false
+    t.integer "created_staff_id"
+    t.integer "assigned_staff_id"
+    t.integer "status"
+    t.datetime "assigned_at"
+    t.bigint "contract_id"
     t.index ["contract_id"], name: "index_customers_steps_on_contract_id"
     t.index ["customer_id"], name: "index_customers_steps_on_customer_id"
-    t.index ["staff_id"], name: "index_customers_steps_on_staff_id"
     t.index ["step_id"], name: "index_customers_steps_on_step_id"
   end
 
@@ -267,10 +262,8 @@ ActiveRecord::Schema.define(version: 20180207045539) do
 
   add_foreign_key "contracts", "contract_kinds"
   add_foreign_key "contracts", "customers"
-  add_foreign_key "contracts", "staffs"
   add_foreign_key "customers_steps", "contracts"
   add_foreign_key "customers_steps", "customers"
-  add_foreign_key "customers_steps", "staffs"
   add_foreign_key "customers_steps", "steps"
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
