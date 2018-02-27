@@ -1,11 +1,12 @@
 class Staff::RolesController < Staff::BaseController
 
+  before_action :set_organization
   before_action :set_role, only: [:edit, :update, :destroy]
 
   # GET /roles
   def index
     @search_conditions = params[:search_conditions]
-    @roles = Role.search(params[:search_conditions])
+    @roles = @organization.roles.search(params[:search_conditions])
   end
 
   # GET /roles/new
@@ -56,5 +57,9 @@ class Staff::RolesController < Staff::BaseController
   # Use callbacks to share common setup or constraints between actions.
   def set_role
     @role = Role.find(params[:id])
+  end
+
+  def set_organization
+    @organization = Organization.find(params[:organization_id])
   end
 end

@@ -29,6 +29,9 @@
               <td><%= organization.level %></td>
               <td><%= organization.parent&.name || '' %></td>
               <td>
+                <%= link_to staff_organization_roles_path(organization), class: 'btn btn-xs btn-flat bg-blue' do %>
+                  <%= fa_icon 'list' %> Roles
+                <% end %>
                 <%= link_to edit_staff_organization_path(organization), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>

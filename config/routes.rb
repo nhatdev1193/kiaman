@@ -16,8 +16,11 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index'
 
     resources :staffs, except: [:show]
-    resources :organizations, except: [:show]
-    resources :roles, except: [:show]
+
+    resources :organizations, except: [:show] do
+      resources :roles, except: [:show]
+    end
+
     resources :permissions, except: [:show]
     get 'roles_permissions', to: 'roles_permissions#index'
     match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
