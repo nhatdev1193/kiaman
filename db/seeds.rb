@@ -42,6 +42,27 @@ def create_staffs
   end
 end
 
+def create_services
+  service_kinds = ['Student Loan', 'SME Loan']
+
+  service_kinds.each do |service_kind|
+    Service.find_or_create_by!(name: service_kind)
+    p "CREATED Services: #{service_kinds.join('-')}"
+  end
+end
+
+def create_services_steps
+  service_kinds = ['Student Loan', 'SME Loan']
+
+  service_kinds.each do |service_kind|
+    Service.find_or_create_by!(name: service_kind)
+    p "CREATED Services: #{service_kinds}"
+  end
+end
+
+
 create_organizations
 create_roles
 create_staffs
+
+create_services

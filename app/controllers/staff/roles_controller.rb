@@ -1,17 +1,11 @@
 class Staff::RolesController < Staff::BaseController
 
-  before_action :set_search_params
   before_action :set_role, only: [:edit, :update, :destroy]
 
   # GET /roles
   def index
-    @roles = Role.where.not(name: 'admin')
-
-    if search_params[:name].present?
-      @roles = @roles.where(name: search_params[:name])
-    end
-
-    @roles = @roles.order(:level)
+    @search_conditions = params[:search_conditions]
+    @roles = Role.search(params[:search_conditions])
   end
 
   # GET /roles/new
@@ -46,7 +40,7 @@ class Staff::RolesController < Staff::BaseController
   def destroy
     @role.destroy
     respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'role was successfully destroyed.' }
+      format.html { redirect_to staff_roles_url, notice: 'role was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -59,16 +53,8 @@ class Staff::RolesController < Staff::BaseController
     params.require(:role).permit(:name, :level)
   end
 
-  def search_params
-    params.require(:query).permit(:name)
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_role
     @role = Role.find(params[:id])
-  end
-
-  def set_search_params
-    @search_params = search_params
   end
 end

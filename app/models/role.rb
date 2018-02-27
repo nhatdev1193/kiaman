@@ -6,4 +6,14 @@ class Role < SoftDeleteBaseModel
 
   validates :name, presence: true, uniqueness: true
   validates :level, presence: true
+
+  def self.search(conditions)
+    query = where.not(name: 'admin')
+
+    if conditions
+      query = query.where(name: conditions[:name]) if conditions[:name].present?
+    end
+
+    query.order(:level)
+  end
 end
