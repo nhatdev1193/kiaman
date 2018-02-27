@@ -1,6 +1,7 @@
 class Organization < SoftDeleteBaseModel
   # Associations
-  has_many :staffs
+  has_many :roles
+  has_many :staffs, through: :roles
   has_many :children, class_name: 'Organization', foreign_key: 'parent_id'
   belongs_to :parent, class_name: 'Organization', optional: true
 
