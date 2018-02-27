@@ -38,11 +38,11 @@
                   <%= fa_icon 'lock' %> Lock
                 <% end %>
                 <% if staff.deleted? %>
-                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
                 <% else %>
-                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
