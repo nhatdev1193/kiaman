@@ -19,10 +19,10 @@ class Staff::RolesController < Staff::BaseController
 
   # POST /roles
   def create
-    @role = Role.new(role_params)
+    @role = @organization.roles.new(role_params)
 
     if @role.save
-      redirect_to staff_roles_path, notice: 'Role was successfully created.'
+      redirect_to staff_organization_roles_path(@organization), notice: 'Role was successfully created.'
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Staff::RolesController < Staff::BaseController
   # PATCH/PUT /roles/1
   def update
     if @role.update(role_params)
-      redirect_to staff_roles_path, notice: 'Role was successfully updated.'
+      redirect_to staff_organization_roles_path(@organization), notice: 'Role was successfully updated.'
     else
       render :edit
     end
