@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     resources :products, except: [:show]
     resources :steps, except: [:show]
+    resources :customers
   end
 
   root to: 'staff/dashboard#index'

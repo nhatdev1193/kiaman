@@ -37,16 +37,28 @@ class CustomersStep < SoftDeleteBaseModel
     end
   end
 
-  private
-
-  def next_step_for_customer
-    return unless step.next_step
-    CustomersStep.create step: step.next_step, customer: customer
+  def assignee_name
+    Staff.where(id: assigned_staff_id).first&.name
   end
 
-  def previous_step_for_customer
+  def branch_name
+    creator.organization.name
+  end
+
+  def creator
+    Staff.where(id: created_staff_id).first
+  end
+
+  private
+
+  def next_step_for_customer(current_staff_id)
+    return unless step.next_step
+    new_customer_step(step.next_step, customer, current_staff_id)
+  end
+
+  def previous_step_for_customer(current_staff_id)
     return unless step.prev_step
-    CustomersStep.create step: step.prev_step, customer: customer
+    new_customer_step(step.prev_step, customer, current_staff_id)
   end
 
   def if_done?
@@ -55,5 +67,9 @@ class CustomersStep < SoftDeleteBaseModel
 
   def if_rollback?
     status.to_sym == :rollback
+  end
+
+  def new_customer_step(step, customer, current_staff_id)
+    CustomersStep.create step: step, customer: customer, created_staff_id: current_staff_id
   end
 end

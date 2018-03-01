@@ -1,0 +1,74 @@
+<div class="box box-info">
+
+  <div class="box-header with-border">
+    <h3 class="box-title">Form</h3>
+  </div><!-- /.box-header -->
+
+  <!-- form start -->
+  <%= form_for [:staff, @customer], :html => { role: 'form', class: 'form-horizontal' } do |f| %>
+    <div class="box-body">
+      <%= render 'staff/partials/form_errors', { errors: @customer.errors } %>
+
+      <div class="form-group">
+        <%= f.label 'Loại sản phẩm *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.collection_select :product_id,
+                                  Product.all,
+                                  :id, :name,
+                                  { :prompt => 'Select' },
+                                  { :class => 'form-control select2' } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Họ và tên lót', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :last_name, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Tên *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :first_name, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Giới tính', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.select :gender, Customer::GENDER_TYPES, { :prompt => 'Select' }, { :class => 'form-control select2' } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Sđt *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :phone, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Ngày sinh', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.date_field :birthday, class: 'form-control' %>
+        </div>
+      </div>
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <%= link_to 'Hủy', staff_customers_path, class: 'btn btn-default btn-flat' %>
+          <%= f.submit 'Tạo', class: 'btn btn-success btn-flat' %>
+        </div>
+      </div>
+    </div><!-- /.box-footer -->
+  <% end %>
+</div>

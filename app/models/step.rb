@@ -18,6 +18,10 @@ class Step < SoftDeleteBaseModel
     end
   }
 
+  def product_name
+    product.name
+  end
+
   private
 
   # rubocop:disable all
