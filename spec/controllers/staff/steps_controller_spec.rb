@@ -4,7 +4,7 @@ describe Staff::StepsController, type: :controller do
   let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:oh_organization) { create(:organization, name: 'Kim An HO') }
   let(:admin) { create(:staff, roles: [admin_role], organization: oh_organization) }
-  let(:service) { create(:service) }
+  let(:product) { create(:product) }
 
   before { sign_in admin }
 
@@ -26,7 +26,7 @@ describe Staff::StepsController, type: :controller do
     let(:action) { post :create, params: { step: step_attributes } }
 
     context 'with valid params' do
-      let(:step_attributes) { attributes_for(:step, service_id: service.id) }
+      let(:step_attributes) { attributes_for(:step, product_id: product.id) }
 
       it 'creates a new step' do
         expect { action }.to change(Step, :count).by(1)
@@ -47,8 +47,8 @@ describe Staff::StepsController, type: :controller do
       end
     end
 
-    context 'with invalid service param' do
-      let(:step_attributes) { attributes_for(:step, service_id: nil) }
+    context 'with invalid product param' do
+      let(:step_attributes) { attributes_for(:step, product_id: nil) }
 
       it "returns a success response (i.e. to display the 'new' template)" do
         action
@@ -72,13 +72,13 @@ describe Staff::StepsController, type: :controller do
     let(:action) { put :update, params: { id: step.id, step: step_attributes } }
 
     context 'with valid params' do
-      let(:step_attributes) { { name: 'updated name', service_id: service.id } }
+      let(:step_attributes) { { name: 'updated name', product_id: product.id } }
 
       it 'updates the requested step' do
         action
         step.reload
         expect(step.name).to eq 'updated name'
-        expect(step.service_id).to eq service.id
+        expect(step.product_id).to eq product.id
       end
 
       it 'redirects to the steps list' do
@@ -96,8 +96,8 @@ describe Staff::StepsController, type: :controller do
       end
     end
 
-    context 'with invalid service param' do
-      let(:step_attributes) { { service_id: nil } }
+    context 'with invalid product param' do
+      let(:step_attributes) { { product_id: nil } }
 
       it "returns a success response (i.e. to display the 'edit' template)" do
         action

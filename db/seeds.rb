@@ -42,21 +42,21 @@ def create_staffs
   end
 end
 
-def create_services
-  service_kinds = ['Student Loan', 'SME Loan']
+def create_products
+  product_kinds = ['Student Loan', 'SME Loan']
 
-  service_kinds.each do |service_kind|
-    Service.find_or_create_by!(name: service_kind)
-    p "CREATED Services: #{service_kinds.join('-')}"
+  product_kinds.each do |product_kind|
+    Product.find_or_create_by!(name: product_kind)
+    p "CREATED Products: #{product_kinds.join('-')}"
   end
 end
 
-def create_services_steps
-  service_kinds = ['Student Loan', 'SME Loan']
+def create_products_steps
+  product_kinds = ['Student Loan', 'SME Loan']
 
-  service_kinds.each do |service_kind|
-    Service.find_or_create_by!(name: service_kind)
-    p "CREATED Services: #{service_kinds}"
+  product_kinds.each do |product_kind|
+    Product.find_or_create_by!(name: product_kind)
+    p "CREATED products: #{product_kinds}"
   end
 end
 
@@ -65,4 +65,4 @@ create_organizations
 create_roles
 create_staffs
 
-create_services
+create_products

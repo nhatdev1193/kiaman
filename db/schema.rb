@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180222070634) do
+ActiveRecord::Schema.define(version: 20180301040451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,16 @@ ActiveRecord::Schema.define(version: 20180222070634) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "controller_path"
+    t.string "action_name"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "revisions", force: :cascade do |t|
@@ -180,14 +190,6 @@ ActiveRecord::Schema.define(version: 20180222070634) do
     t.index ["organization_id"], name: "index_roles_permissions_on_organization_id"
     t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
     t.index ["role_id"], name: "index_roles_permissions_on_role_id"
-  end
-
-  create_table "services", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "staffs", force: :cascade do |t|
@@ -244,11 +246,11 @@ ActiveRecord::Schema.define(version: 20180222070634) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
-    t.bigint "service_id"
     t.integer "next_step_id"
     t.bigint "form_id"
+    t.bigint "product_id"
     t.index ["form_id"], name: "index_steps_on_form_id"
-    t.index ["service_id"], name: "index_steps_on_service_id"
+    t.index ["product_id"], name: "index_steps_on_product_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -282,6 +284,6 @@ ActiveRecord::Schema.define(version: 20180222070634) do
   add_foreign_key "staffs_roles", "staffs"
   add_foreign_key "step_conditions", "steps"
   add_foreign_key "steps", "forms"
-  add_foreign_key "steps", "services"
+  add_foreign_key "steps", "products"
   add_foreign_key "transactions", "payment_schedules"
 end
