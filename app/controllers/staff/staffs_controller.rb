@@ -1,9 +1,10 @@
 class Staff::StaffsController < Staff::BaseController
+
   before_action :set_staff, only: [:edit, :update, :destroy]
-  before_action :roles, only: [:new, :edit, :create, :update]
+  before_action :set_organizations
 
   def index
-    @staffs = Staff.with_deleted.includes(:organization)
+    @staffs = Staff.with_deleted.includes(:organizations)
   end
 
   def new
@@ -47,14 +48,14 @@ class Staff::StaffsController < Staff::BaseController
   private
 
   def staff_params
-    params.require(:staff).permit(:email, :password, :password_confirmation, :name, :organization_id, :address, :phone, :mobile_phone, role_ids: [])
+    params.require(:staff).permit(:email, :password, :password_confirmation, :name, :address, :phone, :mobile_phone, role_ids: [])
   end
 
   def set_staff
     @staff = Staff.with_deleted.find params[:id]
   end
 
-  def roles
-    @roles = Role.all
+  def set_organizations
+    @organizations = Organization.all.includes(:roles)
   end
 end

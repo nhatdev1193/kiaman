@@ -10,7 +10,7 @@ class Staff < SoftDeleteBaseModel
   has_many :organizations, through: :roles
 
   # Validations
-  validates :email, :organization_id, :mobile_phone, :roles, presence: true
+  validates :email, :mobile_phone, presence: true
 
   #
   # Dynamically create instance methods to check role of staff
