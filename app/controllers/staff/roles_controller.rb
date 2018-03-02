@@ -51,7 +51,7 @@ class Staff::RolesController < Staff::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def role_params
-    params.require(:role).permit(:name, :level)
+    params.require(:role).permit(:parent_id, :name, :level)
   end
 
   # Use callbacks to share common setup or constraints between actions.

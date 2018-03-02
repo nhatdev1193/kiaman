@@ -19,6 +19,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Level</th>
+            <th>Parent</th>
             <th></th>
           </tr>
         </thead>
@@ -28,6 +29,7 @@
               <td><%= role.id %></td>
               <td><%= role.name %></td>
               <td><%= role.level %></td>
+              <td><%= role.parent&.name || '' %></td>
               <td>
                 <%= link_to edit_staff_organization_role_path(@organization, role), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit

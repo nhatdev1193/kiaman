@@ -14,7 +14,7 @@ class Role < SoftDeleteBaseModel
 
   # Methods
   def self.search(conditions)
-    query = where.not(name: 'admin')
+    query = without_admin_role
 
     if conditions
       query = query.where(name: conditions[:name]) if conditions[:name].present?
@@ -22,4 +22,9 @@ class Role < SoftDeleteBaseModel
 
     query.order(:level)
   end
+
+  # Scopes
+  scope :without_admin_role, -> {
+    where.not(name: 'admin')
+  }
 end

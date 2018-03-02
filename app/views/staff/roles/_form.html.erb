@@ -16,11 +16,26 @@
           <%= f.text_field :name, class: 'form-control' %>
         </div>
       </div>
+
+      <div class="form-group">
+        <%= f.label :parent_id, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.collection_select :parent_id,
+                                  @organization.roles
+                                               .without_admin_role
+                                               .can_become_parent(@role),
+                                  :id, :name,
+                                  { :prompt => 'Select' },
+                                  { :class => 'form-control select2' } %>
+        </div>
+      </div>
     </div><!-- /.box-body -->
 
     <div class="box-footer">
       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
+          <%= link_to 'Back', staff_organization_roles_path(query: @search_params), class: 'btn btn-default btn-flat' %>
           <%= f.submit class: 'btn btn-success btn-flat' %>
         </div>
       </div>
