@@ -18,6 +18,7 @@
             <th>Name</th>
             <th>Level</th>
             <th>Parent</th>
+            <th>Roles & Permissions</th>
             <th></th>
           </tr>
         </thead>
@@ -29,9 +30,17 @@
               <td><%= organization.level %></td>
               <td><%= organization.parent&.name || '' %></td>
               <td>
-                <%= link_to staff_organization_roles_path(organization), class: 'btn btn-xs btn-flat bg-blue' do %>
+                <%= link_to staff_organization_roles_path(organization), class: 'btn btn-xs btn-flat btn-info' do %>
                   <%= fa_icon 'id-card' %> Roles
                 <% end %>
+                <%= link_to staff_organization_permissions_path(organization), class: 'btn btn-xs btn-flat bg-blue' do %>
+                  <%= fa_icon 'key' %> Permissions
+                <% end %>
+                <%= link_to staff_organization_roles_permissions_path(organization), class: 'btn btn-xs btn-flat bg-purple' do %>
+                  <%= fa_icon 'edit' %> Assign permissions to roles
+                <% end %>
+              </td>
+              <td>
                 <%= link_to edit_staff_organization_path(organization), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>

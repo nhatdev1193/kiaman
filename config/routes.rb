@@ -19,11 +19,11 @@ Rails.application.routes.draw do
 
     resources :organizations, except: [:show] do
       resources :roles, except: [:show]
+      resources :permissions, only: [:index, :edit, :update]
+      get 'roles_permissions', to: 'roles_permissions#index'
+      match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     end
 
-    resources :permissions, except: [:show]
-    get 'roles_permissions', to: 'roles_permissions#index'
-    match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     resources :services, except: [:show]
     resources :steps, except: [:show]
   end
