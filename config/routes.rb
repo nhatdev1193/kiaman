@@ -15,14 +15,14 @@ Rails.application.routes.draw do
   namespace 'staff', path: 'staff' do
     get '/dashboard', to: 'dashboard#index'
 
-    resources :staffs, except: [:show]
-
     resources :organizations, except: [:show] do
       resources :roles, except: [:show]
-      resources :permissions, only: [:index, :edit, :update]
       get 'roles_permissions', to: 'roles_permissions#index'
       match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     end
+
+    resources :permissions, only: [:index, :edit, :update]
+    resources :staffs, except: [:show]
 
     resources :services, except: [:show]
     resources :steps, except: [:show]

@@ -1,6 +1,5 @@
 class Staff::PermissionsController < Staff::BaseController
 
-  before_action :set_organization
   before_action :set_permission, only: [:edit, :update]
 
   # GET /organization/:organization_id/permissions
@@ -31,9 +30,5 @@ class Staff::PermissionsController < Staff::BaseController
   # Use callbacks to share common setup or constraints between actions.
   def set_permission
     @permission = Permission.find(params[:id])
-  end
-
-  def set_organization
-    @organization = Organization.find(params[:organization_id])
   end
 end

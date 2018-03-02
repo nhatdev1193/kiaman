@@ -1,11 +1,11 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-    <%= @organization.name %> - Permissions
+    Permissions
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-    <%= @organization.name %> - Permissions
+    Permissions
 <% end %>
 
 <div class="box box-info">
@@ -27,7 +27,7 @@
               <td><%= permission.name %></td>
               <td><%= permission.description %></td>
               <td>
-                <%= link_to edit_staff_organization_permission_path(@organization, permission), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_permission_path(permission), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
               </td>
