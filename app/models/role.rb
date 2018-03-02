@@ -1,4 +1,7 @@
 class Role < SoftDeleteBaseModel
+
+  include Parentable
+
   # Associations
   has_and_belongs_to_many :staffs, join_table: 'staffs_roles'
   has_many :role_permissions, class_name: RolePermission

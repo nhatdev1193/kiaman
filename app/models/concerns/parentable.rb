@@ -3,21 +3,21 @@ module Parentable
 
   included do
     # Associations
-    has_many :children, class_name: 'Organization', foreign_key: 'parent_id'
-    belongs_to :parent, class_name: 'Organization', optional: true
+    has_many :children, class_name: self.name, foreign_key: 'parent_id'
+    belongs_to :parent, class_name: self.name, optional: true
 
     # Callbacks
     before_save :set_level
 
     # Scopes
-    scope :can_become_parent, lambda do |current_model|
+    scope :can_become_parent, ->(current_model) {
       if current_model.id.nil?
         all
       else
         where.not(id: current_model.id) # Not itself
             .where('level <= ?', current_model.level) # Must be at higher level
       end
-    end
+    }
   end
 
 
