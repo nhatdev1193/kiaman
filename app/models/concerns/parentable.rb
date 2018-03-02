@@ -3,8 +3,8 @@ module Parentable
 
   included do
     # Associations
-    has_many :children, class_name: self.name, foreign_key: 'parent_id'
-    belongs_to :parent, class_name: self.name, optional: true
+    has_many :children, class_name: self.name.to_s, foreign_key: 'parent_id'
+    belongs_to :parent, class_name: self.name.to_s, optional: true
 
     # Callbacks
     before_save :set_level
