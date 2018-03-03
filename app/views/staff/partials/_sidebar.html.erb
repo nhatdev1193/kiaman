@@ -12,18 +12,20 @@
   <ul class="sidebar-menu">
     <%= nav_link 'Dashboard', staff_dashboard_path, 'tachometer' %>
 
-    <!-- Menu items for only admin -->
-    <% if current_staff.has_role?([:admin]) %>
-      <li class="header">Organization Management</li>
+    <li class="header">Organization Management</li>
+    <% if can_access?(@current_staff_permissions, staff_organizations_path, 'index') %>
       <%= nav_link 'Organizations', staff_organizations_path, 'sitemap' %>
-      <%= nav_link 'Staffs', staff_staffs_path, 'id-card' %>
-      <%= nav_link 'Roles', staff_roles_path, 'user-circle' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_permissions_path, 'index') %>
       <%= nav_link 'Permissions', staff_permissions_path, 'key' %>
-      <%= nav_link 'Roles & Permissions', staff_roles_permissions_path, 'key' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_permissions_path, 'index') %>
+      <%= nav_link 'Staffs', staff_staffs_path, 'users' %>
+    <% end %>
 
-      <li class="header">Services Management</li>
+    <li class="header">Services Management</li>
+    <% if can_access?(@current_staff_permissions, staff_services_path, 'index') %>
       <%= nav_link 'Services', staff_services_path, 'cogs' %>
-      <%= nav_link 'Steps', staff_steps_path, 'paw' %>
     <% end %>
 
     <li class="header">Others</li>

@@ -1,45 +1,21 @@
 class Staff::PermissionsController < Staff::BaseController
-  before_action :set_permission, only: [:edit, :update, :destroy]
 
-  # GET /permissions
+  before_action :set_permission, only: [:edit, :update]
+
+  # GET /organization/:organization_id/permissions
   def index
     @permissions = Permission.all
   end
 
-  # GET /permissions/new
-  def new
-    @permission = Permission.new
-  end
-
-  # GET /permissions/1/edit
+  # GET /organization/:organization_id/permissions/1/edit
   def edit; end
 
-  # POST /permissions
-  def create
-    @permission = Permission.new(permission_params)
-
-    if @permission.save
-      redirect_to staff_permissions_path, notice: 'Permission was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /permissions/1
+  # PATCH/PUT /organization/:organization_id/permissions/1
   def update
     if @permission.update(permission_params)
       redirect_to staff_permissions_path, notice: 'Permission was successfully updated.'
     else
       render :edit
-    end
-  end
-
-  # DELETE /permissions/1
-  def destroy
-    @permission.destroy
-    respond_to do |format|
-      format.html { redirect_to permissions_url, notice: 'permission was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

@@ -1,11 +1,11 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-    permissions
+    Permissions
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-    permissions
+    Permissions
 <% end %>
 
 <div class="box box-info">
@@ -30,15 +30,6 @@
                 <%= link_to edit_staff_permission_path(permission), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
-                <% if permission.deleted? %>
-                  <%= link_to staff_permission_path(permission), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
-                    <%= fa_icon 'recycle' %> Restore
-                  <% end %>
-                <% else %>
-                  <%= link_to staff_permission_path(permission), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
-                    <%= fa_icon 'trash' %> Delete
-                  <% end %>
-                <% end %>
               </td>
             </tr>
           <% end %>
@@ -48,8 +39,8 @@
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= link_to new_staff_permission_path, class: 'btn btn-primary btn-flat pull-left' do %>
-      <%= fa_icon 'plus' %> New permission
+    <%= link_to staff_organizations_path, class: 'btn btn-default btn-flat' do %>
+      <%= fa_icon 'sitemap' %> Back to Organizations list
     <% end %>
   </div><!-- /.box-footer -->
 </div><!-- /.box -->
