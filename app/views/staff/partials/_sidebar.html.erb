@@ -20,15 +20,12 @@
       <%= nav_link 'Permissions', staff_permissions_path, 'key' %>
     <% end %>
     <% if can_access?(@current_staff_permissions, staff_permissions_path, 'index') %>
-      <%= nav_link 'Staffs', staff_permissions_path, 'users' %>
+      <%= nav_link 'Staffs', staff_staffs_path, 'users' %>
     <% end %>
 
     <li class="header">Services Management</li>
     <% if can_access?(@current_staff_permissions, staff_services_path, 'index') %>
       <%= nav_link 'Services', staff_services_path, 'cogs' %>
-    <% end %>
-    <% if can_access?(@current_staff_permissions, staff_steps_path, 'index') %>
-      <%= nav_link 'Steps', staff_steps_path, 'paw' %>
     <% end %>
 
     <li class="header">Others</li>
