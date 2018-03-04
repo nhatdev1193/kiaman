@@ -10,23 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301174623) do
+ActiveRecord::Schema.define(version: 20180304104259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "condition_groups", force: :cascade do |t|
-    t.bigint "form_input_value_id"
-    t.bigint "step_id"
-    t.integer "group_number"
+    t.bigint "condition_id"
+    t.integer "parent_id"
+    t.string "operator"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.index ["form_input_value_id"], name: "index_condition_groups_on_form_input_value_id"
-    t.index ["step_id"], name: "index_condition_groups_on_step_id"
+    t.index ["condition_id", "deleted_at"], name: "index_condition_groups_on_condition_id_and_deleted_at", unique: true
+    t.index ["condition_id"], name: "index_condition_groups_on_condition_id"
   end
 
   create_table "conditions", force: :cascade do |t|
-    t.string "condition", null: false
-    t.integer "condition_for", null: false
+    t.string "name"
+    t.text "condition"
+    t.integer "condition_kind", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
   end
 
@@ -97,49 +102,52 @@ ActiveRecord::Schema.define(version: 20180301174623) do
     t.index ["staff_id"], name: "index_documents_on_staff_id"
   end
 
-  create_table "form_input_conditions", force: :cascade do |t|
-    t.text "value", null: false
-    t.datetime "deleted_at"
+  create_table "form_fields", force: :cascade do |t|
+    t.bigint "form_id"
+    t.bigint "form_input_id"
+    t.bigint "condition_group_id"
+    t.bigint "form_object_id"
+    t.string "field_name"
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "condition_id", null: false
-    t.bigint "condition_group_id", null: false
-    t.bigint "form_input_value_id", null: false
-    t.index ["condition_group_id"], name: "index_form_input_conditions_on_condition_group_id"
-    t.index ["condition_id"], name: "index_form_input_conditions_on_condition_id"
-    t.index ["form_input_value_id"], name: "index_form_input_conditions_on_form_input_value_id"
+    t.datetime "deleted_at"
+    t.index ["condition_group_id", "deleted_at"], name: "index_form_fields_on_condition_group_id_and_deleted_at", unique: true
+    t.index ["condition_group_id"], name: "index_form_fields_on_condition_group_id"
+    t.index ["form_id", "deleted_at"], name: "index_form_fields_on_form_id_and_deleted_at", unique: true
+    t.index ["form_id"], name: "index_form_fields_on_form_id"
+    t.index ["form_input_id", "deleted_at"], name: "index_form_fields_on_form_input_id_and_deleted_at", unique: true
+    t.index ["form_input_id"], name: "index_form_fields_on_form_input_id"
+    t.index ["form_object_id", "deleted_at"], name: "index_form_fields_on_form_object_id_and_deleted_at", unique: true
+    t.index ["form_object_id"], name: "index_form_fields_on_form_object_id"
   end
 
-  create_table "form_input_values", force: :cascade do |t|
-    t.bigint "form_id", null: false
-    t.datetime "deleted_at"
-    t.string "value"
+  create_table "form_inputs", force: :cascade do |t|
+    t.string "name"
+    t.string "render_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind", null: false
-    t.string "field", null: false
-    t.index ["form_id"], name: "index_form_input_values_on_form_id"
+    t.datetime "deleted_at"
+  end
+
+  create_table "form_objects", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "forms", force: :cascade do |t|
     t.bigint "step_id"
+    t.bigint "contract_kind_id"
     t.string "name", null: false
     t.boolean "is_template", default: true, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "item_id", null: false
+    t.index ["contract_kind_id"], name: "index_forms_on_contract_kind_id"
     t.index ["name", "deleted_at"], name: "idx_unique_form_name", unique: true
     t.index ["step_id"], name: "index_forms_on_step_id"
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "deleted_at"], name: "idx_unique_items_name", unique: true
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -248,6 +256,15 @@ ActiveRecord::Schema.define(version: 20180301174623) do
     t.index ["staff_id"], name: "index_staffs_roles_on_staff_id"
   end
 
+  create_table "step_conditions", force: :cascade do |t|
+    t.bigint "step_id"
+    t.text "condition", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_step_conditions_on_step_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.integer "prev_step_id"
     t.string "name", null: false
@@ -263,11 +280,6 @@ ActiveRecord::Schema.define(version: 20180301174623) do
     t.index ["service_id"], name: "index_steps_on_service_id"
   end
 
-  create_table "system_objects", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.bigint "payment_schedule_id", null: false
     t.float "amount", null: false
@@ -277,8 +289,7 @@ ActiveRecord::Schema.define(version: 20180301174623) do
     t.index ["payment_schedule_id"], name: "index_transactions_on_payment_schedule_id"
   end
 
-  add_foreign_key "condition_groups", "form_input_values"
-  add_foreign_key "condition_groups", "steps"
+  add_foreign_key "condition_groups", "conditions"
   add_foreign_key "contracts", "contract_kinds"
   add_foreign_key "contracts", "customers"
   add_foreign_key "customers_steps", "contracts"
@@ -287,10 +298,11 @@ ActiveRecord::Schema.define(version: 20180301174623) do
   add_foreign_key "documents", "customers"
   add_foreign_key "documents", "document_kinds"
   add_foreign_key "documents", "staffs"
-  add_foreign_key "form_input_conditions", "condition_groups"
-  add_foreign_key "form_input_conditions", "conditions"
-  add_foreign_key "form_input_conditions", "form_input_values"
-  add_foreign_key "form_input_values", "forms"
+  add_foreign_key "form_fields", "condition_groups"
+  add_foreign_key "form_fields", "form_inputs"
+  add_foreign_key "form_fields", "form_objects"
+  add_foreign_key "form_fields", "forms"
+  add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"
   add_foreign_key "roles", "organizations"
@@ -299,6 +311,7 @@ ActiveRecord::Schema.define(version: 20180301174623) do
   add_foreign_key "roles_permissions", "roles"
   add_foreign_key "staffs_roles", "roles"
   add_foreign_key "staffs_roles", "staffs"
+  add_foreign_key "step_conditions", "steps"
   add_foreign_key "steps", "forms"
   add_foreign_key "steps", "services"
   add_foreign_key "transactions", "payment_schedules"
