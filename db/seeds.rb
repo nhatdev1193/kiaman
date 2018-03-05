@@ -55,11 +55,70 @@ def create_services_steps
 end
 
 def create_form_inputs
-  types = %w[string text_area]
+  types = %w[input text_area]
   types.each do |type|
     FormInput.find_or_create_by!(name: type, render_type: type)
   end
-  p "CREATED Form Input: #{types}"
+  p "CREATED Form Input: #{types.join(', ')}"
+end
+
+def create_forms
+  Form.create!(name: 'Registration Form')
+  p 'CREATED Form: Registration Form'
+end
+
+def create_conditions
+  validators = %w[presence string only_integer min_length max_length]
+  operators = %w[> <]
+  values = %w[20 5]
+  validators.each do |validator|
+    operator = %w[min_length max_length].include?(validator) ? operators.pop : '='
+    value = %w[min_length max_length].include?(validator) ? values.pop : true
+    Condition.create(name: validator,
+                     condition: { validator: validator, operator: operator, value: value })
+  end
+  p 'CREATED Conditions'
+end
+
+def create_condition_groups
+  # Group 1: presence && (min_length < 5 || max_length > 20)
+  condition_group = %w[presence min_length max_length]
+  @root_condition_1 = ConditionGroup.create!(operator: 'AND')
+  cg_or = ConditionGroup.create!(operator: 'OR', parent_id: @root_condition_1.id)
+  condition_group.each do |condition|
+    parent = condition == 'presence' ? @root_condition_1 : cg_or
+    ConditionGroup.create!(condition: Condition.find_by_name(condition), parent_id: parent.id)
+  end
+
+  # Group 2: presence && string && max_length > 20
+  @root_condition_2 = ConditionGroup.create!(operator: 'AND')
+  condition_group.each do |condition|
+    ConditionGroup.create!(condition: Condition.find_by_name(condition), parent_id: @root_condition_2.id)
+  end
+
+  # Group 3: only_integer
+  @root_condition_3 = ConditionGroup.create!(condition: Condition.find_by_name('only_integer'))
+
+  p 'CREATED Condition Group'
+end
+
+
+def create_form_fields
+  form = Form.first
+  fields = {
+    name: ['input', @root_condition_1],
+    address: ['text_area', @root_condition_2],
+    age: ['input', @root_condition_3]
+  }
+
+  fields.each do |attr_name, attr_value|
+    FormField.create(form: form,
+                     form_input: FormInput.find_by_name(attr_value[0]),
+                     condition_group: attr_value[1],
+                     field_name: attr_name)
+  end
+
+  p 'CREATED Form Field'
 end
 
 
@@ -69,3 +128,7 @@ create_roles
 create_staffs
 create_services
 create_form_inputs
+create_forms
+create_conditions
+create_condition_groups
+create_form_fields
