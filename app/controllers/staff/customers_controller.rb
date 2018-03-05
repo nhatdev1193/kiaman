@@ -8,19 +8,37 @@ class Staff::CustomersController < Staff::BaseController
   end
 
   def create
-    @customer = Customer.new(customer_params)
+    ActiveRecord::Base.transaction do
+      @customer = Customer.new(customer_params)
 
-    begin
-      Customer.transaction do
-        if @customer.save
-          customer_step(@customer, customer_params[:product_id])
+      if @customer.save!
+        redirect_to staff_customers_path, notice: 'Prospect was successfully created.' if customer_step(@customer, customer_params[:product_id])
+      else
+        render :new
+      end
+    end
+  rescue => _exception
+    render :new
+  end
+
+  def create_multi
+    ActiveRecord::Base.transaction do
+      customers_params[:customers].each do |cus_params|
+        next if invalid_customer?(cus_params[:customer])
+
+        cus_params[:customer][:product_id] = customers_params[:product_id]
+        @customer = Customer.new(cus_params[:customer])
+
+        if @customer.save!
+          customer_step(@customer, customers_params[:product_id])
         else
           render :new
         end
       end
-    rescue => _exception
-      render :new
+      redirect_to staff_customers_path
     end
+  rescue => _exception
+    render :new
   end
 
   private
@@ -29,13 +47,28 @@ class Staff::CustomersController < Staff::BaseController
     params.require(:customer).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday)
   end
 
+  def customers_params
+    params.require(:customers).permit(
+      :product_id,
+      customers: [
+        customer: [
+          :last_name, :first_name, :gender, :phone, :birthday
+        ]
+      ]
+    )
+  end
+
   def customer_step(customer, product_id)
     product = Product.find product_id
     customers_step = customer.customers_steps.build(step: product.first_step, created_staff_id: current_staff.id,
                                                     assigned_staff_id: current_staff.id, assigned_at: Time.now)
+
     return false unless customers_step.save
 
     customers_step.next_step!(current_staff.id)
-    redirect_to staff_customers_path, notice: 'Prospect was successfully created.'
+  end
+
+  def invalid_customer?(customer)
+    customer[:last_name].blank? && customer[:first_name].blank? && customer[:phone].blank? && customer[:gender].blank? && customer[:birthday].blank?
   end
 end

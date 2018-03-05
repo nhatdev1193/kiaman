@@ -6,6 +6,8 @@
 
   <!-- form start -->
   <%= form_for [:staff, @customer], :html => { role: 'form', class: 'form-horizontal' } do |f| %>
+    <%= hidden_field_tag :type, params[:type] %>
+
     <div class="box-body">
       <%= render 'staff/partials/form_errors', { errors: @customer.errors } %>
 
@@ -16,8 +18,8 @@
           <%= f.collection_select :product_id,
                                   Product.all,
                                   :id, :name,
-                                  { :prompt => 'Select' },
-                                  { :class => 'form-control select2' } %>
+                                  { prompt: 'Select' },
+                                  { class: 'form-control select2' } %>
         </div>
       </div>
 

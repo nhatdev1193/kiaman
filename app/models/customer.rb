@@ -18,7 +18,7 @@ class Customer < SoftDeleteBaseModel
   end
 
   def branch_name
-    set_customers_step.branch_name
+    set_customers_step&.branch_name
   end
 
   def assignee_name

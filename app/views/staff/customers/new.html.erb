@@ -8,4 +8,8 @@
     Customers <small>Add new</small>
 <% end %>
 
-<%= render 'form' %>
+<% if params[:type] == 'normal' %>
+    <%= render 'form' %>
+<% elsif params[:type] == 'multi' %>
+    <%= render 'multi_form' %>
+<% end %>
