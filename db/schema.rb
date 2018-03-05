@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304104259) do
+ActiveRecord::Schema.define(version: 20180304122232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,20 @@ ActiveRecord::Schema.define(version: 20180304104259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+  end
+
+  create_table "form_values", force: :cascade do |t|
+    t.bigint "form_id"
+    t.bigint "form_field_id"
+    t.integer "object_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["form_field_id", "deleted_at"], name: "index_form_values_on_form_field_id_and_deleted_at", unique: true
+    t.index ["form_field_id"], name: "index_form_values_on_form_field_id"
+    t.index ["form_id", "deleted_at"], name: "index_form_values_on_form_id_and_deleted_at", unique: true
+    t.index ["form_id"], name: "index_form_values_on_form_id"
   end
 
   create_table "forms", force: :cascade do |t|
@@ -302,6 +316,8 @@ ActiveRecord::Schema.define(version: 20180304104259) do
   add_foreign_key "form_fields", "form_inputs"
   add_foreign_key "form_fields", "form_objects"
   add_foreign_key "form_fields", "forms"
+  add_foreign_key "form_values", "form_fields"
+  add_foreign_key "form_values", "forms"
   add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"

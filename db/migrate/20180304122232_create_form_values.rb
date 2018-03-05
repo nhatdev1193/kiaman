@@ -9,7 +9,7 @@ class CreateFormValues < ActiveRecord::Migration[5.1]
       t.timestamps
       t.datetime :deleted_at
     end
+    add_index :form_values, [:form_id, :deleted_at], unique: true
+    add_index :form_values, [:form_field_id, :deleted_at], unique: true
   end
-  add_index :form_values, [:form_id, :deleted_at], unique: true
-  add_index :form_values, [:form_field_id, :deleted_at], unique: true
 end
