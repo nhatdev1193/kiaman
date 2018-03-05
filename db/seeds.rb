@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'database_cleaner'
+DatabaseCleaner.strategy = :truncation
 
 def create_organizations
   organization = Organization.create(name: 'Kim An HQ', parent_id: 0, level: 1)
@@ -25,7 +20,6 @@ def create_roles
 end
 
 def create_staffs
-  organization = Organization.first
   roles_name = Role.all
 
   roles_name.each do |role|
@@ -60,9 +54,18 @@ def create_services_steps
   end
 end
 
+def create_form_inputs
+  types = %w[string text_area]
+  types.each do |type|
+    FormInput.find_or_create_by!(name: type, render_type: type)
+  end
+  p "CREATED Form Input: #{types}"
+end
 
+
+DatabaseCleaner.clean
 create_organizations
 create_roles
 create_staffs
-
 create_services
+create_form_inputs
