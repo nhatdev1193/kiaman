@@ -13,12 +13,13 @@ def create_organizations
 end
 
 def create_roles
+  organization = Organization.first
   roles_name = %w[admin manager sale evaluator collector]
   roles = []
   roles_name.each_with_index do |name, idx|
-    roles.push({ name: name, description: "#{name} role", level: idx + 1 })
+    roles.push({ name: name, description: "#{name} role", level: idx + 1, organization: organization })
   end
-  Role.create(roles)
+  Role.create!(roles)
 
   p "CREATED ROLES - #{roles_name.join(',')}"
 end
@@ -32,7 +33,6 @@ def create_staffs
       s.mobile_phone = Faker::PhoneNumber.cell_phone
       s.password = 'password'
       s.password_confirmation = 'password'
-      s.organization = organization
       s.roles << role
     end
 
