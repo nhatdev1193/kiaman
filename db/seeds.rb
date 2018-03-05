@@ -83,21 +83,21 @@ end
 def create_condition_groups
   # Group 1: presence && (min_length < 5 || max_length > 20)
   condition_group = %w[presence min_length max_length]
-  @root_condition_1 = ConditionGroup.create!(operator: 'AND')
-  cg_or = ConditionGroup.create!(operator: 'OR', parent_id: @root_condition_1.id)
+  @root_condition1 = ConditionGroup.create!(operator: 'AND')
+  cg_or = ConditionGroup.create!(operator: 'OR', parent_id: @root_condition1.id)
   condition_group.each do |condition|
-    parent = condition == 'presence' ? @root_condition_1 : cg_or
+    parent = condition == 'presence' ? @root_condition1 : cg_or
     ConditionGroup.create!(condition: Condition.find_by_name(condition), parent_id: parent.id)
   end
 
   # Group 2: presence && string && max_length > 20
-  @root_condition_2 = ConditionGroup.create!(operator: 'AND')
+  @root_condition2 = ConditionGroup.create!(operator: 'AND')
   condition_group.each do |condition|
-    ConditionGroup.create!(condition: Condition.find_by_name(condition), parent_id: @root_condition_2.id)
+    ConditionGroup.create!(condition: Condition.find_by_name(condition), parent_id: @root_condition2.id)
   end
 
   # Group 3: only_integer
-  @root_condition_3 = ConditionGroup.create!(condition: Condition.find_by_name('only_integer'))
+  @root_condition3 = ConditionGroup.create!(condition: Condition.find_by_name('only_integer'))
 
   p 'CREATED Condition Group'
 end
@@ -106,9 +106,9 @@ end
 def create_form_fields
   form = Form.first
   fields = {
-    name: ['input', @root_condition_1],
-    address: ['text_area', @root_condition_2],
-    age: ['input', @root_condition_3]
+    name: ['input', @root_condition1],
+    address: ['text_area', @root_condition2],
+    age: ['input', @root_condition3]
   }
 
   fields.each do |attr_name, attr_value|
