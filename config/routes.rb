@@ -24,11 +24,11 @@ Rails.application.routes.draw do
     resources :permissions, only: [:index, :edit, :update]
     resources :staffs, except: [:show]
 
-    resources :services, except: [:show]
-    resources :steps, except: [:show]
-    resources :forms, only: [] do
+    resources :services, except: [:show] do
+      resources :steps, except: [:show]
+    end
+    resources :forms do
       member do
-        get :view
         post :execute
       end
     end
