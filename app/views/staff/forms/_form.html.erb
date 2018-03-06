@@ -5,7 +5,7 @@
   </div><!-- /.box-header -->
 
   <!-- form start -->
-  <%= form_tag({controller: 'staff/forms', action: 'execute', method: 'post' }, {class: 'form-horizontal'}) do %>
+  <%= form_tag({controller: 'staff/forms', action: 'execute' }, {role: 'form', method: 'post', class: 'form-horizontal'}) do %>
       <div class="box-body">
         <% @form.form_fields.each do |field| %>
           <div class="form-group">
@@ -21,11 +21,11 @@
           </div>
         <% end %>
       </div>
-      
+
       <div class="box-footer">
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-6">
-            <%= submit_tag nil, class: 'btn btn-success btn-flat' %>
+            <%= submit_tag 'Submit', class: 'btn btn-success btn-flat', data: { disable_with: false } %>
           </div>
         </div>
       </div><!-- /.box-footer -->
