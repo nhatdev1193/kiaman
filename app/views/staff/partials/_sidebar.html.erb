@@ -27,6 +27,9 @@
     <% if can_access?(@current_staff_permissions, staff_services_path, 'index') %>
       <%= nav_link 'Services', staff_services_path, 'cogs' %>
     <% end %>
+    <% if can_access?(@current_staff_permissions, staff_forms_path, 'index') %>
+      <%= nav_link 'Dynamic forms', staff_forms_path, 'list' %>
+    <% end %>
 
     <li class="header">Others</li>
     <li>
