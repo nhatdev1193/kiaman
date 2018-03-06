@@ -8,33 +8,7 @@
   Roles
 <% end %>
 
-<div class="box box-info">
-  <%= form_with url: staff_roles_path, method: :get, local: true,
-                scope: :search_conditions, class: 'form-horizontal',
-                html: { role: 'form' } do |f| %>
-    <div class="box-header with-border">
-      <h3 class="box-title">Search</h3>
-    </div>
-
-    <div class="box-body">
-      <div class="form-group">
-        <%= f.label :name, class: 'control-label col-sm-3' %>
-
-        <div class="col-sm-6">
-          <%= f.text_field :name, class: 'form-control', value: @search_conditions&.fetch(:name) %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-6">
-          <button type="submit" class="btn btn-success btn-flat">
-            <%= fa_icon 'search' %> Search
-          </button>
-        </div>
-      </div>
-    </div><!-- /.box-body -->
-  <% end %>
-</div>
+<%= render 'search_form' %>
 
 <div class="box box-info">
   <div class="box-body">
@@ -45,6 +19,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Level</th>
+            <th>Parent</th>
             <th></th>
           </tr>
         </thead>
@@ -54,16 +29,17 @@
               <td><%= role.id %></td>
               <td><%= role.name %></td>
               <td><%= role.level %></td>
+              <td><%= role.parent&.name || '' %></td>
               <td>
-                <%= link_to edit_staff_role_path(role), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_organization_role_path(@organization, role), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
                 <% if role.deleted? %>
-                  <%= link_to staff_role_path(role), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                  <%= link_to staff_organization_role_path(@organization, role), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
                 <% else %>
-                  <%= link_to staff_role_path(role), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                  <%= link_to staff_organization_role_path(@organization, role), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
@@ -76,7 +52,10 @@
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= link_to new_staff_role_path(query: @search_params), class: 'btn btn-primary btn-flat pull-left' do %>
+    <%= link_to staff_organizations_path, class: 'btn btn-default btn-flat' do %>
+      <%= fa_icon 'sitemap' %> Back to Organizations list
+    <% end %>
+    <%= link_to new_staff_organization_role_path(@organization, query: @search_params), class: 'btn btn-primary btn-flat' do %>
       <%= fa_icon 'plus' %> New role
     <% end %>
   </div><!-- /.box-footer -->

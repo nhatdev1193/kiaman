@@ -4,11 +4,13 @@ class Staff < SoftDeleteBaseModel
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :organization
+  # Associations
   has_and_belongs_to_many :roles, join_table: 'staffs_roles'
   has_many :permissions, through: :roles
+  has_many :organizations, through: :roles
 
-  validates :email, :organization_id, :mobile_phone, :roles, presence: true
+  # Validations
+  validates :email, :mobile_phone, presence: true
 
   #
   # Dynamically create instance methods to check role of staff

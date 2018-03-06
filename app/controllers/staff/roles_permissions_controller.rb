@@ -1,12 +1,15 @@
 class Staff::RolesPermissionsController < Staff::BaseController
+  before_action :set_organization
 
-  # GET /roles_permissions
+  # GET /organizations/:organization_id/roles_permissions
   def index
-    @roles = Role.where.not(name: 'admin').includes(:permissions)
+    @roles = @organization.roles
+                          .without_admin_role
+                          .includes(:permissions)
     @permissions = Permission.all
   end
 
-  # PATCH/PUT /roles_permissions
+  # PATCH/PUT /organizations/:organization_id/roles_permissions
   def update
     initial_roles_permissions_vals = roles_permissions_params[:initial_roles_permissions_vals].split(',')
     selected_roles_permissions_vals = roles_permissions_params[:selected_roles_permissions_vals].split(',')
@@ -16,7 +19,6 @@ class Staff::RolesPermissionsController < Staff::BaseController
 
     # Filter new records which will be added
     new_records = selected_roles_permissions_vals.reject{ |v| initial_roles_permissions_vals.include?(v) }
-
 
     #
     # Database operations
@@ -36,13 +38,16 @@ class Staff::RolesPermissionsController < Staff::BaseController
       end
     end
 
-    redirect_to staff_roles_permissions_path, notice: 'Roles & permissions successfully updated.'
+    redirect_to staff_organizations_path, notice: 'Roles & permissions successfully updated.'
   end
-
 
   private
 
   def roles_permissions_params
     params.permit(:initial_roles_permissions_vals, :selected_roles_permissions_vals)
+  end
+
+  def set_organization
+    @organization = Organization.find(params[:organization_id])
   end
 end

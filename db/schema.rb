@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301044804) do
+ActiveRecord::Schema.define(version: 20180301174623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,7 +183,10 @@ ActiveRecord::Schema.define(version: 20180301044804) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_id"
+    t.integer "parent_id"
     t.index ["name", "deleted_at"], name: "idx_unique_role_name", unique: true
+    t.index ["organization_id"], name: "index_roles_on_organization_id"
   end
 
   create_table "roles_permissions", force: :cascade do |t|
@@ -217,11 +220,9 @@ ActiveRecord::Schema.define(version: 20180301044804) do
     t.string "phone"
     t.string "mobile_phone", null: false
     t.datetime "deleted_at"
-    t.bigint "organization_id", null: false
     t.index ["email", "deleted_at"], name: "idx_unique_staff_email", unique: true
     t.index ["email"], name: "index_staffs_on_email", unique: true
     t.index ["mobile_phone", "deleted_at"], name: "idx_unique_staff_mobile_phone", unique: true
-    t.index ["organization_id"], name: "index_staffs_on_organization_id"
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
@@ -282,10 +283,10 @@ ActiveRecord::Schema.define(version: 20180301044804) do
   add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"
+  add_foreign_key "roles", "organizations"
   add_foreign_key "roles_permissions", "organizations"
   add_foreign_key "roles_permissions", "permissions"
   add_foreign_key "roles_permissions", "roles"
-  add_foreign_key "staffs", "organizations"
   add_foreign_key "staffs_roles", "roles"
   add_foreign_key "staffs_roles", "staffs"
   add_foreign_key "step_conditions", "steps"

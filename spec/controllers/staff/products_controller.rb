@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Staff::ProductsController, type: :controller do
-  let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:ho_organization) { create(:organization, name: 'Kim An HO') }
-  let(:admin) { create(:staff, roles: [admin_role], organization: ho_organization) }
+  let(:admin_role) { create(:role, name: 'admin', level: 1, organization: ho_organization) }
+  let(:admin) { create(:staff, roles: [admin_role]) }
 
   before { sign_in admin }
 

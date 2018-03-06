@@ -37,6 +37,16 @@ module ApplicationHelper
     end
   end
 
+  def can_access?(user_permissions, controller_path, action_name)
+    # Always pass if current user is admin
+    return true if user_permissions.include?('admin')
+
+    # Otherwise check for permission to show/hide screen items
+    user_permissions.find { |permission|
+      ['/', permission.controller_path].join('') == controller_path && permission.action_name == action_name
+    }
+  end
+
   def format_time(time)
     time = time.to_datetime if time.is_a? Date
     if time

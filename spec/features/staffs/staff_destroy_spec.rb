@@ -3,7 +3,7 @@ feature 'Destroy staff' do
 
   before do
     role = create :role
-    @staff = create :staff, roles: [role]
+    @staff = create_list(:staff, 3, roles: [role])
     visit staff_staffs_path
   end
 

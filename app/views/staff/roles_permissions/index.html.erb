@@ -1,18 +1,17 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-  Permissions
+    <%= @organization.name %> - Assign permissions to roles
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-  Permissions
+    <%= @organization.name %> - Assign permissions to roles
 <% end %>
 
 <div class="box box-info">
   <div class="box-body">
-    <!-- form start -->
-
     <div class="table-responsive">
+      <% if @roles.size > 0 %>
       <table class="table table-hover table-bordered table-striped no-margin">
         <thead>
         <tr>
@@ -38,16 +37,22 @@
           <% end %>
         </tbody>
       </table>
+      <% else %>
+      There is no roles to assign permissions!
+      <% end %>
     </div><!-- /.table-responsive -->
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= form_with url: staff_roles_permissions_path, html: { id: 'form-update-roles-permissions' ,method: 'PATCH' } do |f| %>
+    <%= form_with url: staff_organization_roles_permissions_path(@organization), html: { id: 'form-update-roles-permissions', method: 'PATCH' } do |f| %>
       <%= f.hidden_field :initial_roles_permissions_vals, id: :initial_roles_permissions_vals %>
       <%= f.hidden_field :selected_roles_permissions_vals, id: :selected_roles_permissions_vals %>
     <% end %>
 
-    <a id="btn-update-roles-permissions" href="#" class="btn btn-primary btn-flat pull-left">
+    <%= link_to staff_organizations_path, class: 'btn btn-default btn-flat' do %>
+      <%= fa_icon 'sitemap' %> Back to Organizations list
+    <% end %>
+    <a id="btn-update-roles-permissions" href="#" class="btn btn-success btn-flat">
       Save <%= fa_icon 'check' %>
     </a>
   </div><!-- /.box-footer -->
