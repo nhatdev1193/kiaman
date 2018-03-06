@@ -42,7 +42,7 @@ class CustomersStep < SoftDeleteBaseModel
   end
 
   def branch_name
-    'creator.organization.name'
+    creator.organizations.order(:level).first.name
   end
 
   def creator
