@@ -26,6 +26,12 @@ Rails.application.routes.draw do
 
     resources :services, except: [:show]
     resources :steps, except: [:show]
+    resources :forms, only: [] do
+      member do
+        get :view
+        post :execute
+      end
+    end
   end
 
   root to: 'staff/dashboard#index'
