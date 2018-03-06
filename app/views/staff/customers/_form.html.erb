@@ -55,6 +55,22 @@
         </div>
       </div>
 
+      <div id="school-field" class="form-group <%= @customer.product_id === '1' ? 'present' : 'hidden' %>">
+        <%= f.label 'Trường *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :school, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div id="merchandise-field" class="form-group <%= @customer.product_id === '2' ? 'present' : 'hidden' %>">
+        <%= f.label 'Mặt hàng *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :merchandise, class: 'form-control' %>
+        </div>
+      </div>
+
       <div class="form-group">
         <%= f.label 'Ngày sinh', class: 'control-label col-sm-3' %>
 

@@ -44,15 +44,19 @@ class Staff::CustomersController < Staff::BaseController
   private
 
   def customer_params
-    params.require(:customer).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday)
+    params[:customer].delete(:merchandise) if params[:customer][:product_id] == '1'
+    params[:customer].delete(:school) if params[:customer][:product_id] == '2'
+    params.require(:customer).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise)
   end
 
   def customers_params
+    params[:customers][:customers].each { |c| c[:customer].delete(:merchandise) } if params[:customers][:product_id] == '1'
+    params[:customers][:customers].each { |c| c[:customer].delete(:school) } if params[:customers][:product_id] == '2'
     params.require(:customers).permit(
       :product_id,
       customers: [
         customer: [
-          :last_name, :first_name, :gender, :phone, :birthday
+          :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise
         ]
       ]
     )

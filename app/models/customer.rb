@@ -10,6 +10,7 @@ class Customer < SoftDeleteBaseModel
 
   validates :first_name, :phone, :product_id, presence: true
   validates :phone, numericality: true
+  validate :product_validate
 
   enum status: { prospect: 0, lead: 1, customer: 2 }
 
@@ -41,5 +42,13 @@ class Customer < SoftDeleteBaseModel
 
   def set_customers_step
     customers_steps.order(created_at: :desc).first
+  end
+
+  def product_validate
+    if product_id == '1'
+      errors.add(:school, :blank) unless school.present?
+    elsif product_id == '2'
+      errors.add(:merchandise, :blank) unless merchandise.present?
+    end
   end
 end

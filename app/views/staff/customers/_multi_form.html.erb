@@ -30,6 +30,8 @@
               <th>Họ và tên lót</th>
               <th>Tên *</th>
               <th>SDT *</th>
+              <th class="th-school <%= params[:customers] ? (params[:customers][:product_id] === '1' ? 'present' : 'hidden') : 'hidden' %>">Trường *</th>
+              <th class="th-merchandise <%= params[:customers] ? (params[:customers][:product_id] === '2' ? 'present' : 'hidden') : 'hidden' %>">Mặt hàng *</th>
               <th>Giới tính</th>
               <th>Ngày sinh</th>
             </tr>
@@ -42,6 +44,12 @@
                 <td><%= text_field_tag 'customers[customers][]customer[last_name]', params[:customers] ? params[:customers][:customers][index][:customer][:last_name] : nil, class: 'form-control' %></td>
                 <td><%= text_field_tag 'customers[customers][]customer[first_name]', params[:customers] ? params[:customers][:customers][index][:customer][:first_name] : nil,  class: 'form-control' %></td>
                 <td><%= text_field_tag 'customers[customers][]customer[phone]', params[:customers] ? params[:customers][:customers][index][:customer][:phone] : nil,  class: 'form-control' %></td>
+                <td class="td-school <%= params[:customers] ? (params[:customers][:product_id] === '1' ? 'present' : 'hidden') : 'hidden' %>">
+                  <%= text_field_tag 'customers[customers][]customer[school]', params[:customers] ? params[:customers][:customers][index][:customer][:school] : nil,  class: 'form-control' %>
+                </td>
+                <td class="td-merchandise <%= params[:customers] ? (params[:customers][:product_id] === '2' ? 'present' : 'hidden') : 'hidden' %>">
+                  <%= text_field_tag 'customers[customers][]customer[merchandise]', params[:customers] ? params[:customers][:customers][index][:customer][:merchandise] : nil,  class: 'form-control' %>
+                </td>
                 <td><%= select_tag 'customers[customers][]customer[gender]', options_for_select(Customer::GENDER_TYPES, selected: params[:customers] ? params[:customers][:customers][index][:customer][:gender] : nil), prompt: 'Select', class: 'form-control' %></td>
                 <td><%= date_field_tag 'customers[customers][]customer[birthday]', params[:customers] ? params[:customers][:customers][index][:customer][:birthday] : nil,  class: 'form-control' %></td>
               </tr>
