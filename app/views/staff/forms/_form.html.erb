@@ -5,7 +5,29 @@
   </div><!-- /.box-header -->
 
   <!-- form start -->
-  <%= form_tag(controller: 'staff/forms', action: 'execute', method: 'post', class: 'form-horizontal') do %>
-    <!--Content-->
+  <%= form_tag({controller: 'staff/forms', action: 'execute', method: 'post' }, {class: 'form-horizontal'}) do %>
+      <div class="box-body">
+        <% @form.form_fields.each do |field| %>
+          <div class="form-group">
+            <label class="control-label col-sm-3"><%= field.field_name.capitalize %></label>
+            <div class="col-sm-6">
+              <% case field.form_input.render_type
+              when 'text_area' %>
+                <%= text_area_tag(field.field_name.to_sym, '', class: 'form-control') %>
+              <% else %>
+                <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="box-footer">
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-6">
+            <%= submit_tag nil, class: 'btn btn-success btn-flat' %>
+          </div>
+        </div>
+      </div><!-- /.box-footer -->
   <% end %>
 </div>
