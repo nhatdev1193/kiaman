@@ -2,10 +2,10 @@ class Staff::StepsController < Staff::BaseController
   before_action :set_step, only: [:edit, :update, :destroy]
 
   def index
-    unless Service.count.positive?
-      flash.now[:warning] = "No service available.
-                            Click #{view_context.link_to('here', new_staff_service_path)}
-                            to create one Service first.".html_safe
+    unless Product.count.positive?
+      flash.now[:warning] = "No product available.
+                            Click #{view_context.link_to('here', new_staff_product_path)}
+                            to create one Product first.".html_safe
     end
     @steps = Step.with_deleted
   end
@@ -46,7 +46,7 @@ class Staff::StepsController < Staff::BaseController
   private
 
   def step_params
-    params.require(:step).permit(:name, :description, :parent_id, :service_id, :next_step_id, :prev_step_id, :form_id)
+    params.require(:step).permit(:name, :description, :parent_id, :product_id, :next_step_id, :prev_step_id, :form_id)
   end
 
   def set_step

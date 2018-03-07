@@ -4,9 +4,9 @@
   </div><!-- /.box-header -->
 
   <!-- form start -->
-  <%= form_for [:staff, @service], html: { role: 'form', class: 'form-horizontal' } do |f| %>
+  <%= form_for [:staff, @product], html: { role: 'form', class: 'form-horizontal' } do |f| %>
     <div class="box-body">
-      <%= render 'staff/partials/form_errors', { errors: @service.errors } %>
+      <%= render 'staff/partials/form_errors', { errors: @product.errors } %>
 
       <div class="form-group">
         <%= f.label :name, class: 'control-label col-sm-3' %>
@@ -28,7 +28,7 @@
     <div class="box-footer">
       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-          <%= link_to 'Back', staff_services_path, class: 'btn btn-default btn-flat' %>
+          <%= link_to 'Back', staff_products_path, class: 'btn btn-default btn-flat' %>
           <%= f.submit class: 'btn btn-primary btn-flat' %>
         </div>
       </div>

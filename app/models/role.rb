@@ -1,5 +1,4 @@
 class Role < SoftDeleteBaseModel
-
   include Parentable
 
   # Associations

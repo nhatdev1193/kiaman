@@ -8,6 +8,6 @@ feature 'Destroy organization' do
 
   scenario 'admin delete the organization' do
     find_all('a', text: 'Delete').last.click
-    expect(page).to have_content 'Restore'
+    expect(page).not_to have_content @organization.name
   end
 end

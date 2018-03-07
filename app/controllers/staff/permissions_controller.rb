@@ -1,5 +1,4 @@
 class Staff::PermissionsController < Staff::BaseController
-
   before_action :set_permission, only: [:edit, :update]
 
   # GET /organization/:organization_id/permissions
@@ -18,7 +17,6 @@ class Staff::PermissionsController < Staff::BaseController
       render :edit
     end
   end
-
 
   private
 

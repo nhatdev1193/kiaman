@@ -9,7 +9,6 @@ feature 'Edit staff' do
 
   scenario 'admin edit the last staff' do
     other_role = create :role
-    organization = create :organization
 
     find_all('a', text: 'Edit').last.click
 
@@ -18,8 +17,7 @@ feature 'Edit staff' do
     fill_in 'staff_address', with: 'updated address'
     fill_in 'staff_phone', with: '381234567'
     fill_in 'staff_mobile_phone', with: '0123456789'
-    find(:css, "#staff_role_ids_#{other_role.id}").set(true)
-    find("option[value='#{organization.id}']").select_option
+    select other_role.name, from: 'staff_role_ids', visible: false
 
     click_button 'Update Staff'
 

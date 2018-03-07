@@ -1,12 +1,10 @@
 class Staff::BaseController < ApplicationController
-
   include ErrorHandlers
   before_action :authenticate_staff!,
                 :set_current_staff_permissions,
                 :authorize_current_staff!
 
   layout 'application_staff'
-
 
   protected
 

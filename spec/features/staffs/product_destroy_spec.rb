@@ -1,13 +1,13 @@
-feature 'Destroy service' do
+feature 'Destroy product' do
   include_context 'a logged in admin'
 
   before do
-    @service = create :service
+    @product = create :product
 
-    visit staff_services_path
+    visit staff_products_path
   end
 
-  scenario 'admin delete the service' do
+  scenario 'admin delete the product' do
     find_all('a', text: 'Delete').last.click
 
     expect(page).to have_content 'Restore'
