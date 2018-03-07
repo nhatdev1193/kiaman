@@ -15,15 +15,15 @@ class Customer < SoftDeleteBaseModel
   enum status: { prospect: 0, lead: 1, customer: 2 }
 
   def product_name
-    set_step&.product_name
+    first_customer_step&.step&.product_name
   end
 
   def branch_name
-    set_customers_step&.branch_name
+    first_customer_step&.branch_name
   end
 
   def assignee_name
-    set_customers_step&.assignee_name
+    first_customer_step&.assignee_name
   end
 
   def gender_name
@@ -36,11 +36,7 @@ class Customer < SoftDeleteBaseModel
     self.status = :prospect if new_record?
   end
 
-  def set_step
-    set_customers_step&.step
-  end
-
-  def set_customers_step
+  def first_customer_step
     customers_steps.order(created_at: :desc).first
   end
 

@@ -1,4 +1,14 @@
 $(document).on('turbolinks:load', function(){
+  // Normal prospect form vars
+  let $schoolField = $('#school-field');
+  let $merchandiseField = $('#merchandise-field');
+
+  // Multi prospect form vars
+  let $thSchool = $('.th-school');
+  let $thMerchandise = $('.th-merchandise');
+  let $tdSchool = $('.td-school');
+  let $tdMerchandise = $('.td-merchandise');
+
   // Event add more 10 rows in create list prospect
   $('#add-more').click(function(e){
     e.preventDefault();
@@ -20,40 +30,28 @@ $(document).on('turbolinks:load', function(){
   // Show/hide school or merchandise follow product selection in normal prospect form
   $('#customer_product_id').change(function(){
     if($(this).val() === '1'){
-      $('#school-field').removeClass('hidden');
-      $('#school-field').addClass('present');
-      $('#merchandise-field').addClass('hidden');
-      $('#merchandise-field').removeClass('present');
+      $schoolField.removeClass('hidden').addClass('present');
+      $merchandiseField.removeClass('present').addClass('hidden');
     }else if($(this).val() === '2'){
-      $('#merchandise-field').removeClass('hidden');
-      $('#merchandise-field').addClass('present');
-      $('#school-field').addClass('hidden');
-      $('#school-field').removeClass('present');
+      $merchandiseField.removeClass('hidden').addClass('present');
+      $schoolField.removeClass('present').addClass('hidden');
     }
   });
 
   // Show/hide school or merchandise follow product selection in list prospect form
   $('#customers_product_id').change(function(){
     if($(this).val() === '1'){
-      $('.th-school').removeClass('hidden');
-      $('.th-school').addClass('present');
-      $('.th-merchandise').removeClass('present');
-      $('.th-merchandise').addClass('hidden');
+      $thSchool.removeClass('hidden').addClass('present');
+      $thMerchandise.removeClass('present').addClass('hidden');
 
-      $('.td-school').removeClass('hidden');
-      $('.td-school').addClass('present');
-      $('.td-merchandise').removeClass('present');
-      $('.td-merchandise').addClass('hidden');
+      $tdSchool.removeClass('hidden').addClass('present');
+      $tdMerchandise.removeClass('present').addClass('hidden');
     }else if($(this).val() === '2'){
-      $('.th-merchandise').removeClass('hidden');
-      $('.th-merchandise').addClass('present');
-      $('.th-school').removeClass('present');
-      $('.th-school').addClass('hidden');
+      $thMerchandise.removeClass('hidden').addClass('present');
+      $thSchool.removeClass('present').addClass('hidden');
 
-      $('.td-merchandise').removeClass('hidden');
-      $('.td-merchandise').addClass('present');
-      $('.td-school').removeClass('present');
-      $('.td-school').addClass('hidden');
+      $tdMerchandise.removeClass('hidden').addClass('present');
+      $tdSchool.removeClass('present').addClass('hidden');
     }
   });
 });

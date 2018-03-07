@@ -62,6 +62,8 @@ class Staff::CustomersController < Staff::BaseController
     )
   end
 
+  # Store 1st step of flow into customers_steps
+  # Move next step if customer info & 1st step stored successful
   def customer_step(customer, product_id)
     product = Product.find product_id
     customers_step = customer.customers_steps.build(step: product.first_step, created_staff_id: current_staff.id,
