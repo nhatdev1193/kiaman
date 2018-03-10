@@ -1,33 +1,84 @@
 <div class="box box-info">
-
   <div class="box-header with-border">
     <h3 class="box-title"><%= @dynamic_form.name %></h3>
   </div><!-- /.box-header -->
 
-  <!-- form start -->
-  <%= form_tag({controller: 'staff/forms', action: 'execute' }, {role: 'form', method: 'post', class: 'form-horizontal'}) do %>
-      <div class="box-body">
-        <% @dynamic_form.form_fields.each do |field| %>
+  <div class="box-body">
+    <ul  class="nav nav-pills">
+      <li class="active"><a  href="#personal" data-toggle="tab">CÁ NHÂN</a></li>
+      <li><a href="#study" data-toggle="tab">HỌC TẬP</a></li>
+      <li><a href="#finance" data-toggle="tab">TÀI CHÍNH</a></li>
+      <li><a href="#job" data-toggle="tab">VIỆC LÀM</a></li>
+      <li><a href="#reference" data-toggle="tab">THAM CHIẾU</a></li>
+    </ul>
+
+    <%= form_tag({controller: 'staff/forms', action: 'execute' }, {role: 'form', method: 'post', class: 'form-horizontal'}) do %>
+      <div class="tab-content clearfix">
+        <div class="tab-pane active" id="personal">
           <div class="form-group">
-            <label class="control-label col-sm-3"><%= field.field_name.capitalize %></label>
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'ho' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
             <div class="col-sm-6">
-              <% case field.form_input.render_type
-              when 'text_area' %>
-                <%= text_area_tag(field.field_name.to_sym, '', class: 'form-control') %>
-              <% else %>
-                <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
-              <% end %>
+              <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
             </div>
           </div>
-        <% end %>
-      </div>
-
-      <div class="box-footer">
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-6">
-            <%= submit_tag 'Submit', class: 'btn btn-success btn-flat', data: { disable_with: false } %>
+          <div class="form-group">
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'ten' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
+            </div>
+          </div>
+          <div class="form-group">
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'sdt' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
+            </div>
+          </div>
+          <div class="form-group">
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'sdt2' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag(field.field_name.to_sym, '', class: 'form-control') %>
+            </div>
+          </div>
+          <div class="form-group">
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'gioi_tinh' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
+            <div class="col-sm-6">
+              <%= select_tag(field.field_name.to_sym, options_for_select([%w[Nam 1], %w[Nữ 2]]), class: 'form-control') %>
+            </div>
+          </div>
+          <div class="form-group">
+            <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'ngay_sinh' } %>
+            <label class="control-label col-sm-3"><%= field.display_name %></label>
+            <div class="col-sm-6">
+              <%= date_field('', field.field_name.to_sym, {class: 'form-control'}) %>
+            </div>
           </div>
         </div>
-      </div><!-- /.box-footer -->
-  <% end %>
+        <div class="tab-pane" id="study">
+          <h3>2</h3>
+        </div>
+        <div class="tab-pane" id="finance">
+          <h3>3</h3>
+        </div>
+        <div class="tab-pane" id="job">
+          <h3>4</h3>
+        </div>
+        <div class="tab-pane" id="reference">
+          <h3>5</h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="box-footer">
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-6">
+        <%= submit_tag 'Submit', class: 'btn btn-success btn-flat', data: { disable_with: false } %>
+      </div>
+    </div>
+  </div><!-- /.box-footer -->
 </div>
