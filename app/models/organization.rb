@@ -1,5 +1,4 @@
 class Organization < SoftDeleteBaseModel
-
   include Parentable
 
   # Associations

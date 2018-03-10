@@ -1,5 +1,4 @@
 class Staff::StaffsController < Staff::BaseController
-
   before_action :set_staff, only: [:edit, :update, :destroy]
   before_action :set_organizations
 

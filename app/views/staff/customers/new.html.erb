@@ -1,0 +1,15 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Customers
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Customers <small>Add new</small>
+<% end %>
+
+<% if params[:type] == 'normal' %>
+    <%= render 'form' %>
+<% elsif params[:type] == 'multi' %>
+    <%= render 'multi_form' %>
+<% end %>

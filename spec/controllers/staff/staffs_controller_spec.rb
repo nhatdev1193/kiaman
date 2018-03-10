@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Staff::StaffsController, type: :controller do
-  let(:admin_role) { create(:role, name: 'admin', level: 1) }
   let(:ho_organization) { create(:organization, name: 'Kim An HO') }
-  let(:admin) { create(:staff, roles: [admin_role], organization: ho_organization) }
+  let(:admin_role) { create(:role, name: 'admin', level: 1, organization: ho_organization) }
+  let(:admin) { create(:staff, roles: [admin_role]) }
 
   before { sign_in admin }
 
@@ -50,24 +50,6 @@ describe Staff::StaffsController, type: :controller do
 
     context 'with invalid mobile_phone param' do
       let(:staff_attributes) { attributes_for(:staff, mobile_phone: '') }
-
-      it "returns a success response (i.e. to display the 'new' template)" do
-        action
-        expect(response).to be_success
-      end
-    end
-
-    context 'with invalid role_id param' do
-      let(:staff_attributes) { attributes_for(:staff, roles: []) }
-
-      it "returns a success response (i.e. to display the 'new' template)" do
-        action
-        expect(response).to be_success
-      end
-    end
-
-    context 'with invalid organization_id param' do
-      let(:staff_attributes) { attributes_for(:staff, organization_id: '') }
 
       it "returns a success response (i.e. to display the 'new' template)" do
         action

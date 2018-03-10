@@ -23,9 +23,18 @@
       <%= nav_link 'Staffs', staff_staffs_path, 'users' %>
     <% end %>
 
-    <li class="header">Services Management</li>
-    <% if can_access?(@current_staff_permissions, staff_services_path, 'index') %>
-      <%= nav_link 'Services', staff_services_path, 'cogs' %>
+
+    <li class="header">Products Management</li>
+    <% if can_access?(@current_staff_permissions, staff_products_path, 'index') %>
+      <%= nav_link 'Products', staff_products_path, 'cogs' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_steps_path, 'index') %>
+      <%= nav_link 'Steps', staff_steps_path, 'paw' %>
+    <% end %>
+
+    <li class="header">Customers Management</li>
+    <% if can_access?(@current_staff_permissions, staff_customers_path, 'index') %>
+      <%= nav_link 'Customers', staff_customers_path, 'users' %>
     <% end %>
     <% if can_access?(@current_staff_permissions, staff_forms_path, 'index') %>
       <%= nav_link 'Dynamic forms', staff_forms_path, 'list' %>

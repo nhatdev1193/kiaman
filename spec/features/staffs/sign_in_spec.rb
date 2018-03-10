@@ -1,6 +1,7 @@
 feature 'Sign in', :devise do
   before :all do
-    @role = Role.find_or_create_by name: 'admin'
+    ho_organization = Organization.find_or_create_by name: 'Kim An HO'
+    @role = Role.find_or_create_by name: 'admin', organization: ho_organization
   end
 
   before :each do

@@ -1,5 +1,4 @@
 class Staff::RolesController < Staff::BaseController
-
   before_action :set_organization
   before_action :set_role, only: [:edit, :update, :destroy]
 
@@ -45,7 +44,6 @@ class Staff::RolesController < Staff::BaseController
       format.json { head :no_content }
     end
   end
-
 
   private
 

@@ -15,18 +15,16 @@ module Parentable
         all
       else
         where.not(id: current_model.id) # Not itself
-            .where('level <= ?', current_model.level) # Must be at higher level
+             .where('level <= ?', current_model.level) # Must be at higher level
       end
     }
   end
-
 
   #
   # Methods defined here are going to extend the class, not the instance of it
   #
   class_methods do
   end
-
 
   # Private methods
   private

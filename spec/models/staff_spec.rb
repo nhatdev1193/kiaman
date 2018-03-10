@@ -10,6 +10,5 @@ describe Staff do
   end
 
   it { is_expected.to have_and_belong_to_many(:roles) }
-  it { is_expected.to belong_to(:organization) }
   it { is_expected.to have_many(:permissions) }
 end

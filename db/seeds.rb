@@ -37,21 +37,34 @@ def create_staffs
   end
 end
 
-def create_services
-  service_kinds = ['Student Loan', 'SME Loan']
+def create_products
+  product_kinds = ['Student Loan', 'SME Loan']
 
-  service_kinds.each do |service_kind|
-    Service.find_or_create_by!(name: service_kind)
-    p "CREATED Services: #{service_kinds.join('-')}"
+  product_kinds.each do |product_kind|
+    Product.find_or_create_by!(name: product_kind)
+    p "CREATED Products: #{product_kinds.join('-')}"
   end
 end
 
-def create_services_steps
-  service_kinds = ['Student Loan', 'SME Loan']
+def create_products_steps
+  product_kinds = ['Student Loan', 'SME Loan']
 
-  service_kinds.each do |service_kind|
-    Service.find_or_create_by!(name: service_kind)
-    p "CREATED Services: #{service_kinds}"
+  product_kinds.each do |product_kind|
+    product = Product.find_or_create_by!(name: product_kind)
+
+    prospect_step = Step.find_or_create_by!(name: "Prospect #{product_kind}", description: "Prospect #{product_kind}", product: product)
+    fullfill_step = Step.find_or_create_by!(name: "Fullfill #{product_kind}", description: "Fullfill #{product_kind}", product: product)
+    lead_step = Step.find_or_create_by!(name: "Lead #{product_kind}", description: "Lead #{product_kind}", product: product)
+    sleep_contract_step = Step.find_or_create_by!(name: "Sleep Contract #{product_kind}", description: "Sleep Contract #{product_kind}", product: product)
+    evaluate_step = Step.find_or_create_by!(name: "Evaluate #{product_kind}", description: "Evaluate #{product_kind}", product: product)
+
+    prospect_step.update_attributes(next_step: fullfill_step)
+    fullfill_step.update_attributes(next_step: lead_step, prev_step: prospect_step)
+    lead_step.update_attributes(next_step: sleep_contract_step, prev_step: fullfill_step)
+    sleep_contract_step.update_attributes(next_step: evaluate_step, prev_step: lead_step)
+    evaluate_step.update_attributes(prev_step: sleep_contract_step)
+
+    p "CREATED Products Steps: #{product_kind}"
   end
 end
 
@@ -102,7 +115,8 @@ DatabaseCleaner.clean
 create_organizations
 create_roles
 create_staffs
-create_services
 create_form_inputs
 create_forms
 create_form_fields
+create_products
+create_products_steps

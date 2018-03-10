@@ -27,6 +27,18 @@ Rails.application.routes.draw do
     resources :services, except: [:show] do
       resources :steps, except: [:show]
     end
+    resources :organizations, except: [:show]
+    resources :roles, except: [:show]
+    resources :permissions, except: [:show]
+    get 'roles_permissions', to: 'roles_permissions#index'
+    match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
+    resources :products, except: [:show]
+    resources :steps, except: [:show]
+    resources :customers do
+      collection do
+        post '/create_multi', to: 'customers#create_multi', as: :multi
+      end
+    end
     resources :forms do
       member do
         post :execute

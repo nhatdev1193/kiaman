@@ -1,5 +1,4 @@
 class Staff::OrganizationsController < Staff::BaseController
-
   before_action :set_organization, only: [:edit, :update, :destroy]
 
   def index

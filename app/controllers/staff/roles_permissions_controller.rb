@@ -1,5 +1,4 @@
 class Staff::RolesPermissionsController < Staff::BaseController
-
   before_action :set_organization
 
   # GET /organizations/:organization_id/roles_permissions
@@ -21,7 +20,6 @@ class Staff::RolesPermissionsController < Staff::BaseController
     # Filter new records which will be added
     new_records = selected_roles_permissions_vals.reject{ |v| initial_roles_permissions_vals.include?(v) }
 
-
     #
     # Database operations
     #
@@ -42,7 +40,6 @@ class Staff::RolesPermissionsController < Staff::BaseController
 
     redirect_to staff_organizations_path, notice: 'Roles & permissions successfully updated.'
   end
-
 
   private
 

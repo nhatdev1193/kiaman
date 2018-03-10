@@ -1,11 +1,11 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-    Services
+    Products
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-    Services
+    Products
 <% end %>
 
 <div class="box box-info">
@@ -21,27 +21,27 @@
           </tr>
         </thead>
         <tbody>
-          <% @services.each do |service| %>
+          <% @products.each do |product| %>
             <tr>
-              <td><%= service.id %></td>
-              <td><%= service.name %></td>
-              <td><%= service.description %></td>
+              <td><%= product.id %></td>
+              <td><%= product.name %></td>
+              <td><%= product.description %></td>
               <td>
-                <%= link_to edit_staff_service_path(service), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_product_path(product), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
-                <% if service.deleted? %>
-                  <%= link_to staff_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
+                <% if product.deleted? %>
+                  <%= link_to staff_product_path(product), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
                 <% else %>
-                  <%= link_to staff_service_path(service), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
+                  <%= link_to staff_product_path(product), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
                     <%= fa_icon 'trash' %> Delete
                   <% end %>
                 <% end %>
-                <% unless service.steps.count.positive? %>
+                <% unless product.steps.count.positive? %>
                   <%= link_to new_staff_step_path, class: 'btn btn-xs btn-flat bg-green' do %>
-                    <%= fa_icon 'plus' %> Add step for service
+                    <%= fa_icon 'plus' %> Add step for product
                   <% end %>
                 <% end %>
               </td>
@@ -53,8 +53,8 @@
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= link_to new_staff_service_path, class: 'btn btn-primary btn-flat pull-left' do %>
-      <%= fa_icon 'plus' %> New service
+    <%= link_to new_staff_product_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New product
     <% end %>
   </div><!-- /.box-footer -->
 </div><!-- /.box -->
