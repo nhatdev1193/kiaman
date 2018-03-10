@@ -8,7 +8,9 @@ class Staff::FormsController < Staff::BaseController
   end
 
   # GET /staff/forms/:form_id
-  def show; end
+  def show
+    @customer = Customer.new
+  end
 
   # GET /staff/forms/:form_id
   def edit; end
@@ -21,7 +23,6 @@ class Staff::FormsController < Staff::BaseController
 
   # POST /staff/forms/:form_id/execute
   def execute; end
-
 
   private
 

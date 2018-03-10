@@ -1,0 +1,98 @@
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'household_address' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'household_province' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'household_district' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'household_ward' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'current_address' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'current_province' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'current_district' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'current_ward' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'housing_status' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= select_tag('custom_fields[' + field.field_name + ']', options_for_select([]), class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'house_owner_name' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'house_owner_phone' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'number_years_current_city' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'number_years_current_home' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
+<div class="form-group">
+  <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'stay_with' } %>
+  <label class="control-label col-sm-3"><%= field.display_name %></label>
+  <div class="col-sm-6">
+    <%= text_field_tag('custom_fields[' + field.field_name + ']', '', class: 'form-control') %>
+  </div>
+</div>
