@@ -1,4 +1,7 @@
 class Staff::CustomersController < Staff::BaseController
+  before_action :set_customer, only: [:edit, :update]
+  before_action :set_step_and_dynamic_form, only: [:edit, :update]
+
   def index
     @customers = Customer.all
   end
@@ -7,10 +10,7 @@ class Staff::CustomersController < Staff::BaseController
     @customer = Customer.new
   end
 
-  def edit
-    @customer = Customer.find(params[:id])
-    @dynamic_form = Form.includes(form_fields: :form_input).first
-  end
+  def edit; end
 
   def create
     ActiveRecord::Base.transaction do
@@ -46,14 +46,25 @@ class Staff::CustomersController < Staff::BaseController
     render :new
   end
 
-  def update; end
+  def update
+    @customer = @customer.update_fields(customer_params, form_fields_params)
+  end
 
   private
+
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
+
+  def set_step_and_dynamic_form
+    @current_step = @customer.current_step
+    @dynamic_form = Form.includes(form_fields: :form_input).find(@current_step.form_id)
+  end
 
   def customer_params
     params[:customer].delete(:merchandise) if params[:customer][:product_id] == '1'
     params[:customer].delete(:school) if params[:customer][:product_id] == '2'
-    params.require(:customer).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise)
+    params.require(:customer).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise, :nic_number)
   end
 
   def customers_params
@@ -67,6 +78,10 @@ class Staff::CustomersController < Staff::BaseController
         ]
       ]
     )
+  end
+
+  def form_fields_params
+    params.require(:custom_fields).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
   end
 
   # Store 1st step of flow into customers_steps

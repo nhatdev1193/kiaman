@@ -53,7 +53,7 @@ def create_products_steps
     product = Product.find_or_create_by!(name: product_kind)
 
     prospect_step = Step.find_or_create_by!(name: "Prospect #{product_kind}", description: "Prospect #{product_kind}", product: product)
-    fullfill_step = Step.find_or_create_by!(name: "Fullfill #{product_kind}", description: "Fullfill #{product_kind}", product: product)
+    fullfill_step = Step.find_or_create_by!(name: "Fullfill #{product_kind}", description: "Fullfill #{product_kind}", product: product, form: @form)
     lead_step = Step.find_or_create_by!(name: "Lead #{product_kind}", description: "Lead #{product_kind}", product: product)
     sleep_contract_step = Step.find_or_create_by!(name: "Sleep Contract #{product_kind}", description: "Sleep Contract #{product_kind}", product: product)
     evaluate_step = Step.find_or_create_by!(name: "Evaluate #{product_kind}", description: "Evaluate #{product_kind}", product: product)
@@ -77,7 +77,7 @@ def create_form_inputs
 end
 
 def create_forms
-  Form.create!(name: 'KHÁCH HÀNG')
+  @form = Form.create!(name: 'KHÁCH HÀNG')
   p 'CREATED Form: KHÁCH HÀNG'
 end
 

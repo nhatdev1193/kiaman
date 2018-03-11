@@ -30,6 +30,30 @@ class Customer < SoftDeleteBaseModel
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
   end
 
+  def current_step
+    customers_steps&.last&.step
+  end
+
+  def update_fields(customer_params, custom_field_params)
+    Customer.transaction do
+      FormValue.transaction do
+        if update(customer_params)
+          # Save to form_values
+          custom_field_params.each do |field_id, value|
+            form_value = FormValue.find_or_create_by(form_id: current_step.form_id, form_field_id: field_id)
+            form_value.value = value
+            next unless form_value.save
+            value_errors = form_value.errors.messages.first
+            error_message = value_errors&.join(' ')
+            errors[field_id] << error_message if error_message
+          end
+        end
+      end
+      raise ActiveRecord::Rollback if errors.any?
+    end
+    self
+  end
+
   private
 
   def set_default_status
