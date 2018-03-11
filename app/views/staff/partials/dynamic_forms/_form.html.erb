@@ -1,0 +1,58 @@
+<div class="box box-info">
+  <%= form_tag({controller: 'staff/forms', action: 'execute' }, {role: 'form', method: 'post', class: 'form-horizontal'}) do %>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= "#{@customer.last_name} #{@customer.first_name}" %></h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <ul  class="nav nav-pills">
+          <li class="active"><a  href="#personal" data-toggle="tab">CÁ NHÂN</a></li>
+          <li><a href="#study" data-toggle="tab">HỌC TẬP</a></li>
+          <li><a href="#finance" data-toggle="tab">TÀI CHÍNH</a></li>
+          <li><a href="#job" data-toggle="tab">VIỆC LÀM</a></li>
+          <li><a href="#reference" data-toggle="tab">THAM CHIẾU</a></li>
+        </ul>
+
+        <%= render 'staff/partials/form_errors', { errors: @customer.errors } %>
+
+        <div class="tab-content clearfix">
+          <div class="tab-pane active" id="personal">
+            <%= render 'staff/partials/dynamic_forms/fixed_info' %>
+            <div class="form-group">
+              <div class="control-label col-sm-3">
+                <h4>CMND/ Căn cước/ Passport</h4>
+                <hr>
+              </div>
+            </div>
+            <%= render 'staff/partials/dynamic_forms/nic_info' %>
+            <div class="form-group">
+              <div class="control-label col-sm-3">
+                <h4>Thông tin nơi ở</h4>
+                <hr>
+              </div>
+            </div>
+            <%= render 'staff/partials/dynamic_forms/living_info' %>
+          </div>
+          <div class="tab-pane" id="study">
+            <h3>2</h3>
+          </div>
+          <div class="tab-pane" id="finance">
+            <h3>3</h3>
+          </div>
+          <div class="tab-pane" id="job">
+            <h3>4</h3>
+          </div>
+          <div class="tab-pane" id="reference">
+            <h3>5</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-6">
+            <%= submit_tag 'Submit', class: 'btn btn-success btn-flat', data: { disable_with: false } %>
+          </div>
+        </div>
+      </div><!-- /.box-footer -->
+  <% end %>
+</div>

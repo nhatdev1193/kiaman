@@ -7,6 +7,11 @@ class Staff::CustomersController < Staff::BaseController
     @customer = Customer.new
   end
 
+  def show
+    @customer = Customer.find(params[:id])
+    @dynamic_form = Form.includes(form_fields: :form_input).first
+  end
+
   def create
     ActiveRecord::Base.transaction do
       @customer = Customer.new(customer_params)
