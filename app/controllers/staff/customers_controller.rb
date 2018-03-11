@@ -7,7 +7,7 @@ class Staff::CustomersController < Staff::BaseController
     @customer = Customer.new
   end
 
-  def show
+  def edit
     @customer = Customer.find(params[:id])
     @dynamic_form = Form.includes(form_fields: :form_input).first
   end
@@ -45,6 +45,8 @@ class Staff::CustomersController < Staff::BaseController
   rescue => _exception
     render :new
   end
+
+  def update; end
 
   private
 

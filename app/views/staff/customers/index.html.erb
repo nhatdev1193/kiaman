@@ -43,10 +43,7 @@
               <td><%= customer.created_at %></td>
               <td><%= customer.updated_at %></td>
               <td>
-                <%= link_to staff_customer_path(customer), class: 'btn btn-xs btn-flat bg-blue' do %>
-                    <%= fa_icon 'eye' %> Show
-                <% end %>
-                <%= link_to '#', class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= link_to edit_staff_customer_path(customer), class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
                 <% if customer.deleted? %>

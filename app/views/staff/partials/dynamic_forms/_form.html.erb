@@ -1,5 +1,5 @@
 <div class="box box-info">
-  <%= form_tag({controller: 'staff/forms', action: 'execute' }, {role: 'form', method: 'post', class: 'form-horizontal'}) do %>
+  <%= form_tag(staff_customer_path(@customer), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
       <div class="box-header with-border">
         <h3 class="box-title"><%= "#{@customer.last_name} #{@customer.first_name}" %></h3>
       </div><!-- /.box-header -->
