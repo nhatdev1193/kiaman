@@ -1,11 +1,11 @@
-class CustomersStep < SoftDeleteBaseModel
+class PeopleStep < SoftDeleteBaseModel
   include AASM
 
   belongs_to :step
-  belongs_to :customer
+  belongs_to :person
   belongs_to :contract, optional: true
 
-  validates :step_id, :customer_id, presence: true
+  validates :step_id, :person_id, presence: true
 
   enum status: { not_started: 0, in_progress: 1, done: 2, waiting: 3,
                  error: 4, canceled: 5, skipped: 6, rollback: 7 }
@@ -20,13 +20,13 @@ class CustomersStep < SoftDeleteBaseModel
     state :skipped
     state :rollback
 
-    event :next_step, after_commit: :next_step_for_customer do
+    event :next_step, after_commit: :next_step_for_person do
       # TODO: need to check from conditions table
       return unless true
       transitions from: [:not_started, :in_progress, :waiting], to: :done, unless: :if_done?
     end
 
-    event :previous_step, after_commit: :previous_step_for_customer do
+    event :previous_step, after_commit: :previous_step_for_person do
       # TODO: need to check from conditions table
       return unless true
       transitions from: [:not_started, :in_progress, :waiting], to: :rollback, unless: :if_rollback?
@@ -51,14 +51,14 @@ class CustomersStep < SoftDeleteBaseModel
 
   private
 
-  def next_step_for_customer(current_staff_id)
+  def next_step_for_person(current_staff_id)
     return unless step.next_step
-    new_customer_step(step.next_step, customer, current_staff_id)
+    new_person_step(step.next_step, person, current_staff_id)
   end
 
-  def previous_step_for_customer(current_staff_id)
+  def previous_step_for_person(current_staff_id)
     return unless step.prev_step
-    new_customer_step(step.prev_step, customer, current_staff_id)
+    new_person_step(step.prev_step, person, current_staff_id)
   end
 
   def if_done?
@@ -69,7 +69,7 @@ class CustomersStep < SoftDeleteBaseModel
     status.to_sym == :rollback
   end
 
-  def new_customer_step(step, customer, current_staff_id)
-    CustomersStep.create step: step, customer: customer, created_staff_id: current_staff_id
+  def new_person_step(step, person, current_staff_id)
+    PeopleStep.create step: step, person: person, created_staff_id: current_staff_id
   end
 end

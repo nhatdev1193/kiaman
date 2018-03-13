@@ -1,11 +1,11 @@
 <% # Set the title attribute for this page
    content_for :title do %>
-    Customers
+    People
 <% end %>
 
 <% # Set the title of content
    content_for :content_title do %>
-    Customers
+    People
 <% end %>
 
 <div class="box box-info">
@@ -29,24 +29,24 @@
           </tr>
         </thead>
         <tbody>
-          <% @customers.each do |customer| %>
+          <% @people.each do |person| %>
             <tr>
-              <td><%= customer.id %></td>
-              <td><%= customer.last_name %></td>
-              <td><%= customer.first_name %></td>
-              <td><%= customer.phone %></td>
-              <td><%= customer.gender_name %></td>
-              <td><%= customer.product_name %></td>
-              <td><%= customer.branch_name %></td>
-              <td><%= customer.status.humanize %></td>
-              <td><%= customer.assignee_name %></td>
-              <td><%= customer.created_at %></td>
-              <td><%= customer.updated_at %></td>
+              <td><%= person.id %></td>
+              <td><%= person.last_name %></td>
+              <td><%= person.first_name %></td>
+              <td><%= person.phone %></td>
+              <td><%= person.gender_name %></td>
+              <td><%= person.product_name %></td>
+              <td><%= person.branch_name %></td>
+              <td><%= person.status.humanize %></td>
+              <td><%= person.assignee_name %></td>
+              <td><%= person.created_at %></td>
+              <td><%= person.updated_at %></td>
               <td>
                 <%= link_to '#', class: 'btn btn-xs btn-flat bg-orange' do %>
                   <%= fa_icon 'edit' %> Edit
                 <% end %>
-                <% if customer.deleted? %>
+                <% if person.deleted? %>
                   <%= link_to '#', method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
                     <%= fa_icon 'recycle' %> Restore
                   <% end %>
@@ -64,11 +64,11 @@
   </div><!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <%= link_to new_staff_customer_path(type: 'multi'), class: 'btn btn-primary btn-flat pull-left' do %>
+    <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary btn-flat pull-left' do %>
       <%= fa_icon 'plus' %> Prospect nhanh
     <% end %>
 
-    <%= link_to new_staff_customer_path(type: 'normal'), class: 'btn btn-primary btn-flat pull-left' do %>
+    <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary btn-flat pull-left' do %>
       <%= fa_icon 'plus' %> Prospect thường
     <% end %>
   </div><!-- /.box-footer -->

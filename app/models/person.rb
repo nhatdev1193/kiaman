@@ -1,6 +1,6 @@
-class Customer < SoftDeleteBaseModel
-  has_many :customers_steps
-  has_many :steps, through: :customers_steps
+class Person < SoftDeleteBaseModel
+  has_many :people_steps
+  has_many :steps, through: :people_steps
 
   after_initialize :set_default_status
 
@@ -15,15 +15,15 @@ class Customer < SoftDeleteBaseModel
   enum status: { prospect: 0, lead: 1, customer: 2 }
 
   def product_name
-    first_customer_step&.step&.product_name
+    first_person_step&.step&.product_name
   end
 
   def branch_name
-    first_customer_step&.branch_name
+    first_person_step&.branch_name
   end
 
   def assignee_name
-    first_customer_step&.assignee_name
+    first_person_step&.assignee_name
   end
 
   def gender_name
@@ -36,8 +36,8 @@ class Customer < SoftDeleteBaseModel
     self.status = :prospect if new_record?
   end
 
-  def first_customer_step
-    customers_steps.order(created_at: :desc).first
+  def first_person_step
+    people_steps.order(created_at: :desc).first
   end
 
   def product_validate

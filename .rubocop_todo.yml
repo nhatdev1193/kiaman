@@ -75,7 +75,7 @@ Layout/TrailingBlankLines:
 # Cop supports --auto-correct.
 Layout/TrailingWhitespace:
   Exclude:
-    - 'spec/factories/customers.rb'
+    - 'spec/factories/people.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
