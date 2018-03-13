@@ -38,15 +38,15 @@ class PeopleStep < SoftDeleteBaseModel
   end
 
   def assignee_name
-    Staff.where(id: assigned_staff_id).first&.name
+    Staff.find_by_id(assigned_staff_id)&.name
   end
 
   def branch_name
-    creator.organizations.order(:level).first.name
+    Staff.find_by_id(created_staff_id)&.organizations&.order(:level)&.first&.name
   end
 
-  def creator
-    Staff.where(id: created_staff_id).first
+  def product_name
+    step.product.name
   end
 
   private
@@ -70,6 +70,6 @@ class PeopleStep < SoftDeleteBaseModel
   end
 
   def new_person_step(step, person, current_staff_id)
-    PeopleStep.create step: step, person: person, created_staff_id: current_staff_id
+    PeopleStep.create step: step, person: person, created_staff_id: current_staff_id, assigned_staff_id: current_staff_id, assigned_at: Time.now
   end
 end

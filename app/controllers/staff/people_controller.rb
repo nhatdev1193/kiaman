@@ -1,6 +1,6 @@
 class Staff::PeopleController < Staff::BaseController
   def index
-    @people = Person.all
+    @people_steps = PeopleStep.all
   end
 
   def new
@@ -46,7 +46,7 @@ class Staff::PeopleController < Staff::BaseController
   def person_params
     params[:person].delete(:merchandise) if params[:person][:product_id] == '1'
     params[:person].delete(:school) if params[:person][:product_id] == '2'
-    params.require(:person).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise)
+    params.require(:person).permit(:product_id, :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise, :nic_number)
   end
 
   def people_params
@@ -56,7 +56,7 @@ class Staff::PeopleController < Staff::BaseController
       :product_id,
       people: [
         person: [
-          :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise
+          :last_name, :first_name, :gender, :phone, :birthday, :school, :merchandise, :nic_number
         ]
       ]
     )
@@ -67,7 +67,7 @@ class Staff::PeopleController < Staff::BaseController
   def person_step(person, product_id)
     product = Product.find product_id
     people_step = person.people_steps.build(step: product.first_step, created_staff_id: current_staff.id,
-                                                    assigned_staff_id: current_staff.id, assigned_at: Time.now)
+                                            assigned_staff_id: current_staff.id, assigned_at: Time.now)
 
     return false unless people_step.save
 

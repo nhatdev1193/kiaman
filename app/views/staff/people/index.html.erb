@@ -17,45 +17,27 @@
             <th>ID</th>
             <th>Họ và tên lót</th>
             <th>Tên</th>
-            <th>Số điện thoại</th>
-            <th>Giới tính</th>
-            <th>Sản phẩm</th>
             <th>Chi nhánh</th>
             <th>Trạng thái</th>
             <th>Người phụ trách</th>
+            <th>Sản phẩm</th>
             <th>Ngày khởi tạo</th>
             <th>Cập nhật lần cuối</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <% @people.each do |person| %>
+          <% @people_steps.each do |person_step| %>
             <tr>
-              <td><%= person.id %></td>
-              <td><%= person.last_name %></td>
-              <td><%= person.first_name %></td>
-              <td><%= person.phone %></td>
-              <td><%= person.gender_name %></td>
-              <td><%= person.product_name %></td>
-              <td><%= person.branch_name %></td>
-              <td><%= person.status.humanize %></td>
-              <td><%= person.assignee_name %></td>
-              <td><%= person.created_at %></td>
-              <td><%= person.updated_at %></td>
-              <td>
-                <%= link_to '#', class: 'btn btn-xs btn-flat bg-orange' do %>
-                  <%= fa_icon 'edit' %> Edit
-                <% end %>
-                <% if person.deleted? %>
-                  <%= link_to '#', method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
-                    <%= fa_icon 'recycle' %> Restore
-                  <% end %>
-                <% else %>
-                  <%= link_to '#', method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
-                    <%= fa_icon 'trash' %> Delete
-                  <% end %>
-                <% end %>
-              </td>
+              <td><%= person_step.person_id %></td>
+              <td><%= person_step.person.last_name %></td>
+              <td><%= person_step.person.first_name %></td>
+              <td><%= person_step.branch_name %></td>
+              <td><%= person_step.person.status.humanize %></td>
+              <td><%= person_step.assignee_name %></td>
+              <td><%= person_step.product_name %></td>
+              <td><%= person_step.created_at %></td>
+              <td><%= person_step.updated_at %></td>
             </tr>
           <% end %>
         </tbody>

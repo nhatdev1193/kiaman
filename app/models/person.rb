@@ -8,23 +8,12 @@ class Person < SoftDeleteBaseModel
 
   GENDER_TYPES = [['Nữ', false], ['Nam', true]].freeze
 
-  validates :first_name, :phone, :product_id, presence: true
-  validates :phone, numericality: true
+  validates :first_name, :phone, presence: true
+  validates :product_id, presence: true, on: :create
+  validates :nic_number, :phone, numericality: true
   validate :product_validate
 
-  enum status: { prospect: 0, lead: 1, customer: 2 }
-
-  def product_name
-    first_person_step&.step&.product_name
-  end
-
-  def branch_name
-    first_person_step&.branch_name
-  end
-
-  def assignee_name
-    first_person_step&.assignee_name
-  end
+  enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
 
   def gender_name
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
