@@ -21,16 +21,9 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <% if staff_signed_in? %>
-          <!-- Content Header (Page header) -->
+        <% if staff_signed_in? && content_for?(:content_header) %>
           <section class="content-header">
-            <% if content_for?(:content_title) %>
-              <h1><%= yield(:content_title) %></h1>
-            <% end %>
-            <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li class="active">Dashboard</li>
-            </ol>
+            <%= yield(:content_header) %>
           </section>
         <% end %>
 
