@@ -52,12 +52,49 @@
             <th>Sản phẩm</th>
             <th>Ngày khởi tạo</th>
             <th>Cập nhật lần cuối</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td><%= fa_icon 'search' %></td>
+            <td><input type="search" class="form-control"></td>
+            <td><input type="search" class="form-control"></td>
+            <td>
+              <select class="form-control select2">
+                <option>Chọn</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control select2">
+                <option>Chọn</option>
+              </select>
+            </td>
+            <td><input type="search" class="form-control"></td>
+            <td>
+              <select class="form-control select2">
+                <option>Chọn</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control select2">
+                <option>Chọn</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control select2">
+                <option>Chọn</option>
+              </select>
+            </td>
+          </tr>
           <% @people_steps.each do |person_step| %>
             <tr data-link="<%= staff_person_path(person_step.person, step: person_step.step_id) %>">
+              <td>
+                <div class="checkbox">
+                  <label class="no-padding">
+                    <input type="checkbox" class="i-check">
+                  </label>
+                </div>
+              </td>
               <td><%= person_step.person_id %></td>
               <td><%= person_step.person.last_name %></td>
               <td><%= person_step.person.first_name %></td>
