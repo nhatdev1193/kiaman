@@ -1,6 +1,7 @@
 class Staff::PeopleController < Staff::BaseController
   def index
-    @people_steps = PeopleStep.all
+    service = PersonDataService.new
+    @people_steps = service.person_list
   end
 
   def new
