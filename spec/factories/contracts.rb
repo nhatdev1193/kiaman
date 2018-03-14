@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :contract do
-    customer nil
+    person nil
     staff nil
     contract_kind nil
     current_workflow 'MyString'

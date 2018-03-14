@@ -1,6 +1,6 @@
-class Customer < SoftDeleteBaseModel
-  has_many :customers_steps
-  has_many :steps, through: :customers_steps
+class Person < SoftDeleteBaseModel
+  has_many :people_steps
+  has_many :steps, through: :people_steps
 
   after_initialize :set_default_status
 
@@ -8,23 +8,12 @@ class Customer < SoftDeleteBaseModel
 
   GENDER_TYPES = [['Nữ', false], ['Nam', true]].freeze
 
-  validates :first_name, :phone, :product_id, presence: true
-  validates :phone, numericality: true
+  validates :first_name, :phone, presence: true
+  validates :product_id, presence: true, on: :create
+  validates :nic_number, :phone, numericality: true
   validate :product_validate
 
-  enum status: { prospect: 0, lead: 1, customer: 2 }
-
-  def product_name
-    first_customer_step&.step&.product_name
-  end
-
-  def branch_name
-    first_customer_step&.branch_name
-  end
-
-  def assignee_name
-    first_customer_step&.assignee_name
-  end
+  enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
 
   def gender_name
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
@@ -34,10 +23,10 @@ class Customer < SoftDeleteBaseModel
     customers_steps&.last&.step
   end
 
-  def update_fields(customer_params, custom_field_params)
-    Customer.transaction do
+  def update_fields(person_params, custom_field_params)
+    Person.transaction do
       FormValue.transaction do
-        if update(customer_params)
+        if update(person_params)
           # Save to form_values
           custom_field_params.each do |field_id, value|
             form_value = FormValue.find_or_create_by(form_id: current_step.form_id, form_field_id: field_id)
@@ -60,8 +49,8 @@ class Customer < SoftDeleteBaseModel
     self.status = :prospect if new_record?
   end
 
-  def first_customer_step
-    customers_steps.order(created_at: :desc).first
+  def first_person_step
+    people_steps.order(created_at: :desc).first
   end
 
   def product_validate

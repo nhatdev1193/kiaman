@@ -12,23 +12,23 @@ $(document).on('turbolinks:load', function(){
   // Event add more 10 rows in create list prospect
   $('#add-more').click(function(e){
     e.preventDefault();
-    lastRow = parseInt($('#multi-customer tr:last').attr('id')) + 1;
+    lastRow = parseInt($('#multi-person tr:last').attr('id')) + 1;
     html = ''
     for (i = lastRow; i < lastRow + 10; i++) {
       html += '<tr id="' + i + '">';
       html += '<td><label class="control-label col-sm-3" for="stt">' + i + '</label></td>';
-      html += '<td><input type="text" name="customers[customers][]customer[last_name]" id="customers_customers_customer_last_name" class="form-control"></td>';
-      html += '<td><input type="text" name="customers[customers][]customer[first_name]" id="customers_customers_customer_first_name" class="form-control"></td>';
-      html += '<td><input type="text" name="customers[customers][]customer[phone]" id="customers_customers_customer_phone" class="form-control"></td>';
-      html += '<td><select name="customers[customers][]customer[gender]" id="customers_customers_customer_gender" class="form-control"><option value="">Select</option><option value="false">Nữ</option><option value="true">Nam</option></select></td>';
-      html += '<td><input type="date" name="customers[customers][]customer[birthday]" id="customers_customers_customer_birthday" class="form-control"></td></tr>';
+      html += '<td><input type="text" name="people[people][]person[last_name]" id="people_people_person_last_name" class="form-control"></td>';
+      html += '<td><input type="text" name="people[people][]person[first_name]" id="people_people_person_first_name" class="form-control"></td>';
+      html += '<td><input type="text" name="people[people][]person[phone]" id="people_people_person_phone" class="form-control"></td>';
+      html += '<td><select name="people[people][]person[gender]" id="people_people_person_gender" class="form-control"><option value="">Select</option><option value="false">Nữ</option><option value="true">Nam</option></select></td>';
+      html += '<td><input type="date" name="people[people][]person[birthday]" id="people_people_person_birthday" class="form-control"></td></tr>';
     }
 
-    $('#multi-customer tbody').append(html);
+    $('#multi-person tbody').append(html);
   });
 
   // Show/hide school or merchandise follow product selection in normal prospect form
-  $('#customer_product_id').change(function(){
+  $('#person_product_id').change(function(){
     if($(this).val() === '1'){
       $schoolField.removeClass('hidden').addClass('present');
       $merchandiseField.removeClass('present').addClass('hidden');
@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function(){
   });
 
   // Show/hide school or merchandise follow product selection in list prospect form
-  $('#customers_product_id').change(function(){
+  $('#people_product_id').change(function(){
     if($(this).val() === '1'){
       $thSchool.removeClass('hidden').addClass('present');
       $thMerchandise.removeClass('present').addClass('hidden');

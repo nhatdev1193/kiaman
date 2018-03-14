@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :document do
     staff nil
-    customer nil
+    person nil
     document_kind nil
     filename "MyString"
     url "MyString"
