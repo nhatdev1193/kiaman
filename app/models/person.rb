@@ -10,7 +10,8 @@ class Person < SoftDeleteBaseModel
 
   validates :first_name, :phone, presence: true
   validates :product_id, presence: true, on: :create
-  validates :nic_number, :phone, numericality: true
+  validates :phone, numericality: true
+  validates :nic_number, numericality: true, allow_blank: true
   validate :product_validate
 
   enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
