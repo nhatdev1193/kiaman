@@ -11,16 +11,12 @@
     <%= javascript_include_tag 'application_staff', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="hold-transition skin-green <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
+  <body class="hold-transition skin-green layout-top-nav <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
     <div class="wrapper">
       <% if staff_signed_in? %>
-          <header class="main-header">
-            <%= render 'staff/partials/top_navbar' %>
-          </header>
-
-          <aside class="main-sidebar">
-            <%= render 'staff/partials/sidebar' %>
-          </aside>
+        <header class="main-header">
+          <%= render 'staff/partials/top_navbar' %>
+        </header>
       <% end %>
 
       <!-- Content Wrapper. Contains page content -->
