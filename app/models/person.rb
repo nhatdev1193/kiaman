@@ -21,15 +21,15 @@ class Person < SoftDeleteBaseModel
   end
 
   def current_step
-    customers_steps&.last&.step
+    people_steps&.last&.step
   end
 
-  def update_fields(person_params, custom_field_params)
+  def update_fields(person_params, form_values_params)
     Person.transaction do
       FormValue.transaction do
         if update(person_params)
           # Save to form_values
-          custom_field_params.each do |field_id, value|
+          form_values_params.each do |field_id, value|
             form_value = FormValue.find_or_create_by(form_id: current_step.form_id, form_field_id: field_id)
             form_value.value = value
             next unless form_value.save

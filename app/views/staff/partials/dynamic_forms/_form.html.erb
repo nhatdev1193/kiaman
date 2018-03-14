@@ -1,8 +1,8 @@
 <div class="box box-info">
-  <%= form_tag(staff_customer_path(@customer), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
+  <%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
       <%= render 'staff/partials/dynamic_forms/document_management' %>
       <div class="box-header with-border">
-        <h3 class="box-title"><%= "#{@customer.last_name} #{@customer.first_name}" %></h3>
+        <h3 class="box-title"><%= "#{@person.last_name} #{@person.first_name}" %></h3>
       </div><!-- /.box-header -->
       <div class="box-body">
         <ul  class="nav nav-pills">
@@ -13,7 +13,7 @@
           <li><a href="#reference" data-toggle="tab">THAM CHIẾU</a></li>
         </ul>
 
-        <%= render 'staff/partials/form_errors', { errors: @customer.errors } %>
+        <%= render 'staff/partials/form_errors', { errors: @person.errors } %>
 
         <div class="tab-content clearfix">
           <div class="tab-pane active" id="personal">

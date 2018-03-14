@@ -1,41 +1,41 @@
 <div class="form-group">
   <label class="control-label col-sm-3">CMND/ Căn cước</label>
   <div class="col-sm-6">
-    <%= text_field_tag('customer[nic_number]', @customer.nic_number, class: 'form-control') %>
+    <%= text_field_tag('person[nic_number]', @person.nic_number, class: 'form-control') %>
   </div>
 </div>
 <div class="form-group">
   <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'nic_date_of_issue' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= date_field('custom_fields', field.id.to_s, {class: 'form-control'}) %>
+    <%= date_field('form_values', field.id.to_s, {class: 'form-control'}) %>
   </div>
 </div>
 <div class="form-group">
   <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'nic_place_of_issue' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('custom_fields[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
   </div>
 </div>
 <div class="form-group">
   <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'passport_number' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('custom_fields[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
   </div>
 </div>
 <div class="form-group">
   <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'passport_date_of_issue' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= date_field('custom_fields', field.id.to_s, {class: 'form-control'}) %>
+    <%= date_field('form_values', field.id.to_s, {class: 'form-control'}) %>
   </div>
 </div>
 <div class="form-group">
   <% field = @dynamic_form.form_fields.detect { |field| field.field_name == 'passport_place_of_issue' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('custom_fields[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
   </div>
 </div>

@@ -1,6 +1,6 @@
 class Staff::PeopleController < Staff::BaseController
-  before_action :set_person, only: [:edit, :update]
-  before_action :set_step_and_dynamic_form, only: [:edit, :update]
+  before_action :set_person, only: [:show, :edit, :update]
+  before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
 
   def index
     service = PersonDataService.new
@@ -10,6 +10,8 @@ class Staff::PeopleController < Staff::BaseController
   def new
     @person = Person.new
   end
+
+  def show; end
 
   def edit; end
 
@@ -48,7 +50,7 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def update
-    @person = @person.update_fields(person_params, form_fields_params)
+    @person = @person.update_fields(person_params, form_values_params)
   end
 
   private
@@ -81,8 +83,8 @@ class Staff::PeopleController < Staff::BaseController
     )
   end
 
-  def form_fields_params
-    params.require(:custom_fields).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
+  def form_values_params
+    params.require(:form_values).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
   end
 
   # Store 1st step of flow into people_steps

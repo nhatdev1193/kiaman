@@ -28,7 +28,7 @@
         </thead>
         <tbody>
           <% @people_steps.each do |person_step| %>
-            <tr>
+            <tr data-link="<%= staff_person_path(person_step.person) %>">
               <td><%= person_step.person_id %></td>
               <td><%= person_step.person.last_name %></td>
               <td><%= person_step.person.first_name %></td>

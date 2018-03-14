@@ -54,4 +54,8 @@ $(document).on('turbolinks:load', function(){
       $tdSchool.removeClass('present').addClass('hidden');
     }
   });
+
+  $("tr[data-link]").click(function() {
+    window.location = $(this).data('link')
+  })
 });
