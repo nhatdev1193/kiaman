@@ -60,8 +60,8 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def set_step_and_dynamic_form
-    @current_step = @person.current_step
-    @dynamic_form = Form.includes(form_fields: :form_input).find(@current_step.form_id)
+    @current_step = Step.find(params[:step])
+    @dynamic_form = Form.includes(form_fields: :form_input).find_by_id(@current_step.form_id)
   end
 
   def person_params

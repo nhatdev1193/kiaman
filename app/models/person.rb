@@ -20,10 +20,6 @@ class Person < SoftDeleteBaseModel
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
   end
 
-  def current_step
-    people_steps&.last&.step
-  end
-
   def update_fields(person_params, form_values_params)
     Person.transaction do
       FormValue.transaction do
