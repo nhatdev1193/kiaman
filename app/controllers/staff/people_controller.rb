@@ -3,7 +3,8 @@ class Staff::PeopleController < Staff::BaseController
   before_action :set_step_and_dynamic_form, only: [:edit, :update]
 
   def index
-    @people_steps = PeopleStep.all
+    service = PersonDataService.new
+    @people_steps = service.person_list
   end
 
   def new
