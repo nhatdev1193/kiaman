@@ -12,6 +12,7 @@
         <th>Sản phẩm</th>
         <th>Ngày khởi tạo</th>
         <th>Cập nhật lần cuối</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -45,6 +46,7 @@
             <option>Chọn</option>
           </select>
         </td>
+        <td></td>
       </tr>
       <% @people_steps.each do |person_step| %>
         <tr>
@@ -63,6 +65,11 @@
           <td><%= person_step.product_name %></td>
           <td><%= person_step.created_at %></td>
           <td><%= person_step.updated_at %></td>
+          <td>
+            <%= link_to staff_person_path(person_step.person, step: person_step.step_id), class: 'btn btn-sm btn-primary' do %>
+              <%= fa_icon 'address-card' %> Xem chi tiết
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>
