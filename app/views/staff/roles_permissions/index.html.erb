@@ -58,10 +58,10 @@
   </div><!-- /.box-footer -->
 </div>
 
-<script data-turbolinks-eval="false">
-  document.addEventListener('turbolinks:load', () => {
+<script>
+  $(function () {
     let rolesPermissionsIndexPage = (function () {
-      // Init and get checked values 
+      // Init and get checked values
       let initialCheckedValues = [];
       let $checkedChkBoxesSelector = "input:checkbox[name='roles_permissions[]']:checked";
       $($checkedChkBoxesSelector).each(function() {
@@ -69,7 +69,7 @@
         initialCheckedValues.push($t.val());
       });
       $('#initial_roles_permissions_vals').val(initialCheckedValues);
-      
+
       // When user want to update permissions, get all checked values
       $("#btn-update-roles-permissions").click(function (e) {
         e.preventDefault();

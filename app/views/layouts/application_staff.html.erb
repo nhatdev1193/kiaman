@@ -7,8 +7,8 @@
     <%= display_meta_tags title: content_for?(:title) ? "#{yield(:title)}" : '',
                           description: content_for?(:description) ? "#{yield(:description)}" : '',
                           noindex: true %>
-    <%= stylesheet_link_tag 'application_staff', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application_staff', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application_staff', media: 'all' %>
+    <%= javascript_include_tag 'application_staff' %>
     <%= csrf_meta_tags %>
   </head>
   <body class="hold-transition skin-green layout-top-nav <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">

@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap/dist/js/bootstrap.js
 //= require fastclick/lib/fastclick.js
 //= require select2/dist/js/select2.full.js
@@ -20,7 +19,7 @@
 //= require_tree ./common
 //= require_tree ./staff
 
-let ready = function () {
+$(function () {
   $('.select2').select2();
 
   // Flat red color scheme for iCheck
@@ -34,5 +33,4 @@ let ready = function () {
     let $t = $(this);
     window.location.href = replaceUrlParam(window.location.toString(), 'per_page', $t.val());
   });
-};
-document.addEventListener('turbolinks:load', ready);
+});

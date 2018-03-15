@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function () {
+$(function () {
   // Normal prospect form vars
   let $schoolField = $('#school-field');
   let $merchandiseField = $('#merchandise-field');
