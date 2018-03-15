@@ -1,0 +1,12 @@
+.table-pagination {
+  position: relative;
+
+  .rows-per-page {
+    position: absolute;
+    left: 5px;
+
+    select {
+      height: 40x;
+    }
+  }
+}

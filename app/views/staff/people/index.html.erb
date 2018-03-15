@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-sm-4">
       <form>
-        <div class="input-group input-group-lg">
+        <div class="input-group input-group">
           <input type="text" class="form-control" placeholder="Tên, số điện thoại, sản phẩm ...">
           <span class="input-group-btn">
             <button type="button" class="btn btn-primary">
@@ -21,15 +21,15 @@
 
     <div class="col-sm-8">
       <div class="pull-right">
-        <%= link_to '#', class: 'btn btn-warning btn-lg' do %>
+        <%= link_to '#', class: 'btn btn-warning' do %>
           <%= fa_icon 'upload' %> Nhập từ file CSV
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary btn-lg' do %>
+        <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary' do %>
           <%= fa_icon 'list' %> Prospect nhanh
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary btn-lg' do %>
+        <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary' do %>
           <%= fa_icon 'user-plus' %> Prospect thường
         <% end %>
       </div>
@@ -39,79 +39,6 @@
 
 <div class="box box-success">
   <div class="box-body">
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered table-striped no-margin">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Họ và tên lót</th>
-            <th>Tên</th>
-            <th>Chi nhánh</th>
-            <th>Trạng thái</th>
-            <th>Người phụ trách</th>
-            <th>Sản phẩm</th>
-            <th>Ngày khởi tạo</th>
-            <th>Cập nhật lần cuối</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= fa_icon 'search' %></td>
-            <td><input type="search" class="form-control"></td>
-            <td><input type="search" class="form-control"></td>
-            <td>
-              <select class="form-control select2">
-                <option>Chọn</option>
-              </select>
-            </td>
-            <td>
-              <select class="form-control select2">
-                <option>Chọn</option>
-              </select>
-            </td>
-            <td><input type="search" class="form-control"></td>
-            <td>
-              <select class="form-control select2">
-                <option>Chọn</option>
-              </select>
-            </td>
-            <td>
-              <select class="form-control select2">
-                <option>Chọn</option>
-              </select>
-            </td>
-            <td>
-              <select class="form-control select2">
-                <option>Chọn</option>
-              </select>
-            </td>
-          </tr>
-          <% @people_steps.each do |person_step| %>
-            <tr data-link="<%= staff_person_path(person_step.person, step: person_step.step_id) %>">
-              <td>
-                <div class="checkbox">
-                  <label class="no-padding">
-                    <input type="checkbox" class="i-check">
-                  </label>
-                </div>
-              </td>
-              <td><%= person_step.person_id %></td>
-              <td><%= person_step.person.last_name %></td>
-              <td><%= person_step.person.first_name %></td>
-              <td><%= person_step.branch_name %></td>
-              <td><%= person_step.person.status.humanize %></td>
-              <td><%= person_step.assignee_name %></td>
-              <td><%= person_step.product_name %></td>
-              <td><%= person_step.created_at %></td>
-              <td><%= person_step.updated_at %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div><!-- /.table-responsive -->
+    <%= render 'table' %>
   </div><!-- /.box-body -->
-
-  <div class="box-footer clearfix">
-
-  </div><!-- /.box-footer -->
 </div><!-- /.box -->

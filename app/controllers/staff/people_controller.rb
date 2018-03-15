@@ -5,6 +5,7 @@ class Staff::PeopleController < Staff::BaseController
   def index
     service = PersonDataService.new
     @people_steps = service.person_list
+    @people_steps = @people_steps.paginate
   end
 
   def new
