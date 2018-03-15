@@ -38,7 +38,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
@@ -47,3 +46,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'paranoia', '~> 2.2'
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
