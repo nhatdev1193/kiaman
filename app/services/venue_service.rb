@@ -16,11 +16,17 @@ class VenueService
   private
 
   def fetch_venues(type, parent_id = nil)
-    result = {}
+    default_option = {
+      cities: 'Chọn Tỉnh/Thành phố',
+      districts: 'Chọn Quận/Huyện',
+      wards: 'Chọn Phường/Xã'
+    }
+
+    result = { default_option[type.to_sym] => 0 }
     venues = File.read("#{Rails.root}/lib/assets/#{type}.json")
     venues_hash = JSON.parse(venues)
     venues_hash = venues_hash.select { |_code, venue| venue['parent_code'] == parent_id.to_s } if parent_id
-    venues_hash.each { |code, venue| result[venue['name']] = code }
+    venues_hash.each { |code, venue| result[venue['name_with_type']] = code }
     result
   end
 end

@@ -44,6 +44,10 @@ Rails.application.routes.draw do
         post :execute
       end
     end
+    resource :venues, only: [] do
+      get :districts
+      get :wards
+    end
   end
 
   root to: 'staff/dashboard#index'
