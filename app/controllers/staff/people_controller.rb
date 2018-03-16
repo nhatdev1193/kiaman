@@ -1,4 +1,6 @@
 class Staff::PeopleController < Staff::BaseController
+
+  before_action :person_service, only: [:index, :nic_check]
   before_action :set_person, only: [:show, :edit, :update]
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
   before_action :set_cities, only: [:show, :edit]
@@ -52,6 +54,18 @@ class Staff::PeopleController < Staff::BaseController
     render :new
   end
 
+  # Check exist nic
+  def nic_check
+    person = Person.find_by_nic_number(params[:nic_number])
+
+    res_data = if @service.nic_validate?(params[:nic_number], params[:product_id])
+                 { message: 'Có thể tạo', code: 200 }
+               else
+                 { message: "CMND đã tồn tại! Hãy nhập CMND khác. <br> #{person.last_name} #{person.first_name} - #{person.status}", code: 409 }
+               end
+    render json: res_data
+  end
+  
   def update
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
   end
@@ -114,5 +128,9 @@ class Staff::PeopleController < Staff::BaseController
 
   def invalid_person?(person)
     person[:last_name].blank? && person[:first_name].blank? && person[:phone].blank? && person[:gender].blank? && person[:birthday].blank?
+  end
+
+  def person_service
+    @service = PersonDataService.new
   end
 end

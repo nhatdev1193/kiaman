@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :people do
       collection do
         post '/create_multi', to: 'people#create_multi', as: :multi
+        post '/nic_check', to: 'people#nic_check'
       end
     end
     resources :forms do
