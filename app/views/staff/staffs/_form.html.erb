@@ -1,0 +1,92 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Form</h3>
+  </div><!-- /.box-header -->
+
+  <!-- form start -->
+  <%= form_for [:staff, @staff], html: { role: 'form', class: 'form-horizontal' } do |f| %>
+    <div class="box-body">
+      <%= render 'staff/partials/form_errors', { errors: @staff.errors } %>
+
+      <div class="form-group">
+        <%= f.label :name, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.email_field :email, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :address, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :phone, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :mobile_phone, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :mobile_phone, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :roles, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.grouped_collection_select :role_ids,
+                                          @organizations,
+                                          :roles,
+                                          :name,
+                                          :id,
+                                          :name,
+                                          {},
+                                          {multiple: true, class: 'form-control select2'} %>
+        </div>
+      </div>
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <%= link_to 'Back', staff_staffs_path, class: 'btn btn-default btn-flat' %>
+          <%= f.submit class: 'btn btn-primary btn-flat' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

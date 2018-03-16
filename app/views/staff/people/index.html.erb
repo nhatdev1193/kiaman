@@ -1,0 +1,44 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Khách hàng
+<% end %>
+
+<% # Set the title of content
+   content_for :content_header do %>
+  <div class="row">
+    <div class="col-sm-4">
+      <form>
+        <div class="input-group input-group">
+          <input type="text" class="form-control" placeholder="Tên, số điện thoại, sản phẩm ...">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary">
+              <%= fa_icon 'search' %>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="pull-right">
+        <%= link_to '#', class: 'btn btn-warning' do %>
+          <%= fa_icon 'upload' %> Nhập từ file CSV
+        <% end %>
+
+        <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary' do %>
+          <%= fa_icon 'list' %> Prospect nhanh
+        <% end %>
+
+        <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary' do %>
+          <%= fa_icon 'user-plus' %> Prospect thường
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="box box-success">
+  <div class="box-body">
+    <%= render 'table' %>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->

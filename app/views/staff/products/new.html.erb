@@ -1,0 +1,11 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Products
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Products <small>Add new</small>
+<% end %>
+
+<%= render 'form' %>

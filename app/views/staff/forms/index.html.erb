@@ -1,0 +1,57 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+  Dynamic forms
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+  Dynamic forms
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên</th>
+          <th>Form mẫu</th>
+          <th>Số lượng trường</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @dynamic_forms.each do |dynamic_form| %>
+          <tr>
+            <td><%= dynamic_form.id %></td>
+            <td><%= dynamic_form.name %></td>
+            <td>
+              <% if dynamic_form.is_template? %>
+                <%= fa_icon 'check' %>
+              <% end %>
+            </td>
+            <td>
+              <%= dynamic_form.form_fields.count %>
+            </td>
+            <td>
+              <%= link_to staff_form_path(dynamic_form), class: 'btn btn-xs btn-flat bg-blue' do %>
+                <%= fa_icon 'eye' %> Xem
+              <% end %>
+              <%= link_to edit_staff_form_path(dynamic_form), class: 'btn btn-xs btn-flat bg-orange' do %>
+                <%= fa_icon 'edit' %> Chỉnh sửa
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_form_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> Tạo form mới
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

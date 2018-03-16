@@ -1,0 +1,60 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Products
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Products
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table no-margin">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.id %></td>
+              <td><%= product.name %></td>
+              <td><%= product.description %></td>
+              <td>
+                <%= link_to edit_staff_product_path(product), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if product.deleted? %>
+                  <%= link_to staff_product_path(product), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_product_path(product), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+                <% unless product.steps.count.positive? %>
+                  <%= link_to new_staff_step_path, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'plus' %> Add step for product
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_product_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New product
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

@@ -1,0 +1,63 @@
+.main-header {
+  .navbar {
+    min-height: 60px;
+  }
+}
+
+.navbar-brand {
+  height: 60px;
+  line-height: 30px;
+  font-size: 24px;
+}
+
+.navbar-nav {
+  > li {
+
+    > a {
+      font-size: 18px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .dropdown-toggle {
+    padding-left: 55px;
+
+    > .fa-user-circle {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      font-size: 32px;
+      margin-top: -16px;
+    }
+  }
+
+  .user-menu {
+    > .dropdown-menu {
+
+      > .user-body {
+        padding: 0;
+
+        .profile-username {
+          margin: 0;
+          font-size: 20px;
+          padding: 15px;
+          display: block;
+
+          > .fa-user-circle {
+            margin-right: 3px;
+          }
+        }
+
+        a {
+          padding: 10px 15px;
+        }
+      }
+
+    }
+  }
+}
+
+.navbar-custom-menu {
+  margin-right: -15px;
+}

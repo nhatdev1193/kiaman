@@ -1,0 +1,37 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Form</h3>
+  </div><!-- /.box-header -->
+
+  <!-- form start -->
+  <%= form_for [:staff, @product], html: { role: 'form', class: 'form-horizontal' } do |f| %>
+    <div class="box-body">
+      <%= render 'staff/partials/form_errors', { errors: @product.errors } %>
+
+      <div class="form-group">
+        <%= f.label :name, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <%= link_to 'Back', staff_products_path, class: 'btn btn-default btn-flat' %>
+          <%= f.submit class: 'btn btn-primary btn-flat' %>
+        </div>
+      </div>
+    </div><!-- /.box-footer -->
+  <% end %>
+</div>

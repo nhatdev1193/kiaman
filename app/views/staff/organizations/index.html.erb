@@ -1,0 +1,66 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Organizations
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Organizations
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Parent</th>
+            <th>Roles & Permissions</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @organizations.each do |organization| %>
+            <tr>
+              <td><%= organization.id %></td>
+              <td><%= organization.name %></td>
+              <td><%= organization.level %></td>
+              <td><%= organization.parent&.name || '' %></td>
+              <td>
+                <%= link_to staff_organization_roles_path(organization), class: 'btn btn-xs btn-flat btn-info' do %>
+                  <%= fa_icon 'id-card' %> Roles
+                <% end %>
+                <%= link_to staff_organization_roles_permissions_path(organization), class: 'btn btn-xs btn-flat bg-purple' do %>
+                  <%= fa_icon 'edit' %> Assign permissions to roles
+                <% end %>
+              </td>
+              <td>
+                <%= link_to edit_staff_organization_path(organization), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if organization.deleted? %>
+                  <%= link_to staff_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_organization_path(organization), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_organization_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New organization
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

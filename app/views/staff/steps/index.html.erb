@@ -1,0 +1,65 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Steps
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Steps
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Parent</th>
+            <th>Product</th>
+            <th>Next step</th>
+            <th>Prev step</th>
+            <th>Form</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @steps.each do |step| %>
+            <tr>
+              <td><%= step.id %></td>
+              <td><%= step.name %></td>
+              <td><%= step.description %></td>
+              <td><%= step.parent&.name || '' %></td>
+              <td><%= step.product&.name || '' %></td>
+              <td><%= step.next_step&.name || '' %></td>
+              <td><%= step.prev_step&.name || '' %></td>
+              <td><%= step.form&.name || '' %></td>
+              <td>
+                <%= link_to edit_staff_step_path(step), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if step.deleted? %>
+                  <%= link_to staff_step_path(step), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_step_path(step), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_step_path, class: 'btn btn-primary btn-flat pull-left' do %>
+      <%= fa_icon 'plus' %> New step
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

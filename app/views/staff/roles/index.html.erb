@@ -1,0 +1,62 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+  Roles
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+  Roles
+<% end %>
+
+<%= render 'search_form' %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Parent</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @roles.each do |role| %>
+            <tr>
+              <td><%= role.id %></td>
+              <td><%= role.name %></td>
+              <td><%= role.level %></td>
+              <td><%= role.parent&.name || '' %></td>
+              <td>
+                <%= link_to edit_staff_organization_role_path(@organization, role), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <% if role.deleted? %>
+                  <%= link_to staff_organization_role_path(@organization, role), method: :delete, class: 'btn btn-xs btn-flat bg-green' do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_organization_role_path(@organization, role), method: :delete, class: 'btn btn-xs btn-flat bg-red' do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to staff_organizations_path, class: 'btn btn-default btn-flat' do %>
+      <%= fa_icon 'sitemap' %> Back to Organizations list
+    <% end %>
+    <%= link_to new_staff_organization_role_path(@organization, query: @search_params), class: 'btn btn-primary btn-flat' do %>
+      <%= fa_icon 'plus' %> New role
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->

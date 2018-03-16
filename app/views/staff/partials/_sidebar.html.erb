@@ -1,0 +1,50 @@
+<%
+  additional_active_conditions = {
+    users_index: [{ controller_path: 'admin/users', action_name: 'show' }],
+    users_new: [{ controller_path: 'admin/users', action_name: 'new' }, { controller_path: 'admin/users', action_name: 'confirm' }],
+    monthly_reports_index: [{ controller_path: 'admin/monthly_reports', action_name: 'new' }, { controller_path: 'admin/monthly_reports', action_name: 'confirm' }],
+    investments_index: [{ controller_path: 'admin/investments', action_name: 'new' }, { controller_path: 'admin/investments', action_name: 'confirm' }],
+    admins_index: [{ controller_path: 'admin/admins', action_name: 'new' }, { controller_path: 'admin/admins', action_name: 'edit' }],
+  }
+%>
+
+<section class="sidebar">
+  <ul class="sidebar-menu">
+    <%= nav_link 'Dashboard', staff_dashboard_path, 'tachometer' %>
+
+    <li class="header">Organization Management</li>
+    <% if can_access?(@current_staff_permissions, staff_organizations_path, 'index') %>
+      <%= nav_link 'Organizations', staff_organizations_path, 'sitemap' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_permissions_path, 'index') %>
+      <%= nav_link 'Permissions', staff_permissions_path, 'key' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_permissions_path, 'index') %>
+      <%= nav_link 'Staffs', staff_staffs_path, 'users' %>
+    <% end %>
+
+
+    <li class="header">Products Management</li>
+    <% if can_access?(@current_staff_permissions, staff_products_path, 'index') %>
+      <%= nav_link 'Products', staff_products_path, 'cogs' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_steps_path, 'index') %>
+      <%= nav_link 'Steps', staff_steps_path, 'paw' %>
+    <% end %>
+
+    <li class="header">People Management</li>
+    <% if can_access?(@current_staff_permissions, staff_people_path, 'index') %>
+      <%= nav_link 'People', staff_people_path, 'users' %>
+    <% end %>
+    <% if can_access?(@current_staff_permissions, staff_forms_path, 'index') %>
+      <%= nav_link 'Dynamic forms', staff_forms_path, 'list' %>
+    <% end %>
+
+    <li class="header">Others</li>
+    <li>
+      <%= link_to destroy_staff_session_path, method: :delete do %>
+        <%= fa_icon 'sign-out' %>Logout
+      <% end %>
+    </li>
+  </ul>
+</section><!-- /.sidebar -->

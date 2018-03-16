@@ -1,0 +1,73 @@
+<%
+  @num = params[:people] ? params[:people][:people].count : 10
+%>
+
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Prospect nhanh</h3>
+  </div><!-- /.box-header -->
+
+  <!-- form start -->
+  <%= form_tag multi_staff_people_path, role: 'form', class: 'form-horizontal' do %>
+    <%= hidden_field_tag :type, params[:type] %>
+
+    <div class="box-body">
+      <%= render 'staff/partials/form_errors', { errors: @person.errors } %>
+
+      <div class="form-group">
+        <%= label_tag 'product', 'Loại sản phẩm *', class: 'control-label col-sm-3' %>
+
+        <div class="col-sm-6">
+          <%= select_tag 'people[product_id]', options_from_collection_for_select(Product.all, :id, :name, params[:people] ? params[:people][:product_id] : nil), prompt: 'Select', class: 'form-control select2' %>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table id="multi-person" class="table table-hover table-bordered table-striped no-margin">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Họ và tên lót</th>
+              <th>Tên *</th>
+              <th>SDT *</th>
+              <th class="th-school <%= params[:people] ? (params[:people][:product_id] === '1' ? 'present' : 'hidden') : 'hidden' %>">Trường *</th>
+              <th class="th-merchandise <%= params[:people] ? (params[:people][:product_id] === '2' ? 'present' : 'hidden') : 'hidden' %>">Mặt hàng *</th>
+              <th>Giới tính</th>
+              <th>Ngày sinh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @num.times do |index|
+              row = index + 1 %>
+              <tr id="<%= row %>">
+                <td><%= label_tag 'stt', row, class: 'control-label col-sm-3' %></td>
+                <td><%= text_field_tag 'people[people][]person[last_name]', params[:people] ? params[:people][:people][index][:person][:last_name] : nil, class: 'form-control' %></td>
+                <td><%= text_field_tag 'people[people][]person[first_name]', params[:people] ? params[:people][:people][index][:person][:first_name] : nil,  class: 'form-control' %></td>
+                <td><%= text_field_tag 'people[people][]person[phone]', params[:people] ? params[:people][:people][index][:person][:phone] : nil,  class: 'form-control' %></td>
+                <td class="td-school <%= params[:people] ? (params[:people][:product_id] === '1' ? 'present' : 'hidden') : 'hidden' %>">
+                  <%= text_field_tag 'people[people][]person[school]', params[:people] ? params[:people][:people][index][:person][:school] : nil,  class: 'form-control' %>
+                </td>
+                <td class="td-merchandise <%= params[:people] ? (params[:people][:product_id] === '2' ? 'present' : 'hidden') : 'hidden' %>">
+                  <%= text_field_tag 'people[people][]person[merchandise]', params[:people] ? params[:people][:people][index][:person][:merchandise] : nil,  class: 'form-control' %>
+                </td>
+                <td><%= select_tag 'people[people][]person[gender]', options_for_select(person::GENDER_TYPES, selected: params[:people] ? params[:people][:people][index][:person][:gender] : nil), prompt: 'Select', class: 'form-control' %></td>
+                <td><%= date_field_tag 'people[people][]person[birthday]', params[:people] ? params[:people][:people][index][:person][:birthday] : nil,  class: 'form-control' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div><!-- /.table-responsive -->
+
+    <div class="box-footer">
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <%= link_to '', id: 'add-more', name: 'add-more' do %>
+            <%= fa_icon 'plus-circle' %>Thêm 10 dòng
+          <% end %>
+          <%= link_to 'Hủy', staff_people_path, class: 'btn btn-default btn-flat' %>
+          <%= submit_tag 'Tạo', class: 'btn btn-success btn-flat' %>
+        </div>
+      </div>
+    </div><!-- /.box-footer -->
+  <% end %>
+</div>

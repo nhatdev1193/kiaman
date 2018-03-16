@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= favicon_link_tag 'icon.ico' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? "Kim An CRM - #{yield(:title)}" : 'Kim An CRM' %></title>
+    <%= display_meta_tags title: content_for?(:title) ? "#{yield(:title)}" : '',
+                          description: content_for?(:description) ? "#{yield(:description)}" : '',
+                          noindex: true %>
+    <%= stylesheet_link_tag 'application_staff', media: 'all' %>
+    <%= javascript_include_tag 'application_staff' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="hold-transition skin-green layout-top-nav <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
+    <div class="wrapper">
+      <% if staff_signed_in? %>
+        <header class="main-header">
+          <%= render 'staff/partials/top_navbar' %>
+        </header>
+      <% end %>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <% if staff_signed_in? && content_for?(:content_header) %>
+          <section class="content-header">
+            <%= yield(:content_header) %>
+          </section>
+        <% end %>
+
+        <!-- Main content -->
+        <section class="content">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </section>
+      </div>
+    </div><!-- ./wrapper -->
+  </body>
+</html>

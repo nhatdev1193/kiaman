@@ -1,0 +1,89 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    <%= @organization.name %> - Assign permissions to roles
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    <%= @organization.name %> - Assign permissions to roles
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <% if @roles.size > 0 %>
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+        <tr>
+          <th></th>
+          <% @roles.each do |role| %>
+            <th class="text-center"><%= role.name %></th>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody>
+          <% @permissions.each do |permission| %>
+            <tr>
+              <th><%= permission.name %></th>
+              <% @roles.each do |role| %>
+                <td class="text-center">
+                  <%= check_box_tag 'roles_permissions[]',
+                                    "#{role.id}_#{permission.id}",
+                                    role.permissions.include?(permission),
+                                    { id: "roles_permissions_#{role.id}_#{permission.id}", class: 'i-check' } %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      There is no roles to assign permissions!
+      <% end %>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= form_with url: staff_organization_roles_permissions_path(@organization), html: { id: 'form-update-roles-permissions', method: 'PATCH' } do |f| %>
+      <%= f.hidden_field :initial_roles_permissions_vals, id: :initial_roles_permissions_vals %>
+      <%= f.hidden_field :selected_roles_permissions_vals, id: :selected_roles_permissions_vals %>
+    <% end %>
+
+    <%= link_to staff_organizations_path, class: 'btn btn-default btn-flat' do %>
+      <%= fa_icon 'sitemap' %> Back to Organizations list
+    <% end %>
+    <a id="btn-update-roles-permissions" href="#" class="btn btn-success btn-flat">
+      Save <%= fa_icon 'check' %>
+    </a>
+  </div><!-- /.box-footer -->
+</div>
+
+<script>
+  $(function () {
+    let rolesPermissionsIndexPage = (function () {
+      // Init and get checked values
+      let initialCheckedValues = [];
+      let $checkedChkBoxesSelector = "input:checkbox[name='roles_permissions[]']:checked";
+      $($checkedChkBoxesSelector).each(function() {
+        let $t = $(this);
+        initialCheckedValues.push($t.val());
+      });
+      $('#initial_roles_permissions_vals').val(initialCheckedValues);
+
+      // When user want to update permissions, get all checked values
+      $("#btn-update-roles-permissions").click(function (e) {
+        e.preventDefault();
+        let selectedCheckedValues = [];
+
+        $($checkedChkBoxesSelector).each(function() {
+          let $t = $(this);
+          selectedCheckedValues.push($t.val());
+        });
+
+        $('#selected_roles_permissions_vals').val(selectedCheckedValues);
+        $('#form-update-roles-permissions').submit();
+      });
+
+    })();
+  });
+</script>

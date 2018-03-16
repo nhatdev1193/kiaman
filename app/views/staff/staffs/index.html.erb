@@ -1,0 +1,62 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+    Staffs
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+    Staffs
+<% end %>
+
+<div class="box box-info">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Organizations</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @staffs.each do |staff| %>
+            <tr>
+              <td><%= staff.id %></td>
+              <td><%= staff.name %></td>
+              <td><%= staff.email %></td>
+              <td><%= staff.roles.map(&:name).map(&:capitalize).join(' - ') %></td>
+              <td><%= staff.organizations.uniq.map(&:name).join(' - ') %></td>
+              <td>
+                <%= link_to edit_staff_staff_path(staff), class: 'btn btn-xs btn-flat bg-orange' do %>
+                  <%= fa_icon 'edit' %> Edit
+                <% end %>
+                <%= link_to [:staff, staff], class: 'btn btn-xs btn-flat bg-gray' do %>
+                  <%= fa_icon 'lock' %> Lock
+                <% end %>
+                <% if staff.deleted? %>
+                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-green', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'recycle' %> Restore
+                  <% end %>
+                <% else %>
+                  <%= link_to staff_staff_path(staff), method: :delete, class: 'btn btn-xs btn-flat bg-red', data: { confirm: 'Are you sure?' } do %>
+                    <%= fa_icon 'trash' %> Delete
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+  </div><!-- /.box-body -->
+
+  <div class="box-footer clearfix">
+    <%= link_to new_staff_staff_path, class: 'btn btn-primary btn-flat pull-left' do %>
+        <%= fa_icon 'plus' %> New staff
+    <% end %>
+  </div><!-- /.box-footer -->
+</div><!-- /.box -->
