@@ -1,7 +1,8 @@
 class Staff::PeopleController < Staff::BaseController
+  before_action :person_service, only: [:index, :nic_check]
+
   def index
-    service = PersonDataService.new
-    @people_steps = service.person_list
+    @people_steps = @service.person_list
   end
 
   def new
@@ -42,6 +43,18 @@ class Staff::PeopleController < Staff::BaseController
     render :new
   end
 
+  # Check exist nic
+  def nic_check
+    person = Person.find_by_nic_number(params[:nic_number])
+
+    res_data = if @service.nic_validate?(params[:nic_number], params[:product_id])
+                 { message: 'Có thể tạo', code: 200 }
+               else
+                 { message: "CMND đã tồn tại! Hãy nhập CMND khác. <br> #{person.last_name} #{person.first_name} - #{person.status}", code: 409 }
+               end
+    render json: res_data
+  end
+
   private
 
   def person_params
@@ -77,5 +90,9 @@ class Staff::PeopleController < Staff::BaseController
 
   def invalid_person?(person)
     person[:last_name].blank? && person[:first_name].blank? && person[:phone].blank? && person[:gender].blank? && person[:birthday].blank?
+  end
+
+  def person_service
+    @service = PersonDataService.new
   end
 end

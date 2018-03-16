@@ -31,4 +31,13 @@ class PersonDataService
   rescue TypeError => e
     "ProspectDataService #{e.message}"
   end
+
+  def nic_validate?(nic_number, product_id)
+    person = Person.find_by_nic_number(nic_number)
+    return true unless person
+    step_ids = Step.where(product_id: product_id).ids
+    person_product = PeopleStep.where(person: person, step_id: step_ids).where.not(status: PeopleStep.statuses[:done])
+    return true if person_product.empty?
+    false
+  end
 end
