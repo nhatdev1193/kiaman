@@ -1,6 +1,7 @@
 class Staff::PeopleController < Staff::BaseController
   before_action :set_person, only: [:show, :edit, :update]
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
+  before_action :set_cities, only: [:show, :edit]
   before_action :retrieve_form_values, only: [:show, :edit]
 
   def index
@@ -65,6 +66,10 @@ class Staff::PeopleController < Staff::BaseController
     @current_step = Step.find(params[:step])
     @dynamic_form = Form.includes(form_fields: :form_input).find_by_id(@current_step.form_id)
     @form_fields = @dynamic_form.form_fields
+  end
+
+  def set_cities
+    @cities = VenueService.new.fetch_cities
   end
 
   def retrieve_form_values
