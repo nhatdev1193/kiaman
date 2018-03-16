@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
     resources :permissions, only: [:index, :edit, :update]
     resources :staffs, except: [:show]
+
+    resources :services, except: [:show] do
+      resources :steps, except: [:show]
+    end
     resources :organizations, except: [:show]
     resources :roles, except: [:show]
     resources :permissions, except: [:show]
@@ -30,10 +34,19 @@ Rails.application.routes.draw do
     match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     resources :products, except: [:show]
     resources :steps, except: [:show]
-    resources :customers do
+    resources :people do
       collection do
-        post '/create_multi', to: 'customers#create_multi', as: :multi
+        post '/create_multi', to: 'people#create_multi', as: :multi
       end
+    end
+    resources :forms do
+      member do
+        post :execute
+      end
+    end
+    resource :venues, only: [] do
+      get :districts
+      get :wards
     end
   end
 

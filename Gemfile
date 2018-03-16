@@ -6,7 +6,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'passenger'
 gem 'meta-tags'
@@ -18,6 +17,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -37,7 +37,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
@@ -46,3 +45,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'paranoia', '~> 2.2'
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'

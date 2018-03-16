@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :customers_step do
+  factory :people_step do
     step nil
-    customer nil
+    person nil
     contract nil
     staff nil
   end
