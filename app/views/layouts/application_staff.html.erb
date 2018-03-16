@@ -7,34 +7,23 @@
     <%= display_meta_tags title: content_for?(:title) ? "#{yield(:title)}" : '',
                           description: content_for?(:description) ? "#{yield(:description)}" : '',
                           noindex: true %>
-    <%= stylesheet_link_tag 'application_staff', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application_staff', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application_staff', media: 'all' %>
+    <%= javascript_include_tag 'application_staff' %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="hold-transition skin-green <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
+  <body class="hold-transition skin-green layout-top-nav <%= staff_signed_in? ? '' : 'sidebar-collapse' %>">
     <div class="wrapper">
       <% if staff_signed_in? %>
-          <header class="main-header">
-            <%= render 'staff/partials/top_navbar' %>
-          </header>
-
-          <aside class="main-sidebar">
-            <%= render 'staff/partials/sidebar' %>
-          </aside>
+        <header class="main-header">
+          <%= render 'staff/partials/top_navbar' %>
+        </header>
       <% end %>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <% if staff_signed_in? %>
-          <!-- Content Header (Page header) -->
+        <% if staff_signed_in? && content_for?(:content_header) %>
           <section class="content-header">
-            <% if content_for?(:content_title) %>
-              <h1><%= yield(:content_title) %></h1>
-            <% end %>
-            <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li class="active">Dashboard</li>
-            </ol>
+            <%= yield(:content_header) %>
           </section>
         <% end %>
 

@@ -1,0 +1,9 @@
+.table-pagination {
+  position: relative;
+  height: 40px;
+
+  .rows-per-page {
+    position: absolute;
+    left: 5px;
+  }
+}
