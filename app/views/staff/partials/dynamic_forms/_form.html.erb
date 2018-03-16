@@ -1,4 +1,8 @@
 <div class="box box-info">
+  <% @read_only = action_name == 'show'
+     @input_class = @read_only ? 'form-control-plaintext' : 'form-control'
+  %>
+
   <%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
       <%= render 'staff/partials/dynamic_forms/document_management' %>
       <div class="box-header with-border">
