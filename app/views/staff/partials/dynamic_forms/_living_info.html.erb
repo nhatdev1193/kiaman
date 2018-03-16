@@ -1,98 +1,98 @@
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'household_address' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'dia_chi_ho_khau' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'household_province' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'tinh_tp_ho_khau' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'household_district' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'quan_huyen_ho_khau' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'household_ward' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'phuong_xa_ho_khau' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'current_address' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'dia_chi_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'current_province' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'tinh_tp_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'current_district' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'quan_huyen_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'current_ward' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'phuong_xa_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'housing_status' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'tinh_trang_nha_o' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([]), class: 'form-control') %>
+    <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: @input_class, disabled: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'house_owner_name' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'ten_chu_nha' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'house_owner_phone' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'sdt_chu_nha' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'number_years_current_city' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'so_nam_o_tp_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'number_years_current_home' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'so_nam_o_nha_hien_tai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'stay_with' } %>
+  <% field = @form_fields.detect { |field| field.field_name == 'o_voi_ai' } %>
   <label class="control-label col-sm-3"><%= field.display_name %></label>
   <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', '', class: 'form-control') %>
+    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
   </div>
 </div>

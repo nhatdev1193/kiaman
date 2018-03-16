@@ -51,9 +51,10 @@ def create_products_steps
 
   product_kinds.each do |product_kind|
     product = Product.find_or_create_by!(name: product_kind)
+    form = product_kind == 'Student Loan' ? @student_form : @sme_form
 
     prospect_step = Step.find_or_create_by!(name: "Prospect #{product_kind}", description: "Prospect #{product_kind}", product: product)
-    fullfill_step = Step.find_or_create_by!(name: "Fullfill #{product_kind}", description: "Fullfill #{product_kind}", product: product, form: @form)
+    fullfill_step = Step.find_or_create_by!(name: "Fullfill #{product_kind}", description: "Fullfill #{product_kind}", product: product, form: form)
     lead_step = Step.find_or_create_by!(name: "Lead #{product_kind}", description: "Lead #{product_kind}", product: product)
     sleep_contract_step = Step.find_or_create_by!(name: "Sleep Contract #{product_kind}", description: "Sleep Contract #{product_kind}", product: product)
     evaluate_step = Step.find_or_create_by!(name: "Evaluate #{product_kind}", description: "Evaluate #{product_kind}", product: product)
@@ -77,8 +78,10 @@ def create_form_inputs
 end
 
 def create_forms
-  @form = Form.create!(name: 'KHÁCH HÀNG')
-  p 'CREATED Form: KHÁCH HÀNG'
+  @student_form = Form.create!(name: 'Form Sinh viên')
+  p 'CREATED Form: Sinh viên'
+  @sme_form = Form.create!(name: 'Form Tiểu thương')
+  p 'CREATED Form: Tiểu thương'
 end
 
 def single_condition(field)
