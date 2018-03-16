@@ -1,6 +1,7 @@
 class Staff::PeopleController < Staff::BaseController
   before_action :set_person, only: [:show, :edit, :update]
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
+  before_action :retrieve_form_values, only: [:show, :edit]
 
   def index
     service = PersonDataService.new
@@ -62,6 +63,12 @@ class Staff::PeopleController < Staff::BaseController
   def set_step_and_dynamic_form
     @current_step = Step.find(params[:step])
     @dynamic_form = Form.includes(form_fields: :form_input).find_by_id(@current_step.form_id)
+    @form_fields = @dynamic_form.form_fields
+  end
+
+  def retrieve_form_values
+    form_values = FormValue.where(form_id: @dynamic_form.id, object_id: @person.id, form_field_id: @form_fields.ids)
+    @form_fields = @form_fields.each { |field| field.field_value = form_values.detect { |fv| field.id == fv.form_field_id }&.value }
   end
 
   def person_params

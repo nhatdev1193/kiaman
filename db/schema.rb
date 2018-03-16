@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310081500) do
+ActiveRecord::Schema.define(version: 20180313043427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,44 +45,13 @@ ActiveRecord::Schema.define(version: 20180310081500) do
   end
 
   create_table "contracts", force: :cascade do |t|
-    t.bigint "customer_id", null: false
     t.bigint "contract_kind_id", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "person_id"
     t.index ["contract_kind_id"], name: "index_contracts_on_contract_kind_id"
-    t.index ["customer_id"], name: "index_contracts_on_customer_id"
-  end
-
-  create_table "customers", force: :cascade do |t|
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "last_name"
-    t.string "first_name"
-    t.boolean "gender"
-    t.date "birthday"
-    t.string "phone"
-    t.integer "status"
-    t.string "school"
-    t.string "merchandise"
-    t.string "nic_number"
-  end
-
-  create_table "customers_steps", force: :cascade do |t|
-    t.bigint "step_id", null: false
-    t.bigint "customer_id", null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "created_staff_id"
-    t.integer "assigned_staff_id"
-    t.integer "status"
-    t.datetime "assigned_at"
-    t.bigint "contract_id"
-    t.index ["contract_id"], name: "index_customers_steps_on_contract_id"
-    t.index ["customer_id"], name: "index_customers_steps_on_customer_id"
-    t.index ["step_id"], name: "index_customers_steps_on_step_id"
+    t.index ["person_id"], name: "index_contracts_on_person_id"
   end
 
   create_table "document_kinds", force: :cascade do |t|
@@ -95,7 +64,6 @@ ActiveRecord::Schema.define(version: 20180310081500) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.bigint "customer_id"
     t.bigint "document_kind_id", null: false
     t.string "filename", null: false
     t.string "url", null: false
@@ -106,8 +74,9 @@ ActiveRecord::Schema.define(version: 20180310081500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "staff_id", null: false
-    t.index ["customer_id"], name: "index_documents_on_customer_id"
+    t.bigint "person_id"
     t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
+    t.index ["person_id"], name: "index_documents_on_person_id"
     t.index ["staff_id"], name: "index_documents_on_staff_id"
   end
 
@@ -191,6 +160,37 @@ ActiveRecord::Schema.define(version: 20180310081500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["contract_id"], name: "index_payment_schedules_on_contract_id"
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "last_name"
+    t.string "first_name"
+    t.boolean "gender"
+    t.date "birthday"
+    t.string "phone"
+    t.integer "status"
+    t.string "school"
+    t.string "merchandise"
+    t.string "nic_number"
+  end
+
+  create_table "people_steps", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "created_staff_id"
+    t.integer "assigned_staff_id"
+    t.integer "status"
+    t.datetime "assigned_at"
+    t.bigint "person_id"
+    t.bigint "contract_id"
+    t.bigint "step_id"
+    t.index ["contract_id"], name: "index_people_steps_on_contract_id"
+    t.index ["person_id"], name: "index_people_steps_on_person_id"
+    t.index ["step_id"], name: "index_people_steps_on_step_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -315,12 +315,9 @@ ActiveRecord::Schema.define(version: 20180310081500) do
 
   add_foreign_key "condition_groups", "conditions"
   add_foreign_key "contracts", "contract_kinds"
-  add_foreign_key "contracts", "customers"
-  add_foreign_key "customers_steps", "contracts"
-  add_foreign_key "customers_steps", "customers"
-  add_foreign_key "customers_steps", "steps"
-  add_foreign_key "documents", "customers"
+  add_foreign_key "contracts", "people"
   add_foreign_key "documents", "document_kinds"
+  add_foreign_key "documents", "people"
   add_foreign_key "documents", "staffs"
   add_foreign_key "form_fields", "condition_groups"
   add_foreign_key "form_fields", "form_inputs"
@@ -331,6 +328,9 @@ ActiveRecord::Schema.define(version: 20180310081500) do
   add_foreign_key "forms", "contract_kinds"
   add_foreign_key "forms", "steps"
   add_foreign_key "payment_schedules", "contracts"
+  add_foreign_key "people_steps", "contracts"
+  add_foreign_key "people_steps", "people"
+  add_foreign_key "people_steps", "steps"
   add_foreign_key "roles", "organizations"
   add_foreign_key "roles_permissions", "organizations"
   add_foreign_key "roles_permissions", "permissions"
