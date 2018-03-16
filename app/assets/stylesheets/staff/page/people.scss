@@ -1,0 +1,18 @@
+.form-control-plaintext {
+  display: block;
+  width: 100%;
+  padding-top: .6rem;
+  padding-bottom: .375rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+  background-color: transparent;
+  border: solid transparent;
+  border-width: 1px 0;
+}
+
+// Remove arrows from form element select in Bootstrap 3 on disabled mode
+select.form-control-plaintext {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}

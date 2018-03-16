@@ -1,13 +1,24 @@
 class Staff::PeopleController < Staff::BaseController
+
   before_action :person_service, only: [:index, :nic_check]
+  before_action :set_person, only: [:show, :edit, :update]
+  before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
+  before_action :set_cities, only: [:show, :edit]
+  before_action :retrieve_form_values, only: [:show, :edit]
 
   def index
-    @people_steps = @service.person_list
+    service = PersonDataService.new
+    @people_steps = service.person_list
+                           .paginate(page: params[:page], per_page: params[:per_page])
   end
 
   def new
     @person = Person.new
   end
+
+  def show; end
+
+  def edit; end
 
   def create
     ActiveRecord::Base.transaction do
@@ -54,8 +65,31 @@ class Staff::PeopleController < Staff::BaseController
                end
     render json: res_data
   end
+  
+  def update
+    @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
+  end
 
   private
+
+  def set_person
+    @person = Person.find(params[:id])
+  end
+
+  def set_step_and_dynamic_form
+    @current_step = Step.find(params[:step])
+    @dynamic_form = Form.includes(form_fields: :form_input).find_by_id(@current_step.form_id)
+    @form_fields = @dynamic_form.form_fields
+  end
+
+  def set_cities
+    @cities = VenueService.new.fetch_cities
+  end
+
+  def retrieve_form_values
+    form_values = FormValue.where(form_id: @dynamic_form.id, object_id: @person.id, form_field_id: @form_fields.ids)
+    @form_fields = @form_fields.each { |field| field.field_value = form_values.detect { |fv| field.id == fv.form_field_id }&.value }
+  end
 
   def person_params
     params[:person].delete(:merchandise) if params[:person][:product_id] == '1'
@@ -74,6 +108,10 @@ class Staff::PeopleController < Staff::BaseController
         ]
       ]
     )
+  end
+
+  def form_values_params
+    params.require(:form_values).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
   end
 
   # Store 1st step of flow into people_steps

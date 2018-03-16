@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
     resources :permissions, only: [:index, :edit, :update]
     resources :staffs, except: [:show]
+
+    resources :services, except: [:show] do
+      resources :steps, except: [:show]
+    end
     resources :organizations, except: [:show]
     resources :roles, except: [:show]
     resources :permissions, except: [:show]
@@ -35,6 +39,15 @@ Rails.application.routes.draw do
         post '/create_multi', to: 'people#create_multi', as: :multi
         post '/nic_check', to: 'people#nic_check'
       end
+    end
+    resources :forms do
+      member do
+        post :execute
+      end
+    end
+    resource :venues, only: [] do
+      get :districts
+      get :wards
     end
   end
 

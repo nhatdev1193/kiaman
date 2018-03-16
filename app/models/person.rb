@@ -20,6 +20,26 @@ class Person < SoftDeleteBaseModel
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
   end
 
+  def update_fields(object_id, form_id, person_params, form_values_params)
+    Person.transaction do
+      FormValue.transaction do
+        if update(person_params)
+          # Save to form_values
+          form_values_params.each do |field_id, value|
+            form_value = FormValue.find_or_create_by(form_id: form_id, object_id: object_id, form_field_id: field_id)
+            form_value.value = value
+            next unless form_value.save
+            value_errors = form_value.errors.messages.first
+            error_message = value_errors&.join(' ')
+            errors[field_id] << error_message if error_message
+          end
+        end
+      end
+      raise ActiveRecord::Rollback if errors.any?
+    end
+    self
+  end
+
   private
 
   def set_default_status

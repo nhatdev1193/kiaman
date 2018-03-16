@@ -1,0 +1,11 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+  Dynamic forms
+<% end %>
+
+<% # Set the title of content
+   content_for :content_title do %>
+  Dynamic forms <small>Edit</small>
+<% end %>
+
+<%= render 'form' %>
