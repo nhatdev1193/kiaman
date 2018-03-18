@@ -9,7 +9,7 @@
       </div><!-- /.box-header -->
 
       <!-- form start -->
-      <%= form_with model: @person, url: staff_people_path, method: :post,
+      <%= form_with model: @person, url: staff_people_create_normal_prospect_path, method: :post,
                     id: 'normal_prospect_form', class: 'form-horizontal',
                     html: { role: 'form' } do |f| %>
         <%= hidden_field_tag :type, params[:type] %>
