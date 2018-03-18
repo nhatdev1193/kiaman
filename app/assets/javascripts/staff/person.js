@@ -80,29 +80,55 @@ $(function () {
     }
   }
 
-  $('#form_values_8').on('change', function() {
+  function loadVenues(dataType, parentId, destination, callBack = 0){
+    let venueParam = dataType == 'districts' ? 'city_id' : 'district_id';
     $.get({
-      url: '/staff/venues/districts?city_id=' + this.value
+      url: '/staff/venues/' + dataType + '?' + venueParam + '=' + parentId
     }).success(function(data){
-      $form_values_9 = $('#form_values_9');
-      $form_values_9.find('option').remove().end();
+      destination.find('option').remove().end();
       for(var id in data){
-        $form_values_9.append(new Option(id, data[id]));
+        destination.append(new Option(id, data[id]));
       }
-      $('#form_values_9').prop("disabled", false);
-    });
-  });
+      destination.prop("disabled", false);
 
-  $('#form_values_9').on('change', function() {
-    $.get({
-      url: '/staff/venues/wards?district_id=' + this.value
-    }).success(function(data){
-      $form_values_10 = $('#form_values_10');
-      $form_values_10.find('option').remove().end();
-      for(var id in data){
-        $form_values_10.append(new Option(id, data[id]));
+      // Set option selected by value
+      destination.val(destination.parent().data('value'));
+
+      if(callBack){
+        callBack();
       }
-      $('#form_values_10').prop("disabled", false);
+    });
+  }
+
+  let venueSelectIds = [[8, 9, 10], [12, 13, 14], [61, 62, 63], [65, 66, 67]];
+  let venueGroup = {
+    $form_values_8: $('#form_values_8'),
+    $form_values_9: $('#form_values_9'),
+    $form_values_10: $('#form_values_10'),
+    $form_values_12: $('#form_values_12'),
+    $form_values_13: $('#form_values_13'),
+    $form_values_14: $('#form_values_14'),
+    $form_values_61: $('#form_values_61'),
+    $form_values_62: $('#form_values_62'),
+    $form_values_63: $('#form_values_63'),
+    $form_values_65: $('#form_values_65'),
+    $form_values_66: $('#form_values_66'),
+    $form_values_67: $('#form_values_67')
+  };
+
+  venueSelectIds.forEach(function(group){
+    // On load
+    loadVenues('districts', venueGroup["$form_values_" + group[0]].val(), venueGroup["$form_values_" + group[1]], function(){
+      loadVenues('wards', venueGroup["$form_values_" + group[1]].val(), venueGroup["$form_values_" + group[2]]);
+    });
+
+    // On change
+    venueGroup["$form_values_" + group[0]].bind("change", function(){
+      loadVenues('districts', this.value, venueGroup["$form_values_" + group[1]]);
+    });
+
+    venueGroup["$form_values_" + group[1]].bind("change", function(){
+      loadVenues('wards', this.value, venueGroup["$form_values_" + group[2]]);
     });
   });
 });
