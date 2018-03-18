@@ -25,13 +25,13 @@
           <%= fa_icon 'upload' %> Nhập từ file CSV
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary' do %>
+        <%= link_to staff_people_fast_prospect_path, class: 'btn btn-primary' do %>
           <%= fa_icon 'list' %> Prospect nhanh
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary' do %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-normal-prospect-form">
           <%= fa_icon 'user-plus' %> Prospect thường
-        <% end %>
+        </button>
       </div>
     </div>
   </div>
@@ -42,3 +42,8 @@
     <%= render 'table' %>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
+
+
+<!-- Normal prospect modal form
+================================= -->
+<%= render partial: 'normal_prospect_form' %>

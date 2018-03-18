@@ -55,33 +55,9 @@ $(function () {
     }
   });
 
-  // Event check nic
-  function checkNIC() {
-    var nicNumber = $('#person_nic_number').val();
-    var productId = $('#person_product_id').val();
-    var personForm = $('#new_person');
-
-    if(!productId){
-      alert('Xin hãy chọn loại sản phẩm')
-    }else{
-      $.ajax({
-        url: '/staff/people/nic_check',
-        type: 'post',
-        data: { nic_number: nicNumber, product_id: productId },
-        success: function(res){
-          if(res.code == 409){
-            personForm.find(':submit').attr('disabled', true);
-          }else if(res.code == 200){
-            personForm.find(':submit').attr('disabled', false);
-          }
-          $('#nic-message').html(res.message);
-        }
-      })
-    }
-  }
-
   function loadVenues(dataType, parentId, destination, callBack = 0){
     let venueParam = dataType == 'districts' ? 'city_id' : 'district_id';
+
     $.get({
       url: '/staff/venues/' + dataType + '?' + venueParam + '=' + parentId
     }).success(function(data){

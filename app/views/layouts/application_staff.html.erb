@@ -21,6 +21,7 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+
         <% if staff_signed_in? && content_for?(:content_header) %>
           <section class="content-header">
             <%= yield(:content_header) %>
@@ -29,7 +30,11 @@
 
         <!-- Main content -->
         <section class="content">
-          <%= render 'layouts/messages' %>
+          <% if devise_controller? %>
+            <%= devise_error_messages! %>
+          <% end %>
+          <%= render 'staff/partials/messages' %>
+
           <%= yield %>
         </section>
       </div>

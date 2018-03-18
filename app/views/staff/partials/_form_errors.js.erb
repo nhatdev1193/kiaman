@@ -1,0 +1,24 @@
+/*
+ * This JS file should be used to render AJAX form error in all form_with forms
+ */
+let $html = `
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+    <% errors.full_messages.each do |msg| %>
+      <%= content_tag :div, msg %>
+    <% end %>
+  </div>`;
+
+let formId = <%= params[:form_id] %>;
+if (!formId) {
+  console.error('The AJAX form need an in <input type="hidden" name="form_id" value="YOUR_FORM_ID" > element for rendering the errors of the form.')
+}
+
+let $form = $('#<%= params[:form_id] %>');
+let $messagesRenderArea = $form.find('.form_error_messages');
+if ($messagesRenderArea.length === 0) {
+  console.error('The form need an element with class "form_error_messages" to render errors, please add.')
+}
+
+$messagesRenderArea.empty().append($html);
