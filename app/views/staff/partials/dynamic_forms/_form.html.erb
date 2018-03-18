@@ -1,96 +1,56 @@
-<div class="box box-info">
-  <% @read_only = action_name == 'show'
-     @input_class = @read_only ? 'form-control-plaintext' : 'form-control'
-     @is_student_product = @current_step.product.name == 'Student Loan'
-  %>
+<% @read_only = action_name == 'show'
+   @input_class = @read_only ? 'form-control-plaintext' : 'form-control'
+   @is_student_product = @current_step.product.name == 'Student Loan'
+%>
+<%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
+  <!--Hidden field for sending necessary params to server -->
+  <%= hidden_field_tag 'object_id', @person.id %>
+  <%= hidden_field_tag 'step', @current_step.id %>
 
-  <%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
-      <%= render 'staff/partials/dynamic_forms/document_management' %>
-      <div class="box-header with-border">
-        <h3 class="box-title"><%= "#{@person.last_name} #{@person.first_name}" %></h3>
-      </div><!-- /.box-header -->
-      <div class="box-body">
-        <ul  class="nav nav-pills">
-          <li class="active"><a  href="#personal" data-toggle="tab">CÁ NHÂN</a></li>
-          <li><a href="#study_business" data-toggle="tab">
-            <%= @is_student_product ? 'HỌC TẬP' : 'KINH DOANH' %>
-          </a></li>
-          <li><a href="#finance" data-toggle="tab">TÀI CHÍNH</a></li>
-          <li><a href="#job" data-toggle="tab">VIỆC LÀM</a></li>
-          <li><a href="#reference" data-toggle="tab">THAM CHIẾU</a></li>
-        </ul>
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#personal_info_tab" data-toggle="tab">CÁ NHÂN</a></li>
+      <li><a href="#study_business_info_tab" data-toggle="tab">HỌC TẬP</a></li>
+      <li><a href="#finance_info_tab" data-toggle="tab">TÀI CHÍNH</a></li>
+      <li><a href="#job_info_tab" data-toggle="tab">VIỆC LÀM</a></li>
+      <li><a href="#reference_info_tab" data-toggle="tab">THAM CHIẾU</a></li>
+    </ul>
+    <div class="tab-content">
 
-        <div class="tab-content clearfix">
-          <!--PERSONAL TAB-->
-          <div class="tab-pane active" id="personal">
-            <!--Hidden field for sending necessary params to server -->
-            <%= hidden_field_tag 'object_id', @person.id %>
-            <%= hidden_field_tag 'step', @current_step.id %>
-
-            <!-- Fixed INFO -->
-            <%= render 'staff/partials/dynamic_forms/fixed_info' %>
-
-            <!-- NIC INFO -->
-            <div class="form-group">
-              <div class="control-label col-sm-3">
-                <h4>CMND/ Căn cước/ Passport</h4>
-                <hr>
-              </div>
-            </div>
-            <%= render 'staff/partials/dynamic_forms/nic_info' %>
-
-            <!-- LIVING INFO -->
-            <div class="form-group">
-              <div class="control-label col-sm-3">
-                <h4>Thông tin nơi ở</h4>
-                <hr>
-              </div>
-            </div>
-            <%= render 'staff/partials/dynamic_forms/living_info' %>
-
-            <!-- OTHER INFO -->
-            <div class="form-group">
-              <div class="control-label col-sm-3">
-                <h4>Thông tin khác</h4>
-                <hr>
-              </div>
-            </div>
-            <%= render 'staff/partials/dynamic_forms/other_info' %>
-          </div>
-
-          <!--STUDY TAB TAB-->
-          <div class="tab-pane" id="study_business">
-            <%= if @is_student_product
-                  render 'staff/partials/dynamic_forms/study_info'
-                else
-                  'AHIHI'
-                end
-            %>
-          </div>
-
-          <!--FINANCE TAB-->
-          <div class="tab-pane" id="finance">
-            <h3>FINANCE</h3>
-          </div>
-
-          <!--JOB TAB-->
-          <div class="tab-pane" id="job">
-            <h3>JOB</h3>
-          </div>
-
-          <!--REFERENCE TAB-->
-          <div class="tab-pane" id="reference">
-            <h3>REFERENCE</h3>
-          </div>
-        </div>
+      <!-- PERSONAL TAB
+      ============================================= -->
+      <div class="tab-pane active" id="personal_info_tab">
+        <%= render partial: 'staff/partials/dynamic_forms/personal_info' %>
       </div>
 
-      <div class="box-footer">
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-6">
-            <%= submit_tag 'Submit', class: 'btn btn-success btn-flat', data: { disable_with: false } %>
-          </div>
-        </div>
-      </div><!-- /.box-footer -->
-  <% end %>
-</div>
+      <!-- STUDY TAB
+      ============================================= -->
+      <div class="tab-pane" id="study_business_info_tab">
+        <%= if @is_student_product
+          render partial: 'staff/partials/dynamic_forms/study_info'
+        else
+          'AHIHI'
+        end %>
+      </div>
+
+      <!-- FINANCE TAB
+      ============================================= -->
+      <div class="tab-pane" id="finance_info_tab">
+        <h3>FINANCE</h3>
+      </div>
+
+      <!-- JOB TAB
+      ============================================= -->
+      <div class="tab-pane" id="job_info_tab">
+        <h3>JOB</h3>
+      </div>
+
+      <!-- REFERENCE TAB
+      ============================================= -->
+      <div class="tab-pane" id="reference_info_tab">
+        <h3>REFERENCE</h3>
+      </div>
+
+    </div><!-- /.tab-content -->
+  </div><!-- nav-tabs-custom -->
+<% end %>

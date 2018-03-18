@@ -1,41 +1,57 @@
-<div class="form-group">
-  <label class="control-label col-sm-3">CMND/ Căn cước</label>
-  <div class="col-sm-6">
-    <%= text_field_tag('person[nic_number]', @person.nic_number, class: @input_class, readonly: @read_only) %>
+<div class="box box-default">
+  <div class="box-header with-border">
+    <h4 class="box-title">
+      CMND/ Căn cước/ Passport
+    </h4>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <i class="fa fa-minus"></i>
+      </button>
+    </div><!-- /.box-tools -->
   </div>
-</div>
-<div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_cmnd' } %>
-  <label class="control-label col-sm-3"><%= field.display_name %></label>
-  <div class="col-sm-6">
-    <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: @input_class, readonly: @read_only}) %>
-  </div>
-</div>
-<div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_cmnd' } %>
-  <label class="control-label col-sm-3"><%= field.display_name %></label>
-  <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
-  </div>
-</div>
-<div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'so_passport' } %>
-  <label class="control-label col-sm-3"><%= field.display_name %></label>
-  <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
-  </div>
-</div>
-<div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_passport' } %>
-  <label class="control-label col-sm-3"><%= field.display_name %></label>
-  <div class="col-sm-6">
-    <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: @input_class, readonly: @read_only}) %>
-  </div>
-</div>
-<div class="form-group">
-  <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_passport' } %>
-  <label class="control-label col-sm-3"><%= field.display_name %></label>
-  <div class="col-sm-6">
-    <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
+
+  <div class="box-body">
+    <div class="form-group col-sm-6">
+      <label class="control-label col-sm-5">CMND/ Căn cước</label>
+      <div class="col-sm-6">
+        <%= text_field_tag('person[nic_number]', @person.nic_number, class: @input_class, readonly: @read_only) %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <% field = @form_fields.detect { |field| field.field_name == 'so_passport' } %>
+      <label class="control-label col-sm-5"><%= field.display_name %></label>
+      <div class="col-sm-6">
+        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_cmnd' } %>
+      <label class="control-label col-sm-5"><%= field.display_name %></label>
+      <div class="col-sm-6">
+        <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: @input_class, readonly: @read_only}) %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_passport' } %>
+      <label class="control-label col-sm-5"><%= field.display_name %></label>
+      <div class="col-sm-6">
+        <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: @input_class, readonly: @read_only}) %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_cmnd' } %>
+      <label class="control-label col-sm-5"><%= field.display_name %></label>
+      <div class="col-sm-6">
+        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_passport' } %>
+      <label class="control-label col-sm-5"><%= field.display_name %></label>
+      <div class="col-sm-6">
+        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: @input_class, readonly: @read_only) %>
+      </div>
+    </div>
   </div>
 </div>
