@@ -62,7 +62,12 @@
 
           <!--STUDY TAB TAB-->
           <div class="tab-pane" id="study_business">
-            <h3><%= @is_student_product ? 'HỌC TẬP' : 'KINH DOANH' %></h3>
+            <%= if @is_student_product
+                  render 'staff/partials/dynamic_forms/study_info'
+                else
+                  'AHIHI'
+                end
+            %>
           </div>
 
           <!--FINANCE TAB-->
