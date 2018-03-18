@@ -25,7 +25,7 @@
           <%= fa_icon 'upload' %> Nhập từ file CSV
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'multi'), class: 'btn btn-primary' do %>
+        <%= link_to staff_people_fast_prospect_path, class: 'btn btn-primary' do %>
           <%= fa_icon 'list' %> Prospect nhanh
         <% end %>
 
@@ -46,4 +46,4 @@
 
 <!-- Normal prospect modal form
 ================================= -->
-<%= render partial: 'form' %>
+<%= render partial: 'normal_prospect_form' %>
