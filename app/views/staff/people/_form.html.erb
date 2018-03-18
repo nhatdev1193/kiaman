@@ -59,9 +59,11 @@
                 <%= f.text_field :nic_number, class: 'form-control' %>
 
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default btn-flat" onclick="checkNIC();">Check</button>
+                  <button type="button" class="btn btn-default btn-flat btn-check-nic-number">Check</button>
                 </span>
               </div>
+
+              <span id="nic-message" class="help-block"></span>
             </div>
           </div>
 
@@ -99,11 +101,6 @@
         </div><!-- /.box-body -->
 
         <div class="box-footer">
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-8">
-              <span id="nic-message"></span>
-            </div>
-          </div>
           <div class="form-group">
             <div class="col-sm-offset-3 col-sm-8">
               <%= link_to 'Hủy', staff_people_path, class: 'btn btn-default' %>
