@@ -16,6 +16,8 @@
 //= require fastclick/lib/fastclick.js
 //= require select2/dist/js/select2.full.js
 //= require admin-lte/plugins/iCheck/icheck.js
+//= require slimscroll/lib/slimscroll.js
+//= require admin-lte/dist/js/adminlte.min.js
 //= require_tree ./common
 //= require_tree ./staff
 
