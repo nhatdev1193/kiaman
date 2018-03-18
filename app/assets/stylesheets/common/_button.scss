@@ -1,0 +1,15 @@
+$btn-styles: default primary danger warning info success;
+
+.btn {
+  @each $style in $btn-styles {
+    &.btn-#{$style} {
+      min-width: 10em;
+    }
+  }
+}
+
+.input-group-btn {
+  .btn {
+    min-width: inherit;
+  }
+}
