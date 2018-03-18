@@ -1,6 +1,7 @@
 <div class="box box-info">
   <% @read_only = action_name == 'show'
      @input_class = @read_only ? 'form-control-plaintext' : 'form-control'
+     @is_student_product = @current_step.product.name == 'Student Loan'
   %>
 
   <%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', class: 'form-horizontal'}) do %>
@@ -11,7 +12,9 @@
       <div class="box-body">
         <ul  class="nav nav-pills">
           <li class="active"><a  href="#personal" data-toggle="tab">CÁ NHÂN</a></li>
-          <li><a href="#study" data-toggle="tab">HỌC TẬP</a></li>
+          <li><a href="#study_business" data-toggle="tab">
+            <%= @is_student_product ? 'HỌC TẬP' : 'KINH DOANH' %>
+          </a></li>
           <li><a href="#finance" data-toggle="tab">TÀI CHÍNH</a></li>
           <li><a href="#job" data-toggle="tab">VIỆC LÀM</a></li>
           <li><a href="#reference" data-toggle="tab">THAM CHIẾU</a></li>
@@ -58,8 +61,8 @@
           </div>
 
           <!--STUDY TAB TAB-->
-          <div class="tab-pane" id="study">
-            <h3>STUDY</h3>
+          <div class="tab-pane" id="study_business">
+            <h3><%= @is_student_product ? 'HỌC TẬP' : 'KINH DOANH' %></h3>
           </div>
 
           <!--FINANCE TAB-->
