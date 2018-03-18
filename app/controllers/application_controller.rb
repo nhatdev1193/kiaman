@@ -17,4 +17,12 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     new_staff_session_url
   end
+
+  def ajax_redirect_to(url, notice = nil)
+    if notice
+      flash[:notice] = notice
+    end
+
+    head 302, x_ajax_redirect_url: url
+  end
 end

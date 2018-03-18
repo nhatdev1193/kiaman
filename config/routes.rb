@@ -37,10 +37,11 @@ Rails.application.routes.draw do
     resources :steps, except: [:show]
 
     # People routes
+    post 'people/create_normal_prospect', to: 'people#create_normal_prospect'
     get 'people/fast_prospect', to: 'people#new_fast_prospect'
     post 'people/fast_prospect', to: 'people#create_fast_prospect'
 
-    resources :people do
+    resources :people, only: [:index, :show, :edit, :update] do
       collection do
         post '/nic_check', to: 'people#nic_check'
       end

@@ -14,20 +14,22 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
-  def new
-    @person = Person.new
-  end
-
   def show; end
 
   def edit; end
 
-  def create
+  def create_normal_prospect
     ActiveRecord::Base.transaction do
       @person = Person.new(person_params)
 
       if @person.save
-        redirect_to staff_people_path, notice: 'Prospect was successfully created.' if create_first_step_for_person(@person, person_params[:product_id])
+        if create_first_step_for_person(@person, person_params[:product_id])
+          # TODO: Need to handle errors if failed to create first step
+
+          respond_to do |f|
+            f.js { ajax_redirect_to(staff_people_path, 'Tạo prospect thành công.') }
+          end
+        end
       else
         respond_to do |f|
           f.js {
@@ -59,7 +61,7 @@ class Staff::PeopleController < Staff::BaseController
       redirect_to staff_people_path
     end
   rescue => _exception
-    render :new
+    render :new_fast_prospect
   end
 
   # Check exist nic
