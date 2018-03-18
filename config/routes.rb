@@ -35,12 +35,17 @@ Rails.application.routes.draw do
     match 'roles_permissions', to: 'roles_permissions#update', via: [:put, :patch], as: 'roles_permissions_update'
     resources :products, except: [:show]
     resources :steps, except: [:show]
+
+    # People routes
+    get 'people/fast_prospect', to: 'people#new_fast_prospect'
+    post 'people/fast_prospect', to: 'people#create_fast_prospect'
+
     resources :people do
       collection do
-        post '/create_multi', to: 'people#create_multi', as: :multi
         post '/nic_check', to: 'people#nic_check'
       end
     end
+
     resources :forms do
       member do
         post :execute

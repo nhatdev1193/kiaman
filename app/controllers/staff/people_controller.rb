@@ -10,6 +10,8 @@ class Staff::PeopleController < Staff::BaseController
     service = PersonDataService.new
     @people_steps = service.person_list
                            .paginate(page: params[:page], per_page: params[:per_page])
+
+    @person = Person.new # For creating new person with in modal popup form
   end
 
   def new
@@ -24,17 +26,23 @@ class Staff::PeopleController < Staff::BaseController
     ActiveRecord::Base.transaction do
       @person = Person.new(person_params)
 
-      if @person.save!
-        redirect_to staff_people_path, notice: 'Prospect was successfully created.' if person_step(@person, person_params[:product_id])
+      if @person.save
+        redirect_to staff_people_path, notice: 'Prospect was successfully created.' if create_first_step_for_person(@person, person_params[:product_id])
       else
-        render :new
+        respond_to do |f|
+          f.js {
+            render partial: 'staff/partials/form_errors',
+                   locals: { errors: @person.errors },
+                   status: 422
+          }
+        end
       end
     end
-  rescue => _exception
-    render :new
   end
 
-  def create_multi
+  def new_fast_prospect; end
+
+  def create_fast_prospect
     ActiveRecord::Base.transaction do
       people_params[:people].each do |cus_params|
         next if invalid_person?(cus_params[:person])
@@ -65,7 +73,7 @@ class Staff::PeopleController < Staff::BaseController
                end
     render json: res_data
   end
-  
+
   def update
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
   end
@@ -116,7 +124,7 @@ class Staff::PeopleController < Staff::BaseController
 
   # Store 1st step of flow into people_steps
   # Move next step if person info & 1st step stored successful
-  def person_step(person, product_id)
+  def create_first_step_for_person(person, product_id)
     product = Product.find product_id
     people_step = person.people_steps.build(step: product.first_step, created_staff_id: current_staff.id,
                                             assigned_staff_id: current_staff.id, assigned_at: Time.now)

@@ -1,0 +1,120 @@
+<div class="modal modal-primary fade" id="modal-normal-prospect-form">
+  <div class="modal-dialog">
+    <div class="box box-info">
+
+      <div class="box-header with-border text-center">
+        <h3 class="box-title">
+          <%= fa_icon 'user-plus' %> Prospect thường
+        </h3>
+      </div><!-- /.box-header -->
+
+      <!-- form start -->
+      <%= form_with model: @person, url: staff_people_path, method: :post,
+                    id: 'normal_prospect_form', class: 'form-horizontal',
+                    html: { role: 'form' } do |f| %>
+        <%= hidden_field_tag :type, params[:type] %>
+        <%= hidden_field_tag :form_id, 'normal_prospect_form' %>
+
+        <div class="box-body">
+          <div class="form_error_messages"></div>
+
+          <div class="form-group">
+            <%= f.label 'Loại sản phẩm *', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.collection_select :product_id,
+                                      Product.all,
+                                      :id, :name,
+                                      { prompt: 'Select' },
+                                      { class: 'form-control select2' } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Họ và tên lót', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.text_field :last_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Tên *', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.text_field :first_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Sđt *', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.text_field :phone, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'CMND/Căn cước', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <div class="input-group">
+                <%= f.text_field :nic_number, class: 'form-control' %>
+
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-flat btn-check-nic-number">Check</button>
+                </span>
+              </div>
+
+              <span id="nic_message" class="help-block"></span>
+            </div>
+          </div>
+
+          <div id="school-field" class="form-group <%= @person.product_id === '1' ? 'present' : 'hidden' %>">
+            <%= f.label 'Trường *', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.text_field :school, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div id="merchandise-field" class="form-group <%= @person.product_id === '2' ? 'present' : 'hidden' %>">
+            <%= f.label 'Mặt hàng *', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.text_field :merchandise, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Giới tính', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.select :gender, Person::GENDER_TYPES, { :prompt => 'Select' }, { :class => 'form-control select2' } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Ngày sinh', class: 'control-label col-sm-4' %>
+
+            <div class="col-sm-8">
+              <%= f.date_field :birthday, class: 'form-control' %>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+
+        <div class="box-footer">
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-8">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+
+              <%= f.submit 'Tạo', class: 'btn btn-success' %>
+            </div>
+          </div>
+        </div><!-- /.box-footer -->
+      <% end %>
+    </div>
+
+  </div>
+
+</div><!-- /.modal -->
