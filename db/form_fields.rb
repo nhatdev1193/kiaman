@@ -28,5 +28,68 @@
            { field_name: 'tuoi_con_nho_nhat', display_name: 'Tuổi con nhỏ nhất', type: 'input' },
            { field_name: 'email', display_name: 'Email', type: 'input' },
            { field_name: 'facebook', display_name: 'Facebook', type: 'input' },
-           { field_name: 'zalo', display_name: 'Zalo', type: 'input' }
+           { field_name: 'zalo', display_name: 'Zalo', type: 'input' },
+
+           # Tai chinh
+           { field_name: 'ten_ngan_hang', display_name: 'Tên ngân hàng', type: 'input' },
+           { field_name: 'so_tk', display_name: 'Số tài khoản', type: 'input' },
+           { field_name: 'so_the', display_name: 'Số thẻ', type: 'input' },
+           { field_name: 'chu_tai_khoan', display_name: 'Chủ tài khoản', type: 'input' },
+           { field_name: 'tinh_tp_tk_ngan_hang', display_name: 'Tỉnh/TP', type: 'select' },
+           { field_name: 'chi_nhanh_mo', display_name: 'Chi nhánh mở', type: 'input' },
+
+           # To chuc tin dung
+           { field_name: 'ten_tctd', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd', display_name: 'Ghi chú', type: 'input' },
+
+           # Viec lam
+           { field_name: 'chuc_vu', display_name: 'Chức vụ', type: 'input' },
+           { field_name: 'cong_ty', display_name: 'Công ty', type: 'input' },
+           { field_name: 'chi_chi_cong_ty', display_name: 'Địa chỉ', type: 'input' },
+           { field_name: 'tinh_trang_lam_viec', display_name: 'Tình trạng làm việc', type: 'select' },
+           { field_name: 'so_thang_lam_viec', display_name: 'Số tháng làm việc', type: 'input' },
+           { field_name: 'nguoi_xac_nhan', display_name: 'Người xác nhận', type: 'input' },
+           { field_name: 'vi_tri_xac_nhan', display_name: 'Vị trí xác nhận', type: 'input' },
+           { field_name: 'sdt_nguoi_xac_nhan', display_name: 'Số điện thoại người xác nhận', type: 'input' },
+           { field_name: 'ky_thu_nhap', display_name: 'Kỳ thu nhập', type: 'select' },
+           { field_name: 'thu_nhap_trung_binh_ky', display_name: 'Thu nhập trung bình/kỳ', type: 'input' },
+           { field_name: 'ngay_tra_luong', display_name: 'Ngày trả lương', type: 'input' }
+]
+
+@business_fields = [
+    { field_name: 'ma_kd', display_name: 'Mã KD', type: 'input' },
+    { field_name: 'mat_hang_chi_tiet', display_name: 'Mặt hàng chi tiết', type: 'input' },
+    { field_name: 'thoi_gian_kinh_doanh', display_name: 'Thời gian kinh doanh', type: 'input' },
+    { field_name: 'so_nam_kinh_doanh', display_name: 'Số năm kinh doanh', type: 'input' },
+    { field_name: 'so_nam_kd_tai_mat_bang', display_name: 'Số năm KD tại mặt bằng', type: 'input' },
+    { field_name: 'so_nhan_vien', display_name: 'Số nhân viên', type: 'input' },
+    { field_name: 'hinh_thuc_kinh_doanh', display_name: 'Hình thức kinh doanh', type: 'select' },
+    { field_name: 'loai_mat_bang', display_name: 'Loại mặt bằng', type: 'select' },
+    { field_name: 'so_nha_dia_chi_kd', display_name: 'Địa chỉ KD (số nhà)', type: 'input' },
+    { field_name: 'tinh_tp_dia_chi_kd', display_name: 'TP/Tỉnh', type: 'input' },
+    { field_name: 'quan_huyen_dia_chi_kd', display_name: 'Quận/Huyện', type: 'input' },
+    { field_name: 'phuong_xa_dia_chi_kd', display_name: 'Phường/Xã', type: 'input' },
+    { field_name: 'dien_tich_mat_bang', display_name: 'Diện tích mặt bằng', type: 'input' },
+    { field_name: 'so_huu', display_name: 'Diện tích mặt bằng', type: 'select' },
+    { field_name: 'thoi_gian_thue', display_name: 'Thời gian thuê', type: 'date' },
+    { field_name: 'ma_so_thue', display_name: 'Mã số thuế', type: 'input' },
+    { field_name: 'ma_so_doanh_nghiep', display_name: 'Mã số doanh nghiệp', type: 'input' }
+]
+
+@study_fields = [
+    { field_name: 'sinh_vien_nam', display_name: 'Sinh viên năm', type: 'select' },
+    { field_name: 'nien_khoa', display_name: 'Niên khoá', type: 'input' },
+    { field_name: 'nganh_hoc', display_name: 'Ngành học', type: 'input' },
+    { field_name: 'mssv', display_name: 'MSSV', type: 'input' },
+    { field_name: 'lop', display_name: 'Lớp', type: 'input' },
+    { field_name: 'diem_hoc_tap', display_name: 'Điểm học tập', type: 'input' },
+    { field_name: 'xep_loai', display_name: 'Xếp loại', type: 'select' },
+    { field_name: 'web_xem_diem', display_name: 'Website xem điểm', type: 'input' },
+    { field_name: 'username', display_name: 'Username', type: 'input' },
+    { field_name: 'passcode', display_name: 'Passcode', type: 'input' }
 ]

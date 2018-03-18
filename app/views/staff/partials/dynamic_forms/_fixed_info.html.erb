@@ -1,13 +1,13 @@
 <div class="form-group">
   <label class="control-label col-sm-3">Họ và tên lót</label>
   <div class="col-sm-6">
-    <%= text_field_tag('person[first_name]', @person.first_name, class: @input_class, readonly: @read_only) %>
+    <%= text_field_tag('person[first_name]', @person.last_name, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
   <label class="control-label col-sm-3">Tên</label>
   <div class="col-sm-6">
-    <%= text_field_tag('person[last_name]', @person.last_name, class: @input_class, readonly: @read_only) %>
+    <%= text_field_tag('person[last_name]', @person.first_name, class: @input_class, readonly: @read_only) %>
   </div>
 </div>
 <div class="form-group">
