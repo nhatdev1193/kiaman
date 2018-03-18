@@ -10,6 +10,8 @@ class Staff::PeopleController < Staff::BaseController
     service = PersonDataService.new
     @people_steps = service.person_list
                            .paginate(page: params[:page], per_page: params[:per_page])
+
+    @person = Person.new # For creating new person with in modal popup form
   end
 
   def new

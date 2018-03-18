@@ -29,9 +29,9 @@
           <%= fa_icon 'list' %> Prospect nhanh
         <% end %>
 
-        <%= link_to new_staff_person_path(type: 'normal'), class: 'btn btn-primary' do %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-normal-prospect-form">
           <%= fa_icon 'user-plus' %> Prospect thường
-        <% end %>
+        </button>
       </div>
     </div>
   </div>
@@ -42,3 +42,8 @@
     <%= render 'table' %>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
+
+
+<!-- Normal prospect modal form
+================================= -->
+<%= render partial: 'form' %>
