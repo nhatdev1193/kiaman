@@ -1,0 +1,88 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+  Cài đặt profile
+<% end %>
+
+<% # Set the title of content
+   content_for :content_header do %>
+  <div class="row">
+    <div class="col-sm-4">
+      <h1 class="page-header">Cài đặt profile</h1>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="pull-right">
+        <button id="btn-edit-profile" class="btn btn-primary">Cập nhật</button>
+        <button id="btn-cancel-profile-update" class="btn btn-default hidden">Huỷ</button>
+        <button id="btn-update-profile" class="btn btn-primary hidden">Lưu</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= form_with model: current_staff, url: edit_staff_registration_path, method: :put, local: true,
+              id: 'profile-form', class: 'form-horizontal',
+              html: { role: 'form' } do |f| %>
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#basic-info" data-toggle="tab">Thông tin cơ bản</a></li>
+      <li><a href="#change-password" data-toggle="tab">Đổi mật khẩu</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="basic-info">
+        <%= render partial: 'staff/staff_devise/registrations/profile/basic_info', locals: {f: f} %>
+      </div>
+
+      <div class="tab-pane" id="change-password">
+        <%= render partial: 'staff/staff_devise/registrations/profile/change_password', locals: {f: f} %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(function () {
+    let $btnEditProfile = $('#btn-edit-profile'),
+        $btnUpdateProfile = $('#btn-update-profile'),
+        $btnCancelProfileUpdate = $('#btn-cancel-profile-update'),
+        $profileForm = $('#profile-form'), // Check out basic_info_form.html.erb
+        $editableFormControls = $profileForm.find('.editable');
+
+    //
+    // Update profile
+    //
+    $btnEditProfile.click(function () {
+      let $t = $(this);
+      $t.addClass('hidden');
+
+      // Allow the form fields to be edited
+      $editableFormControls.removeAttr('readonly');
+
+      // Show up update + cancel buttons
+      $btnUpdateProfile.removeClass('hidden');
+      $btnCancelProfileUpdate.removeClass('hidden');
+    });
+
+    //
+    // Submit profile form
+    //
+    $btnUpdateProfile.click(function () {
+      $profileForm.submit();
+    });
+
+    //
+    // Cancel profile update
+    //
+    $btnCancelProfileUpdate.click(function () {
+      // Hide update + cancel buttons
+      $btnUpdateProfile.addClass('hidden');
+      $btnCancelProfileUpdate.addClass('hidden');
+
+      // Show up edit profile button
+      $btnEditProfile.removeClass('hidden');
+
+      // Disallow the form fields to be edited
+      $editableFormControls.attr('readonly', true);
+    });
+  });
+</script>

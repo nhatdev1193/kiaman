@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   devise_for :staffs,
-             path: '/',
+             path: '/staff',
              controllers: {
                sessions: 'staff/staff_devise/sessions',
                passwords: 'staff/staff_devise/passwords',
-               registrations: 'staffs/staff_devise/registrations'
+               registrations: 'staff/staff_devise/registrations'
              },
              path_names: {
                sign_in: 'login',
                sign_out: 'logout',
-               edit: 'password'
+               edit: '',
+               registration: 'profile'
              }
 
   namespace 'staff', path: 'staff' do
