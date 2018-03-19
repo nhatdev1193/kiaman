@@ -10,7 +10,9 @@
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#personal_info_tab" data-toggle="tab">CÁ NHÂN</a></li>
-      <li><a href="#study_business_info_tab" data-toggle="tab">HỌC TẬP</a></li>
+      <li><a href="#study_business_info_tab" data-toggle="tab">
+        <%= @is_student_product ? 'HỌC TẬP' : 'KINH DOANH' %>
+      </a></li>
       <li><a href="#finance_info_tab" data-toggle="tab">TÀI CHÍNH</a></li>
       <li><a href="#job_info_tab" data-toggle="tab">VIỆC LÀM</a></li>
       <li><a href="#reference_info_tab" data-toggle="tab">THAM CHIẾU</a></li>
@@ -36,7 +38,7 @@
       <!-- FINANCE TAB
       ============================================= -->
       <div class="tab-pane" id="finance_info_tab">
-        <h3>FINANCE</h3>
+        <%= render partial: 'staff/partials/dynamic_forms/finance_info' %>
       </div>
 
       <!-- JOB TAB
