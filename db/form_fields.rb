@@ -50,7 +50,7 @@
            # Viec lam
            { field_name: 'chuc_vu', display_name: 'Chức vụ', type: 'input' },
            { field_name: 'cong_ty', display_name: 'Công ty', type: 'input' },
-           { field_name: 'chi_chi_cong_ty', display_name: 'Địa chỉ', type: 'input' },
+           { field_name: 'dia_chi_cong_ty', display_name: 'Địa chỉ', type: 'input' },
            { field_name: 'tinh_trang_lam_viec', display_name: 'Tình trạng làm việc', type: 'select' },
            { field_name: 'so_thang_lam_viec', display_name: 'Số tháng làm việc', type: 'input' },
            { field_name: 'nguoi_xac_nhan', display_name: 'Người xác nhận', type: 'input' },
