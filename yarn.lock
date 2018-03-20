@@ -24,8 +24,8 @@ acorn@^5.2.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
 
 admin-lte@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-2.4.2.tgz#6a2928fa34715881eb69a09b64dbccc8d5fae539"
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-2.4.3.tgz#413d22adbbb5019317f2dcd736076d01d3ca47a6"
   dependencies:
     bootstrap "^3.3.7"
     bootstrap-colorpicker "^2.5.1"
