@@ -1,6 +1,6 @@
 class Staff::PeopleController < Staff::BaseController
 
-  before_action :person_service, only: [:index, :nic_check]
+  before_action :person_service, only: [:index, :nic_check, :create_normal_prospect]
   before_action :set_person, only: [:show, :edit, :update]
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
   before_action :set_cities, only: [:show, :edit]
@@ -20,23 +20,48 @@ class Staff::PeopleController < Staff::BaseController
 
   def create_normal_prospect
     ActiveRecord::Base.transaction do
-      @person = Person.new(person_params)
+      @person = person_params[:nic_number].present? ? Person.find_by_nic_number(person_params[:nic_number]) : nil
 
-      if @person.save
-        if create_first_step_for_person(@person, person_params[:product_id])
-          # TODO: Need to handle errors if failed to create first step
+      if @person
+        nic_check = @service.nic_validate?(person_params[:nic_number], person_params[:product_id])
+
+        if nic_check
+          if create_first_step_for_person(@person, person_params[:product_id])
+            # TODO: Need to handle errors if failed to create first step
+            respond_to do |f|
+              f.js { ajax_redirect_to(staff_people_path, 'Tạo prospect thành công.') }
+            end
+          end
+        else
+          @person.errors.add(:nic_number, 'exists with this product')
 
           respond_to do |f|
-            f.js { ajax_redirect_to(staff_people_path, 'Tạo prospect thành công.') }
+            f.js {
+              render partial: 'staff/partials/form_errors',
+                     locals: { errors: @person.errors },
+                     status: 422
+            }
           end
         end
       else
-        respond_to do |f|
-          f.js {
-            render partial: 'staff/partials/form_errors',
-                   locals: { errors: @person.errors },
-                   status: 422
-          }
+        @person = Person.new(person_params)
+
+        if @person.save
+          if create_first_step_for_person(@person, person_params[:product_id])
+            # TODO: Need to handle errors if failed to create first step
+
+            respond_to do |f|
+              f.js { ajax_redirect_to(staff_people_path, 'Tạo prospect thành công.') }
+            end
+          end
+        else
+          respond_to do |f|
+            f.js {
+              render partial: 'staff/partials/form_errors',
+                     locals: { errors: @person.errors },
+                     status: 422
+            }
+          end
         end
       end
     end

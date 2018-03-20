@@ -32,11 +32,16 @@ class PersonDataService
     "ProspectDataService #{e.message}"
   end
 
+  # Check NIC  number
+  # Input: nic_number and product_id params
+  # Output:
+  # ==== true: not exists product for this person
+  # ==== false: exists product for this person
   def nic_validate?(nic_number, product_id)
     person = Person.find_by_nic_number(nic_number)
     return true unless person
     step_ids = Step.where(product_id: product_id).ids
-    person_product = PeopleStep.where(person: person, step_id: step_ids).where.not(status: PeopleStep.statuses[:done])
+    person_product = PeopleStep.where(person: person, step_id: step_ids).where.not(status: [:done, :canceled])
     return true if person_product.empty?
     false
   end
