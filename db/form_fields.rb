@@ -63,13 +63,14 @@
 
 @business_fields = [
     { field_name: 'ma_kd', display_name: 'Mã KD', type: 'input' },
-    { field_name: 'mat_hang_chi_tiet', display_name: 'Mặt hàng chi tiết', type: 'input' },
     { field_name: 'thoi_gian_kinh_doanh', display_name: 'Thời gian kinh doanh', type: 'input' },
     { field_name: 'so_nam_kinh_doanh', display_name: 'Số năm kinh doanh', type: 'input' },
     { field_name: 'so_nam_kd_tai_mat_bang', display_name: 'Số năm KD tại mặt bằng', type: 'input' },
     { field_name: 'so_nhan_vien', display_name: 'Số nhân viên', type: 'input' },
     { field_name: 'hinh_thuc_kinh_doanh', display_name: 'Hình thức kinh doanh', type: 'select' },
+    { field_name: 'hinh_thuc_kinh_doanh_khac', display_name: '', type: 'input' },
     { field_name: 'loai_mat_bang', display_name: 'Loại mặt bằng', type: 'select' },
+    { field_name: 'loai_mat_bang_khac', display_name: '', type: 'input' },
     { field_name: 'so_nha_dia_chi_kd', display_name: 'Địa chỉ KD (số nhà)', type: 'input' },
     { field_name: 'tinh_tp_dia_chi_kd', display_name: 'TP/Tỉnh', type: 'input' },
     { field_name: 'quan_huyen_dia_chi_kd', display_name: 'Quận/Huyện', type: 'input' },
