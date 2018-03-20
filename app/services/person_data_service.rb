@@ -38,6 +38,7 @@ class PersonDataService
   # ==== true: not exists product for this person
   # ==== false: exists product for this person
   def nic_validate?(nic_number, product_id)
+    return true if nic_number.blank?
     person = Person.find_by_nic_number(nic_number)
     return true unless person
     step_ids = Step.where(product_id: product_id).ids

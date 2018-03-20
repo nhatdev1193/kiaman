@@ -60,7 +60,7 @@ class Person < SoftDeleteBaseModel
   end
 
   def product_with_nic_validate
-    return unless nic_number.present?
+    return if nic_number.blank?
     service = PersonDataService.new
     errors.add(:nic_number, 'exists with this product') unless service.nic_validate?(nic_number, product_id)
   end
