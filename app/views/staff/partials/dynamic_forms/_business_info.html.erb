@@ -1,155 +1,165 @@
-<div class="box box-primary">
-  <div class="box-body">
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'ma_kd' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'so_nha_dia_chi_kd' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <label class="control-label col-sm-3">Mặt hàng chi tiết*</label>
-      <div class="col-sm-6">
-        <%= text_field_tag('person[merchandise]', @person.merchandise, class: 'form-control-plaintext', readonly: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'tinh_tp_dia_chi_kd' } %>
-      <label class="control-label col-sm-5"><%= field.display_name %></label>
-      <div class="col-sm-6" data-value="<%= field.field_value %>">
-        <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(@cities, field.field_value), class: 'form-control-plaintext', disabled: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'quan_huyen_dia_chi_kd' } %>
-      <label class="control-label col-sm-5"><%= field.display_name %></label>
-      <div class="col-sm-6" data-value="<%= field.field_value %>">
-        <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'phuong_xa_dia_chi_kd' } %>
-      <label class="control-label col-sm-5"><%= field.display_name %></label>
-      <div class="col-sm-6" data-value="<%= field.field_value %>">
-        <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'thoi_gian_kinh_doanh' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kinh_doanh' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kd_tai_mat_bang' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'so_nhan_vien' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
-      </div>
-    </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'hinh_thuc_kinh_doanh' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Sản xuất
-          </label>
+<div class="row">
+  <div class="col-sm-12">
+
+    <!-- Left col
+    ============================================ -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'ma_kd' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Gia công
-          </label>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-5">Mặt hàng chi tiết*</label>
+        <div class="col-sm-7">
+          <%= text_field_tag('person[merchandise]', @person.merchandise, class: 'form-control-plaintext', readonly: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Bán buôn
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'thoi_gian_kinh_doanh' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Bán lẻ
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kinh_doanh' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Dịch vụ
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kd_tai_mat_bang' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Khác
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_nhan_vien' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
         </div>
-        <div class="form-group">
-          <% field = @form_fields.detect { |field| field.field_name == 'hinh_thuc_kinh_doanh_khac' } %>
-          <div class="col-sm-6">
-            <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'hinh_thuc_kinh_doanh' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Sản xuất
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Gia công
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Bán buôn
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Bán lẻ
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Dịch vụ
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Khác
+            </label>
+          </div>
+          <div class="form-group">
+            <% field = @form_fields.detect { |field| field.field_name == 'hinh_thuc_kinh_doanh_khac' } %>
+            <div class="col-sm-7">
+              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Mua mang đi
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Trong chợ
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Lưu động (<= 6 bàn ghế)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Lưu động (> 6 bàn ghế)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Trong nhà (1 MB)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+              Khác
+            </label>
+          </div>
+          <div class="form-group">
+            <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang_khac' } %>
+            <div class="col-sm-7">
+              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="form-group col-sm-6">
-      <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang' } %>
-      <label class="control-label col-sm-3"><%= field.display_name %></label>
-      <div class="col-sm-6">
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Mua mang đi
-          </label>
+
+    <!-- Right col
+    ============================================ -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_nha_dia_chi_kd' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Trong chợ
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'tinh_tp_dia_chi_kd' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7" data-value="<%= field.field_value %>">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(@cities, field.field_value), class: 'form-control-plaintext', disabled: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Lưu động (<= 6 bàn ghế)
-          </label>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'quan_huyen_dia_chi_kd' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7" data-value="<%= field.field_value %>">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
         </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Lưu động (> 6 bàn ghế)
-          </label>
-        </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Trong nhà (1 MB)
-          </label>
-        </div>
-        <div class="checkbox">
-          <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-            Khác
-          </label>
-        </div>
-        <div class="form-group">
-          <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang_khac' } %>
-          <div class="col-sm-6">
-            <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
-          </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'phuong_xa_dia_chi_kd' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7" data-value="<%= field.field_value %>">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
         </div>
       </div>
     </div>
