@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'passenger'
 gem 'meta-tags'
-gem 'font-awesome-rails'
+gem 'font_awesome5_rails'
 gem 'aasm'
 
 group :development, :test do

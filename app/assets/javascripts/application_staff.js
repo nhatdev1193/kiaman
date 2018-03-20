@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require font_awesome5
 //= require bootstrap/dist/js/bootstrap.js
 //= require fastclick/lib/fastclick.js
 //= require select2/dist/js/select2.full.js
