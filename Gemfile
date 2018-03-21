@@ -11,6 +11,8 @@ gem 'passenger'
 gem 'meta-tags'
 gem 'font_awesome5_rails'
 gem 'aasm'
+gem 'carrierwave'
+gem 'carrierwave-base64'
 
 group :development, :test do
   gem 'byebug', platform: :mri
