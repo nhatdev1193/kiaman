@@ -140,6 +140,16 @@ def create_form_fields
   create_business_fields
 end
 
+def create_document_kinds
+  doc_kind_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
+
+  doc_kind_names.map do |doc_kind_name|
+    DocumentKind.find_or_create_by!(name: doc_kind_name)
+  end
+
+  p "CREATED Document kinds: #{doc_kind_names.join(', ')}"
+end
+
 DatabaseCleaner.clean
 create_organizations
 create_roles
@@ -149,3 +159,4 @@ create_forms
 create_form_fields
 create_products
 create_products_steps
+create_document_kinds
