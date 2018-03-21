@@ -22,6 +22,10 @@ $(function () {
       }
 
       $('#multi-person tbody').append(html);
+
+      if(parseInt($('#multi-person tr:last').attr('id')) >= 100){
+        $('#add-more').addClass('hidden');
+      }
     });
 
     // Show/hide school or merchandise follow product selection in list prospect form
