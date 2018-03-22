@@ -51,7 +51,7 @@
           <tbody>
           <% @num.times do |index|
             row = index + 1 %>
-            <tr id="<%= row %>">
+            <tr id="<%= row %>" class="<%= @error_lines.include?(row) ? 'row-validate' : nil %>">
               <td><%= label_tag 'stt', row, class: 'control-label col-sm-3' %></td>
               <td><%= text_field_tag 'people[people][]person[last_name]', params[:people] ? params[:people][:people][index][:person][:last_name] : nil, class: 'form-control' %></td>
               <td><%= text_field_tag 'people[people][]person[first_name]', params[:people] ? params[:people][:people][index][:person][:first_name] : nil,  class: 'form-control' %></td>

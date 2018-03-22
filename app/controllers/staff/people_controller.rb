@@ -1,5 +1,5 @@
 class Staff::PeopleController < Staff::BaseController
-  before_action :person_service, only: [:index, :nic_check, :create_normal_prospect, :csv_upload]
+  before_action :person_service, only: [:index, :nic_check, :create_normal_prospect, :csv_upload, :create_fast_prospect]
   before_action :set_person, only: [:show, :edit, :update]
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
   before_action :set_cities, only: [:show, :edit]
@@ -54,23 +54,45 @@ class Staff::PeopleController < Staff::BaseController
     end
   end
 
-  def new_fast_prospect; end
+  def new_fast_prospect
+    @error_lines = []
+  end
 
   def create_fast_prospect
-    ActiveRecord::Base.transaction do
-      people_params[:people].each do |cus_params|
-        next if invalid_person?(cus_params[:person])
+    person_records = []
+    all_person_records_are_valid = true
+    @error_lines = []
+    arr_nic = people_params[:people].map { |e| e[:person][:nic_number] }
 
-        cus_params[:person][:product_id] = people_params[:product_id]
-        @person = Person.new(cus_params[:person])
+    people_params[:people].each_with_index do |psp, line|
+      pers_params = psp[:person]
+      person = pers_params[:nic_number].present? ? Person.find_or_initialize_by(nic_number: pers_params[:nic_number]) : Person.new
+      person.assign_attributes(pers_params)
+      person.product_id = people_params[:product_id]
 
-        if @person.save!
-          person_step(@person, people_params[:product_id])
-        else
-          render :new
-        end
+      if person.validate && @service.nic_validate?(person.nic_number, person.product_id) && (person.nic_number.blank? || arr_nic.count(person.nic_number) == 1)
+        person_records.push(person)
+      else
+        all_person_records_are_valid = false
+        @error_lines << line + 1
       end
-      redirect_to staff_people_path
+    end
+
+    if all_person_records_are_valid
+      if person_records.empty?
+        notice_msg = '0 prospect được nhập'
+      else
+        ActiveRecord::Base.transaction do
+          person_records.each do |record|
+            create_first_step_for_person(record, people_params[:product_id]) if record.save!
+          end
+        end
+        notice_msg = "Tạo prospect thành công: Bạn đã nhập thành công #{person_records.count}/#{person_records.count} prospects"
+      end
+
+      redirect_to staff_people_path, notice: notice_msg
+    else
+      render :new_fast_prospect
     end
   rescue => _exception
     render :new_fast_prospect
@@ -135,6 +157,7 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def people_params
+    params[:people][:people].delete_if { |item| invalid_person?(item[:person]) }
     params[:people][:people].each { |c| c[:person].delete(:merchandise) } if params[:people][:product_id] == '1'
     params[:people][:people].each { |c| c[:person].delete(:school) } if params[:people][:product_id] == '2'
     params.require(:people).permit(
@@ -164,7 +187,8 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def invalid_person?(person)
-    person[:last_name].blank? && person[:first_name].blank? && person[:phone].blank? && person[:gender].blank? && person[:birthday].blank?
+    person[:last_name].blank? && person[:first_name].blank? && person[:phone].blank? &&
+      person[:gender].blank? && person[:birthday].blank? && person[:nic_number].blank?
   end
 
   def person_service
