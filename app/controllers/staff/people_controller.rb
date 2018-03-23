@@ -55,13 +55,13 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def new_fast_prospect
-    @error_lines = []
+    @error_lines = {}
   end
 
   def create_fast_prospect
     person_records = []
     all_person_records_are_valid = true
-    @error_lines = []
+    @error_lines = {}
     arr_nic = people_params[:people].map { |e| e[:person][:nic_number] }
 
     people_params[:people].each_with_index do |psp, line|
@@ -74,7 +74,7 @@ class Staff::PeopleController < Staff::BaseController
         person_records.push(person)
       else
         all_person_records_are_valid = false
-        @error_lines << line + 1
+        @error_lines[line + 1] = person.errors.messages.keys#.map(&:to_s)
       end
     end
 
