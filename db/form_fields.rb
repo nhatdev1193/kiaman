@@ -76,8 +76,9 @@
     { field_name: 'quan_huyen_dia_chi_kd', display_name: 'Quận/Huyện', type: 'input' },
     { field_name: 'phuong_xa_dia_chi_kd', display_name: 'Phường/Xã', type: 'input' },
     { field_name: 'dien_tich_mat_bang', display_name: 'Diện tích mặt bằng', type: 'input' },
-    { field_name: 'so_huu', display_name: 'Diện tích mặt bằng', type: 'select' },
-    { field_name: 'thoi_gian_thue', display_name: 'Thời gian thuê', type: 'date' },
+    { field_name: 'so_huu', display_name: 'Sở hữu', type: 'select' },
+    { field_name: 'thoi_gian_thue_tu', display_name: 'Thời gian thuê', type: 'date' },
+    { field_name: 'thoi_gian_thue_den', display_name: 'Thời gian thuê', type: 'date' },
     { field_name: 'ma_so_thue', display_name: 'Mã số thuế', type: 'input' },
     { field_name: 'ma_so_doanh_nghiep', display_name: 'Mã số doanh nghiệp', type: 'input' }
 ]
