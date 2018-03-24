@@ -121,7 +121,7 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def form_values_params
-    params.require(:form_values).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
+    params.require(:form_values).permit!
   end
 
   # Store 1st step of flow into people_steps

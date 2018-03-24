@@ -8,20 +8,26 @@
     <div class="box-header with-border">
       <div class="clearfix">
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <button type="button" id="btn-assign-staff" class="btn btn-success">
             <%= fa_icon 'user-circle' %> Chỉ định người phụ trách
           </button>
 
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <button type="button" id="btn-archive-profile" class="btn btn-danger">
             <%= fa_icon 'archive' %> Archive hồ sơ
           </button>
 
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <button type="button" id="btn-create-contract" class="btn btn-primary">
             <%= fa_icon 'exchange-alt' %> Tạo hợp đồng
           </button>
 
           <button type="button" id="btn-edit-profile" class="btn btn-primary">
             <%= fa_icon 'edit' %> Cập nhật hồ sơ
+          </button>
+          <button type="button" id="btn-cancel-profile-update" class="btn btn-default hidden">
+            Huỷ
+          </button>
+          <button type="button" id="btn-update-profile" class="btn btn-primary hidden">
+            Lưu
           </button>
         </div>
       </div>
@@ -83,8 +89,34 @@
 <script>
   $(function () {
     let $btnEditProfile = $('#btn-edit-profile'),
+        $btnUpdateProfile = $('#btn-update-profile'),
+        $btnCancelProfileUpdate = $('#btn-cancel-profile-update'),
+        $btnArchiveProfile = $('#btn-archive-profile'),
+        $btnCreateContract = $('#btn-create-contract'),
+        $btnAssignStaff = $('#btn-assign-staff'),
         $profileForm = $('#profile-form'),
         $editableFormControls = $profileForm.find('.editable');
+        $selectableFormControls = $profileForm.find('.selectable');
+
+    let toShowMode = function(){
+      // Hide update + cancel buttons
+      $btnUpdateProfile.addClass('hidden');
+      $btnCancelProfileUpdate.addClass('hidden');
+
+      // Show up edit profile button
+      $btnEditProfile.removeClass('hidden');
+      $btnArchiveProfile.removeClass('hidden');
+      $btnCreateContract.removeClass('hidden');
+      $btnAssignStaff.removeClass('hidden');
+
+      // Disallow the form fields to be edited
+      $editableFormControls.attr('readonly', true);
+      $editableFormControls.attr('disabled', true);
+      $editableFormControls.addClass('form-control-plaintext');
+      $editableFormControls.removeClass('form-control');
+
+      $selectableFormControls.attr('disabled', true);
+    }
 
     //
     // Update profile
@@ -99,31 +131,31 @@
       $editableFormControls.removeClass('form-control-plaintext');
       $editableFormControls.addClass('form-control');
 
+      $selectableFormControls.removeAttr('disabled');
+
       // Show up update + cancel buttons
-//      $btnUpdateProfile.removeClass('hidden');
-//      $btnCancelProfileUpdate.removeClass('hidden');
+      $btnUpdateProfile.removeClass('hidden');
+      $btnCancelProfileUpdate.removeClass('hidden');
+
+      // Hide archive, create and assign staff buttons
+      $btnArchiveProfile.addClass('hidden');
+      $btnCreateContract.addClass('hidden');
+      $btnAssignStaff.addClass('hidden');
     });
 
     //
     // Submit profile form
     //
-//    $btnUpdateProfile.click(function () {
-//      $profileForm.submit();
-//    });
+    $btnUpdateProfile.click(function () {
+      $profileForm.submit();
+      toShowMode();
+    });
 
     //
     // Cancel profile update
     //
-//    $btnCancelProfileUpdate.click(function () {
-//      // Hide update + cancel buttons
-//      $btnUpdateProfile.addClass('hidden');
-//      $btnCancelProfileUpdate.addClass('hidden');
-//
-//      // Show up edit profile button
-//      $btnEditProfile.removeClass('hidden');
-//
-//      // Disallow the form fields to be edited
-//      $editableFormControls.attr('readonly', true);
-//    });
+    $btnCancelProfileUpdate.click(function () {
+      toShowMode();
+    });
   });
 </script>

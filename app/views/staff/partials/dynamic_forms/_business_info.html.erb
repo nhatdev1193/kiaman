@@ -50,32 +50,32 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Sản xuất
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '2', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Gia công
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '3', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Bán buôn
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '4', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Bán lẻ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '5', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Dịch vụ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '6', field.field_value, name: 'form_values[' + field.id.to_s + '][]', disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>
@@ -92,32 +92,32 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', field.field_value, disabled: true, class: 'selectable') %>
               Mua mang đi
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '2', field.field_value, disabled: true, class: 'selectable') %>
               Trong chợ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '3', field.field_value, disabled: true, class: 'selectable') %>
               Lưu động (<= 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '4', field.field_value, disabled: true, class: 'selectable') %>
               Lưu động (> 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '5', field.field_value, disabled: true, class: 'selectable') %>
               Trong nhà (1 MB)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '6', field.field_value, disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>
@@ -170,72 +170,30 @@
         </div>
       </div>
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang' } %>
-        <label class="control-label col-sm-5"><%= field.display_name %></label>
-        <div class="col-sm-7">
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Mua mang đi
-            </label>
-          </div>
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Trong chợ
-            </label>
-          </div>
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Lưu động (<= 6 bàn ghế)
-            </label>
-          </div>
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Lưu động (> 6 bàn ghế)
-            </label>
-          </div>
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Trong nhà (1 MB)
-            </label>
-          </div>
-          <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
-              Khác
-            </label>
-          </div>
-          <div class="form-group">
-            <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang_khac' } %>
-            <div class="col-sm-7">
-              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_huu' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="radio">
             <label>
-              <%= radio_button('form_values', field.id.to_s, 1) %>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '1', field.field_value, disabled: true, class: 'selectable') %>
               Riêng
             </label>
           </div>
           <div class="radio">
             <label>
-              <%= radio_button('form_values', field.id.to_s, 2) %>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '2', field.field_value, disabled: true, class: 'selectable') %>
               Chung
             </label>
           </div>
           <div class="radio">
             <label>
-              <%= radio_button('form_values', field.id.to_s, 3) %>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '3', field.field_value, disabled: true, class: 'selectable') %>
               Thuê ngắn hạn
             </label>
           </div>
           <div class="radio">
             <label>
-              <%= radio_button('form_values', field.id.to_s, 4) %>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '4', field.field_value, disabled: true, class: 'selectable') %>
               Thuê dài hạn
             </label>
           </div>
