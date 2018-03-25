@@ -45,6 +45,10 @@ Rails.application.routes.draw do
       collection do
         post '/nic_check', to: 'people#nic_check'
       end
+
+      member do
+        post '/documents', to: 'people#upload_documents'
+      end
     end
 
     resources :forms do

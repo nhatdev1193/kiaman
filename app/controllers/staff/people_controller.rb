@@ -14,7 +14,10 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
-  def show; end
+  def show
+    doc_kind_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
+    @doc_kinds = DocumentKind.where(name: doc_kind_names).order(:id)
+  end
 
   def edit; end
 
@@ -80,6 +83,27 @@ class Staff::PeopleController < Staff::BaseController
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
   end
 
+  # POST /staff/people/:id/documents
+  def upload_documents
+    # Do the upload & save the records info
+    doc = Document.new(document_params)
+    doc.person_id = params[:id]
+    doc.staff = current_staff
+    doc.document_kind_id = 1
+    doc.save!
+
+    # After upload successfully, update the metadata for the uploaded files
+    doc.url = doc.filename.map(&:url)
+    doc.size = doc.filename.map(&:size)
+    doc.physic_path = doc.filename.map(&:current_path)
+    doc.content_type = doc.filename.map(&:content_type)
+    doc.save!
+
+    render json: {
+      id: doc.id
+    }, status: :created
+  end
+
   private
 
   def set_person
@@ -142,5 +166,9 @@ class Staff::PeopleController < Staff::BaseController
 
   def person_service
     @service = PersonDataService.new
+  end
+
+  def document_params
+    params.permit({filename: []})
   end
 end

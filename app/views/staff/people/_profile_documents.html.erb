@@ -12,34 +12,68 @@
 
   <div class="box-body">
     <div class="form-horizontal">
+
+      <% @doc_kinds.each do |doc_kind| %>
+        <div class="form-group">
+          <label class="col-sm-4"><%= doc_kind.name %></label>
+          <div class="col-sm-8">
+            <span class="btn btn-block btn-success btn-sm fileinput-button">
+              <%= fa_icon 'plus' %>
+              <span>Chọn file để upload...</span>
+              <input type="file" name="files[]" multiple data-module="fileupload" data-file-list-id="file-list-kind-<%= doc_kind.id %>">
+            </span>
+            <ul id="file-list-kind-<%= doc_kind.id %>" class="list-group"></ul>
+          </div>
+        </div>
+      <% end %>
+
+
+
       <div class="form-group">
         <label class="col-sm-4">CMND</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Hộ khẩu</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Đơn đề nghị vay vốn</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Thẻ sinh viên</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Bằng cấp</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Bảng điểm</label>
-        <div class="col-sm-8">___</div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4">Phiếu lương</label>
-        <div class="col-sm-8">___</div>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-addon"><%= fa_icon 'plus-circle' %></span>
+          </div>
+          <%= form_with url: documents_staff_person_path(@person), method: :post, local: true,
+                        class: 'form-horizontal',
+                        html: { role: 'form' } do |f| %>
+            <%= f.file_field :filename, multiple: true %>
+            <%= f.submit %>
+          <% end %>
+
+          <input type="file" accept="image/*">
+
+          <input type="file" name="filename[]" data-url="<%= documents_staff_person_path(@person) %>" multiple>
+          <ul id="">
+
+          </ul>
+        </div>
       </div>
     </div>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
+
+<script>
+  $(function () {
+    $('[data-module=fileupload]').fileupload({
+      dataType: 'json',
+      singleFileUploads: false,
+      autoUpload: false,
+      add: function (e, data) {
+        let $t = $(this),
+            $fileListElement = $('#' + $t.data('file-list-id'));
+        $fileListElement.empty();
+
+        // Loop through the file list and add each one name
+        _.each(data.files, function (file) {
+          $('<li>')
+            .attr('class', 'list-group-item')
+            .text(file.name)
+            .appendTo($fileListElement);
+        });
+      }
+    });
+  });
+</script>
