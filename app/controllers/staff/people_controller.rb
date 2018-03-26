@@ -79,7 +79,7 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def update
-    @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
+    @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, params)
   end
 
   private

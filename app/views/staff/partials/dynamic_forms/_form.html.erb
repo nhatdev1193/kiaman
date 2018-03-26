@@ -95,11 +95,12 @@
         $btnCreateContract = $('#btn-create-contract'),
         $btnAssignStaff = $('#btn-assign-staff'),
         $profileForm = $('#profile-form'),
-        $addMoreProfileBtn = $('#add-more-profile'),
-        $editableFormControls = $profileForm.find('.editable');
-        $selectableFormControls = $profileForm.find('.selectable');
+        $addMoreProfileBtn = $('#add-more-profile');
 
     let toShowMode = function(){
+      let $editableFormControls = $profileForm.find('.editable'),
+          $selectableFormControls = $profileForm.find('.selectable');
+
       // Hide update + cancel buttons
       $btnUpdateProfile.addClass('hidden');
       $btnCancelProfileUpdate.addClass('hidden');
@@ -125,6 +126,8 @@
     //
     $btnEditProfile.click(function () {
       let $t = $(this);
+      let $editableFormControls = $profileForm.find('.editable'),
+          $selectableFormControls = $profileForm.find('.selectable');
       $t.addClass('hidden');
 
       // Allow the form fields to be edited
