@@ -3,6 +3,7 @@
     <table class="table table-hover table-bordered table-striped">
       <thead>
       <tr>
+        <th></th>
         <th>ID</th>
         <th>Họ và tên lót</th>
         <th>Tên</th>
@@ -18,6 +19,7 @@
       <tbody>
       <tr>
         <td></td>
+        <td><input type="search" class="form-control"></td>
         <td><input type="search" class="form-control"></td>
         <td><input type="search" class="form-control"></td>
         <td>
@@ -57,6 +59,7 @@
               </label>
             </div>
           </td>
+          <td><%= person_step.person.id %></td>
           <td><%= person_step.person.last_name %></td>
           <td><%= person_step.person.first_name %></td>
           <td><%= person_step.branch_name %></td>

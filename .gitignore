@@ -87,3 +87,5 @@ pickle-email-*.html
 node_modules
 *_debug.*
 passenger.*
+
+.byebug_history
