@@ -74,7 +74,7 @@ class Staff::PeopleController < Staff::BaseController
         person_records.push(person)
       else
         all_person_records_are_valid = false
-        @error_lines[line + 1] = person.errors.messages.keys#.map(&:to_s)
+        @error_lines[line + 1] = person.errors.messages.keys
       end
     end
 

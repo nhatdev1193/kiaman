@@ -13,7 +13,7 @@ class Person < SoftDeleteBaseModel
   validates :phone, numericality: true
   validates :nic_number, numericality: true, allow_blank: true
   validate :product_validate
-  validate :product_with_nic_validate, if: -> { new_record? || nic_number_changed? }
+  validate :product_with_nic_validate # , if: -> { new_record? || nic_number_changed? }
 
   enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
 
