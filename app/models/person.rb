@@ -7,6 +7,7 @@ class Person < SoftDeleteBaseModel
   attr_accessor :product_id
 
   GENDER_TYPES = [['Nữ', false], ['Nam', true]].freeze
+  SAMPLE_TYPES = [['Please choose', '0'], ['Option 1', '1'], ['Option 2', '2']].freeze
 
   validates :first_name, :phone, presence: true
   validates :product_id, presence: true, on: :create

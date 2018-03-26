@@ -20,28 +20,28 @@
         <% field = @form_fields.detect { |field| field.field_name == 'trinh_do_hoc_van' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'tinh_trang_hon_nhan' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_nguoi_phu_thuoc' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_con' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
