@@ -15,12 +15,14 @@ $(function () {
         return false;
       }
 
-      lastRow = parseInt($('#multi-person tr:last').attr('id')) + 1;
+      lastRow = parseInt($('#multi-person tr:last').attr('id'));
+      iNum = 100 - lastRow;
+      currentRow = iNum < 10 ? iNum : 10;
       html = ''
       var schoolClass = productId === '1' ? 'present' : 'hidden';
       var merchandiseClass = productId === '2' ? 'present' : 'hidden';
 
-      for (i = lastRow; i < lastRow + 10; i++) {
+      for (i = lastRow + 1; i <= lastRow + currentRow; i++) {
         html += '<tr id="' + i + '">';
         html += '<td><label class="control-label col-sm-3" for="stt">' + i + '</label></td>';
         html += '<td><input type="text" name="people[people][]person[last_name]" id="people_people_person_last_name" class="form-control"></td>';
