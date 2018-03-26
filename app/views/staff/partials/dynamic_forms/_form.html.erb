@@ -77,7 +77,7 @@
           <!-- REFERENCE TAB
           ============================================= -->
           <div class="tab-pane" id="reference_info_tab">
-            <h3>REFERENCE</h3>
+            <%= render partial: 'staff/partials/dynamic_forms/reference_info' %>
           </div>
 
         </div><!-- /.tab-content -->
@@ -95,6 +95,7 @@
         $btnCreateContract = $('#btn-create-contract'),
         $btnAssignStaff = $('#btn-assign-staff'),
         $profileForm = $('#profile-form'),
+        $addMoreProfileBtn = $('#add-more-profile'),
         $editableFormControls = $profileForm.find('.editable');
         $selectableFormControls = $profileForm.find('.selectable');
 
@@ -102,6 +103,7 @@
       // Hide update + cancel buttons
       $btnUpdateProfile.addClass('hidden');
       $btnCancelProfileUpdate.addClass('hidden');
+      $addMoreProfileBtn.addClass('hidden');
 
       // Show up edit profile button
       $btnEditProfile.removeClass('hidden');
@@ -136,6 +138,7 @@
       // Show up update + cancel buttons
       $btnUpdateProfile.removeClass('hidden');
       $btnCancelProfileUpdate.removeClass('hidden');
+      $addMoreProfileBtn.removeClass('hidden');
 
       // Hide archive, create and assign staff buttons
       $btnArchiveProfile.addClass('hidden');

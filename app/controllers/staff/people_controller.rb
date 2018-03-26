@@ -14,7 +14,9 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
-  def show; end
+  def show
+    @support_profiles = SupportProfile.where(person_id: @person.id).order(:id)
+  end
 
   def edit; end
 

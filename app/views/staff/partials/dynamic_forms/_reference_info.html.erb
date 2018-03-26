@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table id="tbl-support-profiles" class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ và tên</th>
+          <th>Quan hệ</th>
+          <th>SĐT</th>
+          <th>Địa chỉ</th>
+          <th>Nghề nghiệp</th>
+          <th>CMND</th>
+          <th>Biết k/vay</th>
+          <th>Ghi chú</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @support_profiles.each_with_index do |sp, idx| %>
+          <tr id="<%= idx + 1 %>">
+            <td><%= label_tag 'stt', idx + 1, class: 'control-label col-sm-3' %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.fullname, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.relationship, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.phone, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.address, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.job, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.nic_number, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= check_box_tag("support_profiles[#{sp.id}]", true, sp.know_the_loan, class: 'selectable', disabled: true) %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}]", sp.note, class: 'form-control-plaintext editable', disabled: true %></td>
+        <% end %>
+        </tbody>
+      </table>
+      <%= link_to '', id: 'add-more-profile', name: 'add-more', class: 'hidden' do %>
+          <%= fa_icon 'plus-circle' %> Thêm tham chiếu
+      <% end %>
+    </div><!-- /.table-responsive -->
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#add-more-profile').click(function (e) {
+      e.preventDefault();
+      lastRow = parseInt($('#tbl-support-profiles tr:last').attr('id')) + 1;
+      html = `<tr id=` + lastRow + `>
+                <td><label class="control-label col-sm-3" for="stt">` + lastRow + `</label></td>
+                <td><input type="text" name="support_profiles[` + lastRow +`]" class="editable form-control"></td>
+                <td><input type="text" name="support_profiles[` + lastRow +`]" class="editable form-control"></td>
+                <td><input type="text" name="support_profiles[` + lastRow + `]" class="editable form-control"></td>
+                <td><input type="text" name="support_profiles[` + lastRow + `]" class="editable form-control"></td>
+                <td><input type="text" name="support_profiles[` + lastRow + `]" class="editable form-control"></td>
+                <td><input type="text" name="support_profiles[` + lastRow + `]" class="editable form-control"></td>
+                <td><input type="checkbox" name="support_profiles[` + lastRow + `]" class="selectable"></td>
+                <td><input type="text" name="support_profiles[` + lastRow + `]" class="editable form-control"></td>
+              </tr>`
+      $('#tbl-support-profiles tbody').append(html);
+    });
+  });
+</script>

@@ -20,7 +20,7 @@ $(function () {
     });
   }
 
-  let venueSelectIds = [[8, 9, 10], [12, 13, 14], [61, 62, 63], [65, 66, 67]];
+  let venueSelectIds = [[8, 9, 10], [12, 13, 14], [61, 62, 63], [65, 66, 67], ['127', '128', '129']];
   let venueGroup = {
     $form_values_8: $('#form_values_8'),
     $form_values_9: $('#form_values_9'),
@@ -33,7 +33,10 @@ $(function () {
     $form_values_63: $('#form_values_63'),
     $form_values_65: $('#form_values_65'),
     $form_values_66: $('#form_values_66'),
-    $form_values_67: $('#form_values_67')
+    $form_values_67: $('#form_values_67'),
+    $form_values_127: $('#form_values_127'),
+    $form_values_128: $('#form_values_128'),
+    $form_values_129: $('#form_values_129')
   };
 
   venueSelectIds.forEach(function (group) {

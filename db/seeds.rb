@@ -140,6 +140,14 @@ def create_form_fields
   create_business_fields
 end
 
+def create_support_profiles
+  profiles = [
+    { fullname: 'Nguyen Van A', relationship: 'Cha', phone: '0123456789', address: 'Quan 1, HCM', job: 'Cong An', nic_number: '211311133', know_the_loan: true, person_id: 1 },
+    { fullname: 'Nguyen Thi B', relationship: 'Me', phone: '0123456789', address: 'Quan 1, HCM', job: 'Canh Sat', nic_number: '211311133', know_the_loan: true, person_id: 1 }
+  ]
+  SupportProfile.create(profiles)
+end
+
 DatabaseCleaner.clean
 create_organizations
 create_roles
