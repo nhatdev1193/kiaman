@@ -50,32 +50,32 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value.include?('1'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value&.include?('1'), disabled: true, class: 'selectable') %>
               Sản xuất
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value.include?('2'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value&.include?('2'), disabled: true, class: 'selectable') %>
               Gia công
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value.include?('3'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value&.include?('3'), disabled: true, class: 'selectable') %>
               Bán buôn
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value.include?('4'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value&.include?('4'), disabled: true, class: 'selectable') %>
               Bán lẻ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value.include?('5'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value&.include?('5'), disabled: true, class: 'selectable') %>
               Dịch vụ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value.include?('6'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value&.include?('6'), disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>
@@ -92,32 +92,32 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value.include?('1'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value&.include?('1'), disabled: true, class: 'selectable') %>
               Mua mang đi
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value.include?('2'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value&.include?('2'), disabled: true, class: 'selectable') %>
               Trong chợ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value.include?('3'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value&.include?('3'), disabled: true, class: 'selectable') %>
               Lưu động (<= 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value.include?('4'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value&.include?('4'), disabled: true, class: 'selectable') %>
               Lưu động (> 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value.include?('5'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value&.include?('5'), disabled: true, class: 'selectable') %>
               Trong nhà (1 MB)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value.include?('6'), disabled: true, class: 'selectable') %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value&.include?('6'), disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>

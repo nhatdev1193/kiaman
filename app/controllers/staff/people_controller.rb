@@ -80,6 +80,7 @@ class Staff::PeopleController < Staff::BaseController
 
   def update
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, params)
+    flash[:errors] = @person.errors.messages if @person.errors.any?
   end
 
   private

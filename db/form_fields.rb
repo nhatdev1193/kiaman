@@ -1,11 +1,11 @@
-@fields = [{ field_name: 'sdt2', display_name: 'SĐT2', type: 'input', condition: %w[only_number = true] },
+@fields = [{ field_name: 'sdt2', display_name: 'SĐT2', type: 'input' },
            { field_name: 'so_passport', display_name: 'Số Passport', type: 'input' },
            { field_name: 'ngay_cap_cmnd', display_name: 'Ngày cấp', type: 'date', condition: %w[date > 01/01/1976] },
            { field_name: 'ngay_cap_passport', display_name: 'Ngày cấp', type: 'date', condition: %w[date > 01/01/1976] },
            { field_name: 'noi_cap_cmnd', display_name: 'Nơi cấp', type: 'input' },
            { field_name: 'noi_cap_passport', display_name: 'Nơi cấp', type: 'input' },
            # Thong tin noi o
-           { field_name: 'dia_chi_ho_khau', display_name: 'Hộ khẩu (số nhà, đường)', type: 'input' },
+           { field_name: 'dia_chi_ho_khau', display_name: 'Hộ khẩu (số nhà, đường)', type: 'input', condition: %w[presence = true] },
            { field_name: 'tinh_tp_ho_khau', display_name: 'TP/ Tỉnh', type: 'select' },
            { field_name: 'quan_huyen_ho_khau', display_name: 'Quận/ Huyện', type: 'select' },
            { field_name: 'phuong_xa_ho_khau', display_name: 'Phường/ Xã', type: 'select' },

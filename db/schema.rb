@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325041737) do
+ActiveRecord::Schema.define(version: 20180326133435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,9 +124,7 @@ ActiveRecord::Schema.define(version: 20180325041737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.index ["form_field_id", "deleted_at"], name: "index_form_values_on_form_field_id_and_deleted_at", unique: true
     t.index ["form_field_id"], name: "index_form_values_on_form_field_id"
-    t.index ["form_id", "deleted_at"], name: "index_form_values_on_form_id_and_deleted_at", unique: true
     t.index ["form_id"], name: "index_form_values_on_form_id"
   end
 
