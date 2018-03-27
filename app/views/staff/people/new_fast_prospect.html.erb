@@ -20,7 +20,7 @@
   <!-- form start -->
   <%= form_with url: staff_people_fast_prospect_path, method: :post, local: true,
                 id: 'fast_prospect_form', class: 'form-horizontal',
-                html: { role: 'form' } do |f| %>
+                html: { role: 'form', onkeypress: 'return event.keyCode != 13;' } do |f| %>
     <%= hidden_field_tag :type, params[:type] %>
 
     <div class="box-body">
