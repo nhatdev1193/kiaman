@@ -37,14 +37,6 @@ class PeopleStep < SoftDeleteBaseModel
     end
   end
 
-  def assignee_name
-    Staff.find_by_id(assigned_staff_id)&.name
-  end
-
-  def branch_name
-    Staff.find_by_id(created_staff_id)&.organizations&.order(:level)&.first&.name
-  end
-
   def product_name
     step.product.name
   end

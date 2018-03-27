@@ -1,6 +1,8 @@
 class Person < SoftDeleteBaseModel
   has_many :people_steps
   has_many :steps, through: :people_steps
+  belongs_to :organization
+  belongs_to :owner, class_name: 'Staff'
 
   after_initialize :set_default_status
 

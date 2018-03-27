@@ -62,9 +62,9 @@
           <td><%= person_step.person.id %></td>
           <td><%= person_step.person.last_name %></td>
           <td><%= person_step.person.first_name %></td>
-          <td><%= person_step.branch_name %></td>
+          <td><%= person_step.person.organization.name %></td>
           <td><%= person_step.person.status.humanize %></td>
-          <td><%= person_step.assignee_name %></td>
+          <td><%= person_step.person.owner.name %> - <%= person_step.person.owner_id %></td>
           <td><%= person_step.product_name %></td>
           <td><%= person_step.created_at %></td>
           <td><%= person_step.updated_at %></td>

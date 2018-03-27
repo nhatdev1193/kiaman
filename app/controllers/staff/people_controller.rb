@@ -21,6 +21,8 @@ class Staff::PeopleController < Staff::BaseController
     ActiveRecord::Base.transaction do
       @person = person_params[:nic_number].present? ? Person.find_or_initialize_by(nic_number: person_params[:nic_number]) : Person.new
       @person.assign_attributes(person_params)
+      @person.owner = current_staff
+      @person.organization = current_staff.lowest_organization
       nic_check = @service.nic_validate?(@person.nic_number, @person.product_id)
 
       if nic_check
@@ -69,6 +71,8 @@ class Staff::PeopleController < Staff::BaseController
       person = pers_params[:nic_number].present? ? Person.find_or_initialize_by(nic_number: pers_params[:nic_number]) : Person.new
       person.assign_attributes(pers_params)
       person.product_id = people_params[:product_id]
+      person.owner = current_staff
+      person.organization = current_staff.lowest_organization
 
       if person.validate && @service.nic_validate?(person.nic_number, person.product_id) && (person.nic_number.blank? || arr_nic.count(person.nic_number) == 1)
         person_records.push(person)
@@ -261,6 +265,8 @@ class Staff::PeopleController < Staff::BaseController
       )
       # Assign value for school or merchandise follow product_id
       person[dynamic_field] = hash[dynamic_field]
+      person.owner = current_staff
+      person.organization = current_staff.lowest_organization
 
       if person.validate && @service.nic_validate?(person.nic_number, person.product_id) && (person.nic_number.blank? || arr_nic.count(person.nic_number) == 1)
         person_records.push(person)
