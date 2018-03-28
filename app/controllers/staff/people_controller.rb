@@ -4,10 +4,14 @@ class Staff::PeopleController < Staff::BaseController
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
   before_action :set_cities, only: [:show, :edit]
   before_action :retrieve_form_values, only: [:show, :edit]
+  before_action :get_condition_params, only: [:index]
 
   def index
+    order_field = params[:sort]
+    direction = params[:direction]
+
     service = PersonDataService.new
-    @people_steps = service.person_list
+    @people_steps = service.person_list(order_field, direction)
                            .paginate(page: params[:page], per_page: params[:per_page])
 
     @person = Person.new # For creating new person with in modal popup form
@@ -276,5 +280,9 @@ class Staff::PeopleController < Staff::BaseController
       end
     end
     [all_person_records_are_valid, error_lines, person_records]
+  end
+
+  def get_condition_params
+    @condition_params = request.query_parameters
   end
 end
