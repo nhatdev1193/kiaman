@@ -1,5 +1,5 @@
 class PersonDataService
-  def person_list(order_field, direction)
+  def person_list(order_field, direction, organization_ids, current_staff_id)
     q = []
     Product.all.each do |product|
       next if product.step_ids.empty?
@@ -55,6 +55,10 @@ class PersonDataService
                 INNER JOIN products ON steps.product_id = products.id
                 INNER JOIN organizations ON people.organization_id = organizations.id
                 INNER JOIN staffs ON people.owner_id = staffs.id
+            WHERE
+                people.organization_id IN (#{organization_ids.join(',')})
+                OR people.owner_id = #{current_staff_id}
+                OR ps.assigned_staff_id = #{current_staff_id}
             ORDER BY
                 #{order_cond}"
 

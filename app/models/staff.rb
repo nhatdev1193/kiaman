@@ -25,4 +25,9 @@ class Staff < SoftDeleteBaseModel
   def lowest_organization
     organizations.order(level: :desc).first
   end
+
+  # Get highest organization level
+  def highest_organization
+    organizations.order(level: :asc).first
+  end
 end
