@@ -1,6 +1,6 @@
 <% if @people_steps.size > 0 %>
   <div class="table-responsive">
-    <%= form_tag staff_people_path, method: :get, id: 'prospect-seach-form' do %>
+    <%= form_with url: staff_people_path, method: :get, local: true, id: 'prospect-seach-form' do %>
       <table class="table table-hover table-bordered table-striped">
         <thead>
         <tr>
