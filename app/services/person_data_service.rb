@@ -1,6 +1,8 @@
 class PersonDataService
-  def person_list(order_field, direction, organization_ids, current_staff_id)
+  def person_list(order_field, direction, organization_ids, current_staff_id, filter_params)
     q = []
+
+    # Query get all current loan services of customer
     Product.all.each do |product|
       next if product.step_ids.empty?
       product_ids = product.step_ids.join(',')
@@ -28,6 +30,26 @@ class PersonDataService
                   AND people.status <> #{Person.statuses[:archive]})"
     end
 
+    filter_cond = []
+
+    # Default filter
+    filter_cond << "(people.organization_id IN (#{organization_ids.join(',')})
+                    OR people.owner_id = #{current_staff_id}
+                    OR ps.assigned_staff_id = #{current_staff_id})"
+    # Filter values
+    if filter_params
+      filter_cond << "people.id = #{filter_params[:id].to_i}" unless filter_params[:id].blank?
+      filter_cond << "people.last_name LIKE '%#{filter_params[:last_name]}%'" unless filter_params[:last_name].blank?
+      filter_cond << "people.first_name LIKE '%#{filter_params[:first_name]}%'" unless filter_params[:first_name].blank?
+      filter_cond << "people.organization_id = #{filter_params[:organization_id].to_i}" unless filter_params[:organization_id].blank?
+      filter_cond << "people.status = #{filter_params[:status].to_i}" unless filter_params[:status].blank?
+      filter_cond << "staffs.name LIKE '%#{filter_params[:owner_name]}%'" unless filter_params[:owner_name].blank?
+      filter_cond << "products.id = #{filter_params[:product_id].to_i}" unless filter_params[:product_id].blank?
+      filter_cond << "DATE(people.created_at) = '#{filter_params[:created_at]}'" unless filter_params[:created_at].blank?
+      filter_cond << "DATE(people.updated_at) = '#{filter_params[:updated_at]}'" unless filter_params[:updated_at].blank?
+    end
+
+    # Sort field
     order_cond = case order_field
                  when 'id', 'last_name', 'first_name', 'status'
                    "people.#{order_field} #{direction}"
@@ -47,6 +69,7 @@ class PersonDataService
                    END"
                  end
 
+    # Final query
     query = "SELECT
                 ps.*
             FROM (#{q.join(' UNION ALL ')}) AS ps
@@ -56,9 +79,7 @@ class PersonDataService
                 INNER JOIN organizations ON people.organization_id = organizations.id
                 INNER JOIN staffs ON people.owner_id = staffs.id
             WHERE
-                people.organization_id IN (#{organization_ids.join(',')})
-                OR people.owner_id = #{current_staff_id}
-                OR ps.assigned_staff_id = #{current_staff_id}
+                #{filter_cond.join(' AND ')}
             ORDER BY
                 #{order_cond}"
 
