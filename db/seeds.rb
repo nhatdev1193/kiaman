@@ -141,13 +141,15 @@ def create_form_fields
 end
 
 def create_document_kinds
-  doc_kind_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
+  doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+  doc_kind_display_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
 
-  doc_kind_names.map do |doc_kind_name|
-    DocumentKind.find_or_create_by!(name: doc_kind_name)
+  doc_kind_field_names.map.with_index do |doc_kind_field_name, idx|
+    DocumentKind.find_or_create_by!(field_name: doc_kind_field_name,
+                                    display_name: doc_kind_display_names[idx])
   end
 
-  p "CREATED Document kinds: #{doc_kind_names.join(', ')}"
+  p "CREATED Document kinds: #{doc_kind_field_names.join(', ')}"
 end
 
 DatabaseCleaner.clean

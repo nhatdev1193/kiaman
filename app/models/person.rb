@@ -1,20 +1,26 @@
 class Person < SoftDeleteBaseModel
+
+  # Associations
   has_many :people_steps
   has_many :steps, through: :people_steps
+  has_many :documents
 
+  # Callbacks
   after_initialize :set_default_status
 
+  # Attributes accessors
   attr_accessor :product_id
 
+  # Enum & constants
   GENDER_TYPES = [['Nữ', false], ['Nam', true]].freeze
+  enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
 
+  # Validations methods
   validates :first_name, :phone, presence: true
   validates :product_id, presence: true, on: :create
   validates :phone, numericality: true
   validates :nic_number, numericality: true, allow_blank: true
   validate :product_validate
-
-  enum status: { prospect: 0, lead: 1, customer: 2, archive: 3 }
 
   def gender_name
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
