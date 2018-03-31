@@ -20,7 +20,7 @@ $(function () {
     });
   }
 
-  let venueSelectIds = [[8, 9, 10], [12, 13, 14], [61, 62, 63], [65, 66, 67], ['127', '128', '129']];
+  let venueSelectIds = [[8, 9, 10], [12, 13, 14], [89, 90, 91], [93, 94, 95], [183, 184, 185]];
   let venueGroup = {
     $form_values_8: $('#form_values_8'),
     $form_values_9: $('#form_values_9'),
@@ -28,15 +28,15 @@ $(function () {
     $form_values_12: $('#form_values_12'),
     $form_values_13: $('#form_values_13'),
     $form_values_14: $('#form_values_14'),
-    $form_values_61: $('#form_values_61'),
-    $form_values_62: $('#form_values_62'),
-    $form_values_63: $('#form_values_63'),
-    $form_values_65: $('#form_values_65'),
-    $form_values_66: $('#form_values_66'),
-    $form_values_67: $('#form_values_67'),
-    $form_values_127: $('#form_values_127'),
-    $form_values_128: $('#form_values_128'),
-    $form_values_129: $('#form_values_129')
+    $form_values_89: $('#form_values_89'),
+    $form_values_90: $('#form_values_90'),
+    $form_values_91: $('#form_values_91'),
+    $form_values_93: $('#form_values_93'),
+    $form_values_94: $('#form_values_94'),
+    $form_values_95: $('#form_values_95'),
+    $form_values_183: $('#form_values_183'),
+    $form_values_184: $('#form_values_184'),
+    $form_values_185: $('#form_values_185')
   };
 
   venueSelectIds.forEach(function (group) {

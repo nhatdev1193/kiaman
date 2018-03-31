@@ -1,7 +1,32 @@
 <!-- BANK ACCOUNT INFO -->
 <div class="row margin-bottom">
-  <div class="col-sm-12">
+  <div id="credit-institution-section" class="col-sm-12">
     <%= render 'staff/partials/dynamic_forms/finance_info/bank_account' %>
-    <%= render 'staff/partials/dynamic_forms/finance_info/credit_institution' %>
+    <%= render partial: 'staff/partials/dynamic_forms/finance_info/credit_institution',
+               locals: { institution_number: 1 }%>
+    <%= render partial: 'staff/partials/dynamic_forms/finance_info/credit_institution',
+               locals: { institution_number: 2 }%>
+    <%= render partial: 'staff/partials/dynamic_forms/finance_info/credit_institution',
+               locals: { institution_number: 3, display: display_institution?(@current_step.form_id, 3, @person.id) }%>
+    <%= render partial: 'staff/partials/dynamic_forms/finance_info/credit_institution',
+               locals: { institution_number: 4, display: display_institution?(@current_step.form_id, 4, @person.id) }%>
+    <%= render partial: 'staff/partials/dynamic_forms/finance_info/credit_institution',
+               locals: { institution_number: 5, display: display_institution?(@current_step.form_id, 5, @person.id) }%>
+    <%= link_to '', id: 'add-more-institution', name: 'add-more', class: 'hidden' do %>
+        <%= fa_icon 'plus-circle' %> Thêm tổ chức tín dụng
+    <% end %>
   </div>
 </div>
+
+<script>
+  $(function () {
+    $('#add-more-institution').click(function (e) {
+      e.preventDefault();
+      let $institutionBox =  $('.institution-box.hidden');
+      $institutionBox.first().removeClass('hidden');
+      if($institutionBox.size() == 1){
+        $('#add-more-institution').addClass('hidden');
+      }
+    });
+  });
+</script>

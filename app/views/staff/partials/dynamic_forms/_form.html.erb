@@ -96,7 +96,8 @@
         $btnCreateContract = $('#btn-create-contract'),
         $btnAssignStaff = $('#btn-assign-staff'),
         $profileForm = $('#profile-form'),
-        $addMoreProfileBtn = $('#add-more-profile');
+        $addMoreProfileBtn = $('#add-more-profile'),
+        $addMoreInstitution = $('#add-more-institution');
 
     let toShowMode = function(){
       let $editableFormControls = $profileForm.find('.editable'),
@@ -106,6 +107,7 @@
       $btnUpdateProfile.addClass('hidden');
       $btnCancelProfileUpdate.addClass('hidden');
       $addMoreProfileBtn.addClass('hidden');
+      $addMoreInstitution.addClass('hidden');
 
       // Show up edit profile button
       $btnEditProfile.removeClass('hidden');
@@ -143,6 +145,7 @@
       $btnUpdateProfile.removeClass('hidden');
       $btnCancelProfileUpdate.removeClass('hidden');
       $addMoreProfileBtn.removeClass('hidden');
+      $addMoreInstitution.removeClass('hidden');
 
       // Hide archive, create and assign staff buttons
       $btnArchiveProfile.addClass('hidden');

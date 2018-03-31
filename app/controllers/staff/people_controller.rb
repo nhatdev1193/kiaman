@@ -83,6 +83,11 @@ class Staff::PeopleController < Staff::BaseController
     flash[:errors] = @person.errors.messages if @person.errors.any?
   end
 
+  def display_institution?(form_id, number, person_id)
+    FormValue.institution_value_empty?(form_id, number, person_id)
+  end
+  helper_method :display_institution?
+
   private
 
   def set_person
