@@ -46,8 +46,14 @@ Rails.application.routes.draw do
         post '/nic_check', to: 'people#nic_check'
       end
 
-      member do
-        post '/documents', to: 'people#upload_documents'
+      resources :documents, only: [:show] do
+        collection do
+          post '/', to: 'documents#upload_documents'
+        end
+
+        member do
+          get '/download', to: 'documents#download_document'
+        end
       end
     end
 

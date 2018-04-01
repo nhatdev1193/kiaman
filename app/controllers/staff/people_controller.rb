@@ -15,8 +15,8 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def show
-    doc_kind_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
-    @doc_kinds = DocumentKind.where(name: doc_kind_names).order(:id)
+    doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+    @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
   end
 
   def edit; end
@@ -83,31 +83,14 @@ class Staff::PeopleController < Staff::BaseController
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
   end
 
-  # POST /staff/people/:id/documents
-  def upload_documents
-    # Do the upload & save the records info
-    doc = Document.new(document_params)
-    doc.person_id = params[:id]
-    doc.staff = current_staff
-    doc.document_kind_id = 1
-    doc.save!
-
-    # After upload successfully, update the metadata for the uploaded files
-    doc.url = doc.filename.map(&:url)
-    doc.size = doc.filename.map(&:size)
-    doc.physic_path = doc.filename.map(&:current_path)
-    doc.content_type = doc.filename.map(&:content_type)
-    doc.save!
-
-    render json: {
-      id: doc.id
-    }, status: :created
-  end
-
   private
 
   def set_person
-    @person = Person.find(params[:id])
+    person_id = params[:person_id].present? ? params[:person_id] : params[:id]
+
+    @person = Person.includes(:documents)
+                    .references(:documents)
+                    .find(person_id)
   end
 
   def set_step_and_dynamic_form
@@ -166,9 +149,5 @@ class Staff::PeopleController < Staff::BaseController
 
   def person_service
     @service = PersonDataService.new
-  end
-
-  def document_params
-    params.permit({filename: []})
   end
 end

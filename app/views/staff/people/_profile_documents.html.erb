@@ -12,67 +12,79 @@
 
   <div class="box-body">
     <div class="form-horizontal">
-
       <% @doc_kinds.each do |doc_kind| %>
         <div class="form-group">
-          <label class="col-sm-4"><%= doc_kind.name %></label>
+          <label class="col-sm-4"><%= doc_kind.display_name %></label>
           <div class="col-sm-8">
             <span class="btn btn-block btn-success btn-sm fileinput-button">
               <%= fa_icon 'plus' %>
               <span>Chọn file để upload...</span>
-              <input type="file" name="files[]" multiple data-module="fileupload" data-file-list-id="file-list-kind-<%= doc_kind.id %>">
+              <input type="file" name="file"
+                     multiple
+                     data-module="fileupload"
+                     data-file_list_id="file_list_id_<%= doc_kind.id %>"
+                     data-document_kind_id="<%= doc_kind.id %>">
             </span>
-            <ul id="file-list-kind-<%= doc_kind.id %>" class="list-group"></ul>
+            <ul id="file_list_id_<%= doc_kind.id %>"
+                data-module="lightgallery"
+                class="list-group">
+              <% @person.documents.select { |d| d.document_kind_id == doc_kind.id }.each do |document| %>
+                <li class="list-group-item"
+                    data-src="<%= staff_person_document_path(@person, document) %>"
+                    data-download-url="<%= download_staff_person_document_path(@person, document) %>"
+                    data-sub-html="<%= document.filename %>">
+                  <%= document.filename %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
       <% end %>
-
-
-
-      <div class="form-group">
-        <label class="col-sm-4">CMND</label>
-        <div class="col-sm-8">
-          <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-addon"><%= fa_icon 'plus-circle' %></span>
-          </div>
-          <%= form_with url: documents_staff_person_path(@person), method: :post, local: true,
-                        class: 'form-horizontal',
-                        html: { role: 'form' } do |f| %>
-            <%= f.file_field :filename, multiple: true %>
-            <%= f.submit %>
-          <% end %>
-
-          <input type="file" accept="image/*">
-
-          <input type="file" name="filename[]" data-url="<%= documents_staff_person_path(@person) %>" multiple>
-          <ul id="">
-
-          </ul>
-        </div>
-      </div>
     </div>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
 
 <script>
   $(function () {
+
+    $('[data-module=lightgallery]').lightGallery({
+      thumbnail: false,
+      animateThumb: false,
+      showThumbByDefault: false,
+      share: false,
+      autoplay: false,
+      autoplayControls: false,
+      zoom: false
+    });
+
     $('[data-module=fileupload]').fileupload({
       dataType: 'json',
-      singleFileUploads: false,
-      autoUpload: false,
+//      singleFileUploads: false,
+      autoUpload: true,
+      url: '<%= staff_person_documents_path(@person) %>',
       add: function (e, data) {
         let $t = $(this),
-            $fileListElement = $('#' + $t.data('file-list-id'));
+            $fileListElement = $('#' + $t.data('file_list_id'));
         $fileListElement.empty();
 
         // Loop through the file list and add each one name
-        _.each(data.files, function (file) {
+        _.each(data.files, function (file, idx) {
           $('<li>')
             .attr('class', 'list-group-item')
             .text(file.name)
             .appendTo($fileListElement);
         });
+
+        if (data.autoUpload || (data.autoUpload !== false &&
+            $(this).fileupload('option', 'autoUpload'))) {
+          data.process().done(function () {
+            data.submit();
+          });
+        }
+      },
+      submit: function (e, data) {
+        let $t = $(this);
+        data.formData = {document_kind_id: $t.data('document_kind_id')};
       }
     });
   });

@@ -1,7 +1,7 @@
 class Document < SoftDeleteBaseModel
 
   # Carrierwave uploader
-  mount_uploaders :files, DocumentUploader
+  mount_uploader :file, DocumentUploader
 
   # Associations
   belongs_to :staff
