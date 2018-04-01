@@ -1,0 +1,30 @@
+<tr>
+  <td>
+    <button type="submit" class="btn btn-primary-outline">
+      <i class="glyphicon glyphicon-search"></i>
+    </button>
+  </td>
+  <td><%= search_field_tag 's[id]', params[:s].try(:[], :id) || nil, class: 'form-control' %></td>
+  <td><%= search_field_tag 's[last_name]', params[:s].try(:[], :last_name) || nil, class: 'form-control' %></td>
+  <td><%= search_field_tag 's[first_name]', params[:s].try(:[], :first_name) || nil, class: 'form-control' %></td>
+  <td>
+    <%= select_tag 's[organization_id]', options_from_collection_for_select(Organization.all, :id, :name, params[:s].try(:[], :organization_id) || nil),
+                                         prompt: 'Chọn', class: 'form-control select2' %>
+  </td>
+  <td>
+    <%= select_tag 's[status]', options_for_select(Person.statuses.reject { |i| i.to_sym == :archive }.map { |k, v| [k.humanize.capitalize, v] }, params[:s].try(:[], :status) || nil),
+                                prompt: 'Chọn', class: 'form-control select2' %>
+  </td>
+  <td><%= search_field_tag 's[owner_name]', params[:s].try(:[], :owner_name) || nil, class: 'form-control' %></td>
+  <td>
+    <%= select_tag 's[product_id]', options_from_collection_for_select(Product.all, :id, :name, params[:s].try(:[], :product_id) || nil),
+                                    prompt: 'Chọn', class: 'form-control select2' %>
+  </td>
+  <td>
+    <%= date_field_tag 's[created_at]', params[:s].try(:[], :created_at) || nil,  class: 'form-control' %>
+  </td>
+  <td>
+    <%= date_field_tag 's[updated_at]', params[:s].try(:[], :updated_at) || nil,  class: 'form-control' %>
+  </td>
+  <td></td>
+</tr>
