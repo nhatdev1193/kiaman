@@ -12,10 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require font_awesome5
+//= require lodash
 //= require bootstrap/dist/js/bootstrap.js
 //= require fastclick/lib/fastclick.js
 //= require select2/dist/js/select2.full.js
 //= require admin-lte/plugins/iCheck/icheck.js
+//= require slimscroll/example/ssmaster/jquery.slimscroll.min.js
+//= require admin-lte/dist/js/adminlte.min.js
+//= require blueimp-file-upload/js/vendor/jquery.ui.widget.js
+//= require blueimp-file-upload/js/jquery.iframe-transport.js
+//= require blueimp-file-upload/js/jquery.fileupload.js
+//= require lightgallery/dist/js/lightgallery-all.js
 //= require_tree ./common
 //= require_tree ./staff
 

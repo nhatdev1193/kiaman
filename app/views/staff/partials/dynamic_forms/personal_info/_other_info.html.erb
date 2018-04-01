@@ -1,0 +1,90 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h4 class="box-title">
+      Thông tin khác
+    </h4>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <i class="fa fa-minus"></i>
+      </button>
+    </div><!-- /.box-tools -->
+  </div>
+
+  <div class="box-body">
+
+    <!-- Left col
+    ============================================ -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'trinh_do_hoc_van' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'tinh_trang_hon_nhan' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_nguoi_phu_thuoc' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_con' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'tuoi_con_lon_nhat' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'tuoi_con_nho_nhat' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Right col
+    ============================================ -->
+    <div class="col-sm-6">
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'email' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'facebook' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'zalo' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

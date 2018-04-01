@@ -18,7 +18,10 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
-  def show; end
+  def show
+    doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+    @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
+  end
 
   def edit; end
 
@@ -141,7 +144,11 @@ class Staff::PeopleController < Staff::BaseController
   private
 
   def set_person
-    @person = Person.find(params[:id])
+    person_id = params[:person_id].present? ? params[:person_id] : params[:id]
+
+    @person = Person.includes(:documents)
+                    .references(:documents)
+                    .find(person_id)
   end
 
   def set_step_and_dynamic_form

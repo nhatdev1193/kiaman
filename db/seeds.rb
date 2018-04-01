@@ -100,18 +100,56 @@ def multi_condition(field)
   cdt_group
 end
 
-def create_form_fields
-  form = Form.first
-  @fields.each do |field|
-    cdt_group = single_condition(field) if field[:condition]
-    cdt_group = multi_condition(field) if field[:multi_condition]
-
-    FormField.create(field_name: field[:field_name],
-                     display_name: field[:display_name],
-                     form: form,
-                     form_input: FormInput.find_by_name(field[:type]),
-                     condition_group: cdt_group)
+def create_study_fields
+  study_form = Form.first
+  @study_fields.each do |field|
+    create_form_field(study_form, field)
   end
+end
+
+def create_business_fields
+  business_form = Form.last
+  @business_fields.each do |field|
+    create_form_field(business_form, field)
+  end
+end
+
+def create_form_field(form, field)
+  cdt_group = single_condition(field) if field[:condition]
+  cdt_group = multi_condition(field) if field[:multi_condition]
+
+  FormField.create(field_name: field[:field_name],
+                   display_name: field[:display_name],
+                   form: form,
+                   form_input: FormInput.find_by_name(field[:type]),
+                   condition_group: cdt_group)
+end
+
+def create_form_fields
+  # Common fields
+  @forms = Form.all
+  @forms.each do |form|
+    @fields.each do |field|
+      create_form_field(form, field)
+    end
+  end
+
+  # Study fields
+  create_study_fields
+  # Business fields
+  create_business_fields
+end
+
+def create_document_kinds
+  doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+  doc_kind_display_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']
+
+  doc_kind_field_names.map.with_index do |doc_kind_field_name, idx|
+    DocumentKind.find_or_create_by!(field_name: doc_kind_field_name,
+                                    display_name: doc_kind_display_names[idx])
+  end
+
+  p "CREATED Document kinds: #{doc_kind_field_names.join(', ')}"
 end
 
 DatabaseCleaner.clean
@@ -123,3 +161,4 @@ create_forms
 create_form_fields
 create_products
 create_products_steps
+create_document_kinds
