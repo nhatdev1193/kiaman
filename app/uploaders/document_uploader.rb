@@ -48,8 +48,8 @@ class DocumentUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     doc_kind = DocumentKind.find(model.document_kind_id)
-    current_num_of_docs_by_doc_kind = doc_kind.documents.count
-    name_by_rule = [model.person_id, doc_kind.field_name, current_num_of_docs_by_doc_kind + 1].join('_')
+    current_num_of_docs_by_doc_kind = doc_kind.documents.where(person_id: model.person_id).count
+    name_by_rule = [model.person_id, doc_kind.field_name, current_num_of_docs_by_doc_kind].join('_')
     [name_by_rule, file.extension].join('.')
   end
 end
