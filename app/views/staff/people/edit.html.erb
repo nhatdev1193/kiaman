@@ -6,11 +6,11 @@
 <% # Set the title of content
    content_for :content_header do %>
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
 
       </div>
 
-      <div class="col-sm-8">
+      <div class="col-sm-9">
         <div class="pull-right">
           <button type="button" class="btn btn-default bg-black" data-toggle="modal" data-target="#modal-normal-prospect-form">
             <%= fa_icon 'history' %> Xem change log
@@ -37,12 +37,12 @@
 <% end %>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <%= render partial: 'profile_summary' %>
     <%= render partial: 'profile_documents' %>
   </div>
 
-  <div class="col-sm-8">
+  <div class="col-sm-9">
     <%= render partial: 'staff/partials/dynamic_forms/form' %>
   </div>
 </div>
