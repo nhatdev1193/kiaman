@@ -1,9 +1,9 @@
 class Staff::PeopleController < Staff::BaseController
   before_action :person_service, only: [:index, :nic_check, :create_normal_prospect, :csv_upload, :create_fast_prospect]
-  before_action :set_person, only: [:show, :edit, :update]
-  before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
-  before_action :set_cities, only: [:show, :edit]
-  before_action :retrieve_form_values, only: [:show, :edit]
+  before_action :set_person, only: [:show, :update, :archive_person]
+  before_action :set_step_and_dynamic_form, only: [:show, :update]
+  before_action :set_cities, only: [:show]
+  before_action :retrieve_form_values, only: [:show]
   before_action :get_condition_params, only: [:index]
 
   def index
@@ -19,9 +19,10 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
-  def show; end
-
-  def edit; end
+  def show
+    doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+    @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
+  end
 
   def create_normal_prospect
     ActiveRecord::Base.transaction do
@@ -139,10 +140,29 @@ class Staff::PeopleController < Staff::BaseController
     end
   end
 
+  #
+  # Mark a person profile as "archived"
+  # DELETE /staff/people/:id
+  #
+  def archive_person
+    if @person.destroy
+      respond_to do |format|
+        format.html { redirect_to staff_people_path, notice: 'Hồ sơ đã archive thành công.' }
+        format.json { head :no_content }
+      end
+    else
+      # TODO: need to handler fail case when the profile cannot be archived
+    end
+  end
+
   private
 
   def set_person
-    @person = Person.find(params[:id])
+    person_id = params[:person_id].present? ? params[:person_id] : params[:id]
+
+    @person = Person.includes(:documents)
+                    .references(:documents)
+                    .find(person_id)
   end
 
   def set_step_and_dynamic_form

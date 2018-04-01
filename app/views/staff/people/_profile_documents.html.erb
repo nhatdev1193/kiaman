@@ -1,0 +1,93 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      <i class="fa fa-images"></i> Tài liệu liên quan
+    </h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+    </div><!-- /.box-tools -->
+  </div><!-- /.box-header -->
+
+  <div class="box-body">
+    <div class="form-horizontal">
+      <% @doc_kinds.each do |doc_kind| %>
+        <div class="form-group">
+          <label class="col-sm-4"><%= doc_kind.display_name %></label>
+          <div class="col-sm-8">
+            <span class="btn btn-block btn-success btn-sm fileinput-button">
+              <%= fa_icon 'plus' %>
+              <span>Chọn file để upload...</span>
+              <input type="file" name="file"
+                     multiple
+                     data-module="fileupload"
+                     data-file_list_id="file_list_id_<%= doc_kind.id %>"
+                     data-document_kind_id="<%= doc_kind.id %>">
+            </span>
+            <ul id="file_list_id_<%= doc_kind.id %>"
+                data-module="lightgallery"
+                class="list-group">
+              <% @person.documents.select { |d| d.document_kind_id == doc_kind.id }.each do |document| %>
+                <li class="list-group-item">
+                  <a class="document-filename pointer"
+                     href="<%= staff_person_document_path(@person, document) %>"
+                     data-download-url="<%= download_staff_person_document_path(@person, document) %>"
+                     data-sub-html="<%= document.filename %>">
+                    <%= document.filename %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->
+
+<script>
+  $(function () {
+
+    $('[data-module=lightgallery]').lightGallery({
+      thumbnail: false,
+      animateThumb: false,
+      showThumbByDefault: false,
+      share: false,
+      autoplay: false,
+      autoplayControls: false,
+      zoom: false,
+      selector: '.document-filename'
+    });
+
+    $('[data-module=fileupload]').fileupload({
+      dataType: 'json',
+      autoUpload: true,
+      url: '<%= staff_person_documents_path(@person) %>',
+      add: function (e, data) {
+        let $t = $(this),
+            $fileListElement = $('#' + $t.data('file_list_id'));
+//        $fileListElement.empty();
+
+        // Loop through the file list and add each one name
+        _.each(data.files, function (file, idx) {
+          $('<li>')
+            .attr('class', 'list-group-item')
+            .text(file.name)
+            .appendTo($fileListElement);
+        });
+
+        if (data.autoUpload || (data.autoUpload !== false &&
+            $(this).fileupload('option', 'autoUpload'))) {
+          data.process().done(function () {
+            data.submit();
+          });
+        }
+      },
+      submit: function (e, data) {
+        let $t = $(this);
+        data.formData = {document_kind_id: $t.data('document_kind_id')};
+      }
+    });
+  });
+</script>

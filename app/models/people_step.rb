@@ -4,6 +4,8 @@ class PeopleStep < SoftDeleteBaseModel
   belongs_to :step
   belongs_to :person
   belongs_to :contract, optional: true
+  belongs_to :created_staff, class_name: 'Staff', foreign_key: 'created_staff_id'
+  belongs_to :assigned_staff, class_name: 'Staff', foreign_key: 'assigned_staff_id'
 
   validates :step_id, :person_id, presence: true
 

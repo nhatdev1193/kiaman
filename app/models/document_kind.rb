@@ -1,3 +1,9 @@
 class DocumentKind < SoftDeleteBaseModel
-  validates :name, presence: true
+
+  # Associations
+  has_many :documents
+
+  # Validations
+  validates :field_name, :display_name, presence: true
+
 end
