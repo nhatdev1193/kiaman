@@ -1,3 +1,4 @@
+# rubocop:disable all
 class PersonDataService
   def person_list(order_field, direction, organization_ids, current_staff_id, filter_params)
     q = []
@@ -33,6 +34,7 @@ class PersonDataService
     filter_cond = []
 
     # Default filter
+    filter_cond << 'people.deleted_at IS NULL'
     filter_cond << "(people.organization_id IN (#{organization_ids.join(',')})
                     OR people.owner_id = #{current_staff_id}
                     OR ps.assigned_staff_id = #{current_staff_id})"
