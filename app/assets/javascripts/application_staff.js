@@ -23,6 +23,7 @@
 //= require blueimp-file-upload/js/vendor/jquery.ui.widget.js
 //= require blueimp-file-upload/js/jquery.iframe-transport.js
 //= require blueimp-file-upload/js/jquery.fileupload.js
+//= require lightgallery/dist/js/lightgallery-all.js
 //= require_tree ./common
 //= require_tree ./staff
 

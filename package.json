@@ -10,6 +10,7 @@
     "admin-lte": "^2.4.3",
     "jqvmap": "^1.5.1",
     "postscribe": "^2.0.8",
-    "blueimp-file-upload": "*"
+    "blueimp-file-upload": "*",
+    "lightgallery": "*"
   }
 }
