@@ -3,21 +3,23 @@
     <table class="table table-hover table-bordered table-striped">
       <thead>
       <tr>
-        <th>ID</th>
-        <th>Họ và tên lót</th>
-        <th>Tên</th>
-        <th>Chi nhánh</th>
-        <th>Trạng thái</th>
-        <th>Người phụ trách</th>
-        <th>Sản phẩm</th>
-        <th>Ngày khởi tạo</th>
-        <th>Cập nhật lần cuối</th>
+        <th></th>
+        <th><%= sortable 'id', 'ID', @condition_params %></th>
+        <th><%= sortable 'last_name', 'Họ và tên lót', @condition_params %></th>
+        <th><%= sortable 'first_name', 'Tên', @condition_params %></th>
+        <th><%= sortable 'organization_id', 'Chi nhánh', @condition_params %></th>
+        <th><%= sortable 'status', 'Trạng thái', @condition_params %></th>
+        <th><%= sortable 'owner_id', 'Người phụ trách', @condition_params %></th>
+        <th><%= sortable 'product_id', 'Sản phẩm', @condition_params %></th>
+        <th><%= sortable 'created_at', 'Ngày khởi tạo', @condition_params %></th>
+        <th><%= sortable 'updated_at', 'Cập nhật lần cuối', @condition_params %></th>
         <th></th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td></td>
+        <td><input type="search" class="form-control"></td>
         <td><input type="search" class="form-control"></td>
         <td><input type="search" class="form-control"></td>
         <td>
@@ -57,11 +59,12 @@
               </label>
             </div>
           </td>
+          <td><%= person_step.person.id %></td>
           <td><%= person_step.person.last_name %></td>
           <td><%= person_step.person.first_name %></td>
-          <td><%= person_step.branch_name %></td>
+          <td><%= person_step.person.organization.name %></td>
           <td><%= person_step.person.status.humanize %></td>
-          <td><%= person_step.assignee_name %></td>
+          <td><%= person_step.person.owner.name %> - <%= person_step.person.owner_id %></td>
           <td><%= person_step.product_name %></td>
           <td><%= person_step.created_at %></td>
           <td><%= person_step.updated_at %></td>

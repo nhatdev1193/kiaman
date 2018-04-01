@@ -6,24 +6,13 @@
 <% # Set the title of content
    content_for :content_header do %>
   <div class="row">
-    <div class="col-sm-4">
-      <form>
-        <div class="input-group input-group">
-          <input type="text" class="form-control" placeholder="Tên, số điện thoại, sản phẩm ...">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-primary">
-              <%= fa_icon 'search' %>
-            </button>
-          </span>
-        </div>
-      </form>
-    </div>
+    <div class="col-sm-4"></div>
 
     <div class="col-sm-8">
       <div class="pull-right">
-        <%= link_to '#', class: 'btn btn-warning' do %>
-          <%= fa_icon 'upload' %> Nhập từ file CSV
-        <% end %>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-csv-prospect-form">
+          <%= fa_icon 'user-plus' %> Nhập từ file CSV
+        </button>
 
         <%= link_to staff_people_fast_prospect_path, class: 'btn btn-primary' do %>
           <%= fa_icon 'list' %> Prospect nhanh
@@ -47,3 +36,7 @@
 <!-- Normal prospect modal form
 ================================= -->
 <%= render partial: 'normal_prospect_form' %>
+
+<!-- Csv prospect import modal form
+================================= -->
+<%= render partial: 'csv_prospect_form' %>

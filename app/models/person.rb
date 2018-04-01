@@ -4,6 +4,8 @@ class Person < SoftDeleteBaseModel
   has_many :people_steps
   has_many :steps, through: :people_steps
   has_many :documents
+  belongs_to :organization
+  belongs_to :owner, class_name: 'Staff'
 
   # Callbacks
   after_initialize :set_default_status
@@ -21,6 +23,7 @@ class Person < SoftDeleteBaseModel
   validates :phone, numericality: true
   validates :nic_number, numericality: true, allow_blank: true
   validate :product_validate
+  validate :product_with_nic_validate # , if: -> { new_record? || nic_number_changed? }
 
   def gender_name
     gender.nil? ? nil : gender ? 'Nam' : 'Nữ'
@@ -62,5 +65,11 @@ class Person < SoftDeleteBaseModel
     elsif product_id == '2'
       errors.add(:merchandise, :blank) unless merchandise.present?
     end
+  end
+
+  def product_with_nic_validate
+    return if nic_number.blank?
+    service = PersonDataService.new
+    errors.add(:nic_number, 'exists with this product') unless service.nic_validate?(nic_number, product_id)
   end
 end

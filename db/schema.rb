@@ -176,6 +176,8 @@ ActiveRecord::Schema.define(version: 20180401040316) do
     t.string "school"
     t.string "merchandise"
     t.string "nic_number"
+    t.integer "organization_id"
+    t.integer "owner_id"
   end
 
   create_table "people_steps", force: :cascade do |t|

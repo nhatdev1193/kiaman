@@ -91,4 +91,9 @@ module ApplicationHelper
       ['', number_to_percentage(num, precision: 2)].join()
     end
   end
+
+  def input_error_message(arr)
+    return unless arr
+    arr.collect { |msg| content_tag(:span, msg, class: 'help-block') }.join.html_safe
+  end
 end
