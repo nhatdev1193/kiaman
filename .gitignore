@@ -87,3 +87,7 @@ pickle-email-*.html
 node_modules
 *_debug.*
 passenger.*
+
+# Upload folder and tmp
+tmp
+uploads
