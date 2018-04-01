@@ -43,9 +43,13 @@ Rails.application.routes.draw do
     post 'people/csv_upload', to: 'people#csv_upload'
     post 'people/nic_check', to: 'people#nic_check'
 
-    resources :people, only: [:index, :show, :edit, :update] do
+    resources :people, only: [:index, :show, :update] do
       collection do
         post '/nic_check', to: 'people#nic_check'
+      end
+
+      member do
+        delete '/', to: 'people#archive_person'
       end
 
       resources :documents, only: [:show] do
