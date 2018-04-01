@@ -8,13 +8,16 @@
     <div class="box-header with-border">
       <div class="clearfix">
         <div class="box-tools pull-right">
-          <button type="button" id="btn-assign-staff" class="btn btn-success">
+          <button type="button" class="btn btn-success">
             <%= fa_icon 'user-circle' %> Chỉ định người phụ trách
           </button>
 
-          <button type="button" id="btn-archive-profile" class="btn btn-danger">
+          <%= link_to staff_person_path(@person),
+                      method: :delete,
+                      class: 'btn btn-danger',
+                      data: { confirm: 'Bạn có chắc chắn muốn archive hồ sơ này không ?' } do %>
             <%= fa_icon 'archive' %> Archive hồ sơ
-          </button>
+          <% end %>
 
           <button type="button" id="btn-create-contract" class="btn btn-primary">
             <%= fa_icon 'exchange-alt' %> Tạo hợp đồng

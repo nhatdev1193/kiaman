@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326133435) do
+ActiveRecord::Schema.define(version: 20180401040316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "condition_groups", force: :cascade do |t|
     t.bigint "condition_id"
@@ -55,26 +56,27 @@ ActiveRecord::Schema.define(version: 20180326133435) do
   end
 
   create_table "document_kinds", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
+    t.string "display_name", null: false
+    t.string "field_name", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "deleted_at"], name: "idx_unique_document_kind_name", unique: true
+    t.index ["display_name", "deleted_at"], name: "idx_unique_document_kind_name", unique: true
   end
 
   create_table "documents", force: :cascade do |t|
     t.bigint "document_kind_id", null: false
-    t.string "filename", null: false
-    t.string "url", null: false
-    t.string "physic_path", null: false
-    t.string "content_type", null: false
-    t.integer "size", null: false
+    t.text "filename"
+    t.text "url"
+    t.text "physic_path"
+    t.string "content_type"
+    t.integer "size"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "staff_id", null: false
     t.bigint "person_id"
+    t.text "file"
     t.index ["document_kind_id"], name: "index_documents_on_document_kind_id"
     t.index ["person_id"], name: "index_documents_on_person_id"
     t.index ["staff_id"], name: "index_documents_on_staff_id"
@@ -173,6 +175,8 @@ ActiveRecord::Schema.define(version: 20180326133435) do
     t.string "school"
     t.string "merchandise"
     t.string "nic_number"
+    t.integer "organization_id"
+    t.integer "owner_id"
   end
 
   create_table "people_steps", force: :cascade do |t|

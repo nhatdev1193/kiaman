@@ -40,10 +40,26 @@ Rails.application.routes.draw do
     post 'people/create_normal_prospect', to: 'people#create_normal_prospect'
     get 'people/fast_prospect', to: 'people#new_fast_prospect'
     post 'people/fast_prospect', to: 'people#create_fast_prospect'
+    post 'people/csv_upload', to: 'people#csv_upload'
+    post 'people/nic_check', to: 'people#nic_check'
 
-    resources :people, only: [:index, :show, :edit, :update] do
+    resources :people, only: [:index, :show, :update] do
       collection do
         post '/nic_check', to: 'people#nic_check'
+      end
+
+      member do
+        delete '/', to: 'people#archive_person'
+      end
+
+      resources :documents, only: [:show] do
+        collection do
+          post '/', to: 'documents#upload_documents'
+        end
+
+        member do
+          get '/download', to: 'documents#download_document'
+        end
       end
     end
 

@@ -1,79 +1,52 @@
 <% if @people_steps.size > 0 %>
   <div class="table-responsive">
-    <table class="table table-hover table-bordered table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Họ và tên lót</th>
-        <th>Tên</th>
-        <th>Chi nhánh</th>
-        <th>Trạng thái</th>
-        <th>Người phụ trách</th>
-        <th>Sản phẩm</th>
-        <th>Ngày khởi tạo</th>
-        <th>Cập nhật lần cuối</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td></td>
-        <td><input type="search" class="form-control"></td>
-        <td><input type="search" class="form-control"></td>
-        <td>
-          <select class="form-control select2">
-            <option>Chọn</option>
-          </select>
-        </td>
-        <td>
-          <select class="form-control select2">
-            <option>Chọn</option>
-          </select>
-        </td>
-        <td><input type="search" class="form-control"></td>
-        <td>
-          <select class="form-control select2">
-            <option>Chọn</option>
-          </select>
-        </td>
-        <td>
-          <select class="form-control select2">
-            <option>Chọn</option>
-          </select>
-        </td>
-        <td>
-          <select class="form-control select2">
-            <option>Chọn</option>
-          </select>
-        </td>
-        <td></td>
-      </tr>
-      <% @people_steps.each do |person_step| %>
+    <%= form_with url: staff_people_path, method: :get, local: true, id: 'prospect-seach-form' do %>
+      <table class="table table-hover table-bordered table-striped">
+        <thead>
         <tr>
-          <td>
-            <div class="checkbox no-margin">
-              <label class="no-padding">
-                <input type="checkbox" class="i-check">
-              </label>
-            </div>
-          </td>
-          <td><%= person_step.person.last_name %></td>
-          <td><%= person_step.person.first_name %></td>
-          <td><%= person_step.branch_name %></td>
-          <td><%= person_step.person.status.humanize %></td>
-          <td><%= person_step.assignee_name %></td>
-          <td><%= person_step.product_name %></td>
-          <td><%= person_step.created_at %></td>
-          <td><%= person_step.updated_at %></td>
-          <td>
-            <%= link_to staff_person_path(person_step.person, step: person_step.step_id), class: 'btn btn-sm btn-primary' do %>
-              <%= fa_icon 'address-card' %> Xem chi tiết
-            <% end %>
-          </td>
+          <th></th>
+          <th><%= sortable 'id', 'ID', @condition_params %></th>
+          <th><%= sortable 'last_name', 'Họ và tên lót', @condition_params %></th>
+          <th><%= sortable 'first_name', 'Tên', @condition_params %></th>
+          <th><%= sortable 'organization_id', 'Chi nhánh', @condition_params %></th>
+          <th><%= sortable 'status', 'Trạng thái', @condition_params %></th>
+          <th><%= sortable 'owner_id', 'Người phụ trách', @condition_params %></th>
+          <th><%= sortable 'product_id', 'Sản phẩm', @condition_params %></th>
+          <th><%= sortable 'created_at', 'Ngày khởi tạo', @condition_params %></th>
+          <th><%= sortable 'updated_at', 'Cập nhật lần cuối', @condition_params %></th>
+          <th></th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <%= render 'search' %>
+        <% @people_steps.each do |person_step| %>
+          <tr>
+            <td>
+              <div class="checkbox no-margin">
+                <label class="no-padding">
+                  <input type="checkbox" class="i-check">
+                </label>
+              </div>
+            </td>
+            <td><%= person_step.person.id %></td>
+            <td><%= person_step.person.last_name %></td>
+            <td><%= person_step.person.first_name %></td>
+            <td><%= person_step.person.organization.name %></td>
+            <td><%= person_step.person.status.humanize %></td>
+            <td><%= person_step.person.owner.name %> - <%= person_step.person.owner_id %></td>
+            <td><%= person_step.product_name %></td>
+            <td><%= person_step.created_at %></td>
+            <td><%= person_step.updated_at %></td>
+            <td>
+              <%= link_to staff_person_path(person_step.person, step: person_step.step_id), class: 'btn btn-sm btn-primary' do %>
+                <%= fa_icon 'address-card' %> Xem chi tiết
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div><!-- /.table-responsive -->
 
   <div class="table-pagination">

@@ -18,6 +18,15 @@ module Parentable
              .where('level <= ?', current_model.level) # Must be at higher level
       end
     }
+
+    # Get all children id
+    def all_children(children_array = [self.id])
+      children_array << self.child_ids
+      self.children.each do |child|
+        child.all_children(children_array)
+      end
+      children_array.flatten.uniq
+    end
   end
 
   #
