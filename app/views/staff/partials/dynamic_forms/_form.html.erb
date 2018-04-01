@@ -8,15 +8,18 @@
     <div class="box-header with-border">
       <div class="clearfix">
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <button type="button" class="btn btn-success">
             <%= fa_icon 'user-circle' %> Chỉ định người phụ trách
           </button>
 
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <%= link_to staff_person_path(@person),
+                      method: :delete,
+                      class: 'btn btn-danger',
+                      data: { confirm: 'Bạn có chắc chắn muốn archive hồ sơ này không ?' } do %>
             <%= fa_icon 'archive' %> Archive hồ sơ
-          </button>
+          <% end %>
 
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-normal-prospect-form">
+          <button type="button" class="btn btn-primary">
             <%= fa_icon 'exchange-alt' %> Tạo hợp đồng
           </button>
 

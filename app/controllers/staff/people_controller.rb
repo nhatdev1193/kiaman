@@ -1,9 +1,9 @@
 class Staff::PeopleController < Staff::BaseController
   before_action :person_service, only: [:index, :nic_check, :create_normal_prospect, :csv_upload, :create_fast_prospect]
-  before_action :set_person, only: [:show, :edit, :update]
-  before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
-  before_action :set_cities, only: [:show, :edit]
-  before_action :retrieve_form_values, only: [:show, :edit]
+  before_action :set_person, only: [:show, :update, :archive_person]
+  before_action :set_step_and_dynamic_form, only: [:show, :update]
+  before_action :set_cities, only: [:show]
+  before_action :retrieve_form_values, only: [:show]
   before_action :get_condition_params, only: [:index]
 
   def index
@@ -22,8 +22,6 @@ class Staff::PeopleController < Staff::BaseController
     doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
     @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
   end
-
-  def edit; end
 
   def create_normal_prospect
     ActiveRecord::Base.transaction do
@@ -138,6 +136,21 @@ class Staff::PeopleController < Staff::BaseController
       redirect_to staff_people_path, notice: "Tạo prospect thành công: Bạn đã nhập thành công #{person_records.count}/#{person_records.count} prospects"
     else
       redirect_to staff_people_path, alert: "Đã xảy ra lỗi: Prospect xảy ra lỗi tại các dòng #{error_lines.join(', ')}"
+    end
+  end
+
+  #
+  # Mark a person profile as "archived"
+  # DELETE /staff/people/:id
+  #
+  def archive_person
+    if @person.destroy
+      respond_to do |format|
+        format.html { redirect_to staff_people_path, notice: 'Hồ sơ đã archive thành công.' }
+        format.json { head :no_content }
+      end
+    else
+      # TODO: need to handler fail case when the profile cannot be archived
     end
   end
 
