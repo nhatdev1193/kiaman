@@ -140,6 +140,14 @@ def create_form_fields
   create_business_fields
 end
 
+def create_support_profiles
+  profiles = [
+    { fullname: 'Nguyen Van A', relationship: 'Cha', phone: '0123456789', address: 'Quan 1, HCM', job: 'Cong An', nic_number: '211311133', know_the_loan: true, person_id: 1 },
+    { fullname: 'Nguyen Thi B', relationship: 'Me', phone: '0123456789', address: 'Quan 1, HCM', job: 'Canh Sat', nic_number: '211311133', know_the_loan: true, person_id: 1 }
+  ]
+  SupportProfile.create(profiles)
+end
+
 def create_document_kinds
   doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
   doc_kind_display_names = ['CMND', 'Hộ khẩu', 'Đơn đề nghị vay vốn', 'Thẻ sinh viên', 'Bằng cấp', 'Bảng điểm', 'Phiếu lương']

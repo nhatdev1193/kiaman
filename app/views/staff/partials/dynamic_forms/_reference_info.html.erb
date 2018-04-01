@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table id="tbl-support-profiles" class="table table-hover table-bordered table-striped no-margin">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ và tên</th>
+          <th>Quan hệ</th>
+          <th>SĐT</th>
+          <th>Địa chỉ</th>
+          <th>Nghề nghiệp</th>
+          <th>CMND</th>
+          <th>Biết k/vay</th>
+          <th>Ghi chú</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @support_profiles.each_with_index do |sp, idx| %>
+          <tr id="" data-id="<%= sp.id %>">
+            <td><%= label_tag 'stt', idx + 1, class: 'control-label col-sm-3' %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][fullname]", sp.fullname, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][relationship]", sp.relationship, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][phone]", sp.phone, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][address]", sp.address, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][job]", sp.job, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][nic_number]", sp.nic_number, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><%= check_box_tag("support_profiles[#{sp.id}][know_the_loan]", true, sp.know_the_loan, class: 'selectable', disabled: true) %></td>
+            <td><%= text_field_tag "support_profiles[#{sp.id}][note]", sp.note, class: 'form-control-plaintext editable', disabled: true %></td>
+            <td><button data-id="<%= sp.id %>" class="remove-profile editable" disabled><%= fa_icon 'minus-circle' %></button></td>
+        <% end %>
+        </tbody>
+      </table>
+      <%= link_to '', id: 'add-more-profile', name: 'add-more', class: 'hidden' do %>
+          <%= fa_icon 'plus-circle' %> Thêm tham chiếu
+      <% end %>
+    </div><!-- /.table-responsive -->
+  </div>
+</div>
+
+<script>
+  $(function () {
+    (function referenceInfo(){
+      $('#add-more-profile').click(function (e) {
+        e.preventDefault();
+        let lastRow = parseInt($('#tbl-support-profiles tr:last').data('id')) + 1 || 1;
+        let html = `<tr data-id=` + lastRow + `>
+                    <td><label class="control-label col-sm-3" for="stt">` + lastRow + `</label></td>
+                    <td><input type="text" name="support_profiles[` + lastRow +`][fullname]" class="editable form-control"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow +`][relationship]" class="editable form-control"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow + `][phone]" class="editable form-control"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow + `][address]" class="editable form-control"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow + `][job]" class="editable form-control"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow + `][nic_number]" class="editable form-control"></td>
+                    <td><input type="checkbox" name="support_profiles[` + lastRow + `][know_the_loan]" class="selectable"></td>
+                    <td><input type="text" name="support_profiles[` + lastRow + `][note]" class="editable form-control"></td>
+                    <td><button data-id="` + lastRow + `" class="remove-profile form-control"><%= fa_icon 'minus-circle' %></button></td>
+                  </tr>`
+        $('#tbl-support-profiles tbody').append(html);
+      });
+
+      $("#tbl-support-profiles").delegate('.remove-profile', 'click', function (e) {
+        e.preventDefault();
+        $(this).parent().parent().addClass('hidden');
+      });
+    })();
+  });
+</script>

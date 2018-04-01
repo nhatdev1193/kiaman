@@ -1,7 +1,7 @@
-<div class="box box-primary">
+<div class="institution-box box box-primary <%= display %>" data-number="<%= institution_number %>">
   <div class="box-header with-border">
     <h4 class="box-title">
-      Tổ chức tín dụng
+      Tổ chức tín dụng <%= institution_number %>
     </h4>
 
     <div class="box-tools pull-right">
@@ -16,38 +16,38 @@
     ============================================ -->
     <div class="col-sm-6">
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'ten_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "ten_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'thoi_han_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "thoi_han_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
-      <% field = @form_fields.detect { |field| field.field_name == 'so_tien_vay_tctd' } %>
+      <% field = @form_fields.detect { |field| field.field_name == "so_tien_vay_tctd_#{institution_number}" } %>
       <label class="control-label col-sm-5"><%= field.display_name %></label>
       <div class="col-sm-7">
-        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+        <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
       </div>
     </div>
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'so_du_no_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "so_du_no_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'so_tien_tra_hang_thang_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "so_tien_tra_hang_thang_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
     </div>
@@ -57,17 +57,17 @@
     ============================================ -->
     <div class="col-sm-6">
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'so_thang_con_lai_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "so_thang_con_lai_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
-        <% field = @form_fields.detect { |field| field.field_name == 'ghi_chu_tctd' } %>
+        <% field = @form_fields.detect { |field| field.field_name == "ghi_chu_tctd_#{institution_number}" } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_area_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_area_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
     </div>

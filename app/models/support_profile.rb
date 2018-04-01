@@ -1,0 +1,2 @@
+class SupportProfile < ApplicationRecord
+end

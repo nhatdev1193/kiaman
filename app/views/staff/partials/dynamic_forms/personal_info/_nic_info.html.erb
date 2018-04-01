@@ -19,21 +19,21 @@
       <div class="form-group">
         <label class="control-label col-sm-5">CMND/ Căn cước</label>
         <div class="col-sm-6">
-          <%= text_field_tag('person[nic_number]', @person.nic_number, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('person[nic_number]', @person.nic_number, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_cmnd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-6">
-          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext', readonly: true}) %>
+          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext editable', readonly: true}) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_cmnd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-6">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
     </div>
@@ -46,21 +46,21 @@
         <% field = @form_fields.detect { |field| field.field_name == 'so_passport' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-6">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'ngay_cap_passport' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-6">
-          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext', readonly: true}) %>
+          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext editable', readonly: true}) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'noi_cap_passport' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-6">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
     </div>

@@ -19,7 +19,17 @@ class Staff::PeopleController < Staff::BaseController
     @person = Person.new # For creating new person with in modal popup form
   end
 
+  #
+  # Show person detail profile
+  # GET /staff/people/:id
+  #
+  # @param step: step_id
+  #
   def show
+    # Get all reference (support) profiles for this person
+    @support_profiles = SupportProfile.where(person_id: @person.id).order(:id)
+    
+    # Get documents belong to this person
     doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
     @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
   end
@@ -122,8 +132,16 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def update
-    @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, form_values_params)
+    @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, params)
+    respond_to do |format|
+      format.json { render json: {resouce: @person, errors: @person.errors.messages } }
+    end
   end
+
+  def display_institution?(form_id, number, person_id)
+    FormValue.institution_value_empty?(form_id, number, person_id)
+  end
+  helper_method :display_institution?
 
   def csv_upload
     all_person_records_are_valid, error_lines, person_records = import_csv
@@ -201,7 +219,7 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def form_values_params
-    params.require(:form_values).permit(@dynamic_form.form_fields.map { |field| field.id.to_s })
+    params.require(:form_values).permit!
   end
 
   # Store 1st step of flow into people_steps

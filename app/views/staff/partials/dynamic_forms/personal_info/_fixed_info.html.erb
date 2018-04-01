@@ -2,29 +2,29 @@
   <div class="form-group">
     <label class="control-label col-sm-5">Họ và tên lót</label>
     <div class="col-sm-7">
-      <%= text_field_tag('person[first_name]', @person.first_name, class: 'form-control-plaintext', readonly: true) %>
+      <%= text_field_tag('person[last_name]', @person.last_name, class: 'form-control-plaintext editable', readonly: true) %>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-5">Tên</label>
+    <label class="control-label col-sm-5">Tên*</label>
     <div class="col-sm-7">
-      <%= text_field_tag('person[last_name]', @person.last_name, class: 'form-control-plaintext', readonly: true) %>
+      <%= text_field_tag('person[first_name]', @person.first_name, class: 'form-control-plaintext editable', readonly: true) %>
     </div>
   </div>
 </div>
 
 <div class="col-sm-2">
   <div class="form-group">
-    <label class="control-label col-sm-3">SĐT</label>
+    <label class="control-label col-sm-3">SĐT*</label>
     <div class="col-sm-9">
-      <%= text_field_tag('person[phone]', @person.phone, class: 'form-control-plaintext', readonly: true) %>
+      <%= number_field_tag('person[phone]', @person.phone, class: 'form-control-plaintext editable', readonly: true) %>
     </div>
   </div>
   <div class="form-group">
     <% field = @form_fields.detect { |field| field.field_name == 'sdt2' } %>
     <label class="control-label col-sm-3"><%= field.display_name %></label>
     <div class="col-sm-9">
-      <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+      <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
     </div>
   </div>
 </div>
@@ -33,7 +33,7 @@
   <div class="form-group">
     <label class="control-label col-sm-7">Giới tính</label>
     <div class="col-sm-5">
-      <%= select_tag('person[gender]', options_for_select(Person::GENDER_TYPES, @person.gender), class: 'form-control-plaintext', disabled: true) %>
+      <%= select_tag('person[gender]', options_for_select(Person::GENDER_TYPES, @person.gender), class: 'form-control-plaintext editable', disabled: true) %>
     </div>
   </div>
 </div>
@@ -42,7 +42,7 @@
   <div class="form-group">
     <label class="control-label col-sm-5">Ngày sinh</label>
     <div class="col-sm-7">
-      <%= date_field('person', 'birthday', { value: @person.birthday, class: 'form-control-plaintext', readonly: true }) %>
+      <%= date_field('person', 'birthday', { value: @person.birthday, class: 'form-control-plaintext editable', readonly: true }) %>
     </div>
   </div>
 </div>

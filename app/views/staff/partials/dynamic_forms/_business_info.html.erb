@@ -8,41 +8,41 @@
         <% field = @form_fields.detect { |field| field.field_name == 'ma_kd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-5">Mặt hàng chi tiết*</label>
         <div class="col-sm-7">
-          <%= text_field_tag('person[merchandise]', @person.merchandise, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('person[merchandise]', @person.merchandise, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'thoi_gian_kinh_doanh' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(Person::SAMPLE_TYPES, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kinh_doanh' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_nam_kd_tai_mat_bang' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'so_nhan_vien' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
@@ -50,39 +50,39 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value&.include?('1'), disabled: true, class: 'selectable') %>
               Sản xuất
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value&.include?('2'), disabled: true, class: 'selectable') %>
               Gia công
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value&.include?('3'), disabled: true, class: 'selectable') %>
               Bán buôn
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value&.include?('4'), disabled: true, class: 'selectable') %>
               Bán lẻ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value&.include?('5'), disabled: true, class: 'selectable') %>
               Dịch vụ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value&.include?('6'), disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>
           <div class="form-group">
             <% field = @form_fields.detect { |field| field.field_name == 'hinh_thuc_kinh_doanh_khac' } %>
             <div class="col-sm-7">
-              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
             </div>
           </div>
         </div>
@@ -92,39 +92,39 @@
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '1', field.field_value&.include?('1'), disabled: true, class: 'selectable') %>
               Mua mang đi
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '2', field.field_value&.include?('2'), disabled: true, class: 'selectable') %>
               Trong chợ
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '3', field.field_value&.include?('3'), disabled: true, class: 'selectable') %>
               Lưu động (<= 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '4', field.field_value&.include?('4'), disabled: true, class: 'selectable') %>
               Lưu động (> 6 bàn ghế)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '5', field.field_value&.include?('5'), disabled: true, class: 'selectable') %>
               Trong nhà (1 MB)
             </label>
           </div>
           <div class="checkbox">
-            <label><%= check_box_tag('form_values[' + field.id.to_s + ']', '1', false, disabled: true) %>
+            <label><%= check_box_tag('form_values[' + field.id.to_s + '][]', '6', field.field_value&.include?('6'), disabled: true, class: 'selectable') %>
               Khác
             </label>
           </div>
           <div class="form-group">
             <% field = @form_fields.detect { |field| field.field_name == 'loai_mat_bang_khac' } %>
             <div class="col-sm-7">
-              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+              <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
             </div>
           </div>
         </div>
@@ -138,31 +138,95 @@
         <% field = @form_fields.detect { |field| field.field_name == 'so_nha_dia_chi_kd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7">
-          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext', readonly: true) %>
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'tinh_tp_dia_chi_kd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7" data-value="<%= field.field_value %>">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(@cities, field.field_value), class: 'form-control-plaintext', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select(@cities, field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'quan_huyen_dia_chi_kd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7" data-value="<%= field.field_value %>">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
         </div>
       </div>
       <div class="form-group">
         <% field = @form_fields.detect { |field| field.field_name == 'phuong_xa_dia_chi_kd' } %>
         <label class="control-label col-sm-5"><%= field.display_name %></label>
         <div class="col-sm-7" data-value="<%= field.field_value %>">
-          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext', disabled: true) %>
+          <%= select_tag('form_values[' + field.id.to_s + ']', options_for_select([], field.field_value), class: 'form-control-plaintext editable', disabled: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'dien_tich_mat_bang' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'so_huu' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <div class="radio">
+            <label>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '1', field.field_value == '1', disabled: true, class: 'selectable') %>
+              Riêng
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '2', field.field_value == '2', disabled: true, class: 'selectable') %>
+              Chung
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '3', field.field_value == '3', disabled: true, class: 'selectable') %>
+              Thuê ngắn hạn
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= radio_button_tag('form_values[' + field.id.to_s + ']', '4', field.field_value == '4', disabled: true, class: 'selectable') %>
+              Thuê dài hạn
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'thoi_gian_thue_tu' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext editable', readonly: true}) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'thoi_gian_thue_den' } %>
+        <label class="control-label col-sm-5"></label>
+        <div class="col-sm-7">
+          <%= date_field('form_values', field.id.to_s, {value: field.field_value, class: 'form-control-plaintext editable', readonly: true}) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'ma_so_thue' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <% field = @form_fields.detect { |field| field.field_name == 'ma_so_doanh_nghiep' } %>
+        <label class="control-label col-sm-5"><%= field.display_name %></label>
+        <div class="col-sm-7">
+          <%= text_field_tag('form_values[' + field.id.to_s + ']', field.field_value, class: 'form-control-plaintext editable', readonly: true) %>
         </div>
       </div>
     </div>
-
   </div>
 </div>

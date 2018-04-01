@@ -1,11 +1,11 @@
-@fields = [{ field_name: 'sdt2', display_name: 'SĐT2', type: 'input', condition: %w[only_number = true] },
+@fields = [{ field_name: 'sdt2', display_name: 'SĐT2', type: 'input' },
            { field_name: 'so_passport', display_name: 'Số Passport', type: 'input' },
            { field_name: 'ngay_cap_cmnd', display_name: 'Ngày cấp', type: 'date', condition: %w[date > 01/01/1976] },
            { field_name: 'ngay_cap_passport', display_name: 'Ngày cấp', type: 'date', condition: %w[date > 01/01/1976] },
            { field_name: 'noi_cap_cmnd', display_name: 'Nơi cấp', type: 'input' },
            { field_name: 'noi_cap_passport', display_name: 'Nơi cấp', type: 'input' },
            # Thong tin noi o
-           { field_name: 'dia_chi_ho_khau', display_name: 'Hộ khẩu (số nhà, đường)', type: 'input' },
+           { field_name: 'dia_chi_ho_khau', display_name: 'Hộ khẩu (số nhà, đường)', type: 'input', condition: %w[presence = true] },
            { field_name: 'tinh_tp_ho_khau', display_name: 'TP/ Tỉnh', type: 'select' },
            { field_name: 'quan_huyen_ho_khau', display_name: 'Quận/ Huyện', type: 'select' },
            { field_name: 'phuong_xa_ho_khau', display_name: 'Phường/ Xã', type: 'select' },
@@ -38,14 +38,50 @@
            { field_name: 'tinh_tp_tk_ngan_hang', display_name: 'Tỉnh/TP', type: 'select' },
            { field_name: 'chi_nhanh_mo', display_name: 'Chi nhánh mở', type: 'input' },
 
-           # To chuc tin dung
-           { field_name: 'ten_tctd', display_name: 'Tên TCTD', type: 'input' },
-           { field_name: 'thoi_han_tctd', display_name: 'Thời hạn', type: 'input' },
-           { field_name: 'so_tien_vay_tctd', display_name: 'Số tiền vay', type: 'input' },
-           { field_name: 'so_du_no_tctd', display_name: 'Số dư nợ', type: 'input' },
-           { field_name: 'so_tien_tra_hang_thang_tctd', display_name: 'Số tiền trả hằng tháng', type: 'input' },
-           { field_name: 'so_thang_con_lai_tctd', display_name: 'Số tháng còn lại', type: 'input' },
-           { field_name: 'ghi_chu_tctd', display_name: 'Ghi chú', type: 'input' },
+           # To chuc tin dung 1
+           { field_name: 'ten_tctd_1', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd_1', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd_1', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd_1', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd_1', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd_1', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd_1', display_name: 'Ghi chú', type: 'input' },
+
+           # To chuc tin dung 2
+           { field_name: 'ten_tctd_2', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd_2', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd_2', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd_2', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd_2', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd_2', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd_2', display_name: 'Ghi chú', type: 'input' },
+
+           # To chuc tin dung 3
+           { field_name: 'ten_tctd_3', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd_3', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd_3', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd_3', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd_3', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd_3', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd_3', display_name: 'Ghi chú', type: 'input' },
+
+           # To chuc tin dung 4
+           { field_name: 'ten_tctd_4', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd_4', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd_4', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd_4', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd_4', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd_4', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd_4', display_name: 'Ghi chú', type: 'input' },
+
+           # To chuc tin dung 5
+           { field_name: 'ten_tctd_5', display_name: 'Tên TCTD', type: 'input' },
+           { field_name: 'thoi_han_tctd_5', display_name: 'Thời hạn', type: 'input' },
+           { field_name: 'so_tien_vay_tctd_5', display_name: 'Số tiền vay', type: 'input' },
+           { field_name: 'so_du_no_tctd_5', display_name: 'Số dư nợ', type: 'input' },
+           { field_name: 'so_tien_tra_hang_thang_tctd_5', display_name: 'Số tiền trả hằng tháng', type: 'input' },
+           { field_name: 'so_thang_con_lai_tctd_5', display_name: 'Số tháng còn lại', type: 'input' },
+           { field_name: 'ghi_chu_tctd_5', display_name: 'Ghi chú', type: 'input' },
 
            # Viec lam
            { field_name: 'chuc_vu', display_name: 'Chức vụ', type: 'input' },
@@ -76,8 +112,9 @@
     { field_name: 'quan_huyen_dia_chi_kd', display_name: 'Quận/Huyện', type: 'input' },
     { field_name: 'phuong_xa_dia_chi_kd', display_name: 'Phường/Xã', type: 'input' },
     { field_name: 'dien_tich_mat_bang', display_name: 'Diện tích mặt bằng', type: 'input' },
-    { field_name: 'so_huu', display_name: 'Diện tích mặt bằng', type: 'select' },
-    { field_name: 'thoi_gian_thue', display_name: 'Thời gian thuê', type: 'date' },
+    { field_name: 'so_huu', display_name: 'Sở hữu', type: 'select' },
+    { field_name: 'thoi_gian_thue_tu', display_name: 'Thời gian thuê', type: 'date' },
+    { field_name: 'thoi_gian_thue_den', display_name: 'Thời gian thuê', type: 'date' },
     { field_name: 'ma_so_thue', display_name: 'Mã số thuế', type: 'input' },
     { field_name: 'ma_so_doanh_nghiep', display_name: 'Mã số doanh nghiệp', type: 'input' }
 ]
