@@ -4,10 +4,15 @@ class Staff::PeopleController < Staff::BaseController
   before_action :set_step_and_dynamic_form, only: [:show, :edit, :update]
   before_action :set_cities, only: [:show, :edit]
   before_action :retrieve_form_values, only: [:show, :edit]
+  before_action :get_condition_params, only: [:index]
 
   def index
+    order_field = params[:sort]
+    direction = params[:direction]
+    organization_ids = current_staff.highest_organization.all_children
+
     service = PersonDataService.new
-    @people_steps = service.person_list
+    @people_steps = service.person_list(order_field, direction, organization_ids, current_staff.id)
                            .paginate(page: params[:page], per_page: params[:per_page])
 
     @person = Person.new # For creating new person with in modal popup form
@@ -21,6 +26,8 @@ class Staff::PeopleController < Staff::BaseController
     ActiveRecord::Base.transaction do
       @person = person_params[:nic_number].present? ? Person.find_or_initialize_by(nic_number: person_params[:nic_number]) : Person.new
       @person.assign_attributes(person_params)
+      @person.owner = current_staff
+      @person.organization = current_staff.lowest_organization
       nic_check = @service.nic_validate?(@person.nic_number, @person.product_id)
 
       if nic_check
@@ -69,6 +76,8 @@ class Staff::PeopleController < Staff::BaseController
       person = pers_params[:nic_number].present? ? Person.find_or_initialize_by(nic_number: pers_params[:nic_number]) : Person.new
       person.assign_attributes(pers_params)
       person.product_id = people_params[:product_id]
+      person.owner = current_staff
+      person.organization = current_staff.lowest_organization
 
       if person.validate && @service.nic_validate?(person.nic_number, person.product_id) && (person.nic_number.blank? || arr_nic.count(person.nic_number) == 1)
         person_records.push(person)
@@ -261,6 +270,8 @@ class Staff::PeopleController < Staff::BaseController
       )
       # Assign value for school or merchandise follow product_id
       person[dynamic_field] = hash[dynamic_field]
+      person.owner = current_staff
+      person.organization = current_staff.lowest_organization
 
       if person.validate && @service.nic_validate?(person.nic_number, person.product_id) && (person.nic_number.blank? || arr_nic.count(person.nic_number) == 1)
         person_records.push(person)
@@ -270,5 +281,9 @@ class Staff::PeopleController < Staff::BaseController
       end
     end
     [all_person_records_are_valid, error_lines, person_records]
+  end
+
+  def get_condition_params
+    @condition_params = request.query_parameters
   end
 end
