@@ -29,11 +29,13 @@
                 data-module="lightgallery"
                 class="list-group">
               <% @person.documents.select { |d| d.document_kind_id == doc_kind.id }.each do |document| %>
-                <li class="list-group-item"
-                    data-src="<%= staff_person_document_path(@person, document) %>"
-                    data-download-url="<%= download_staff_person_document_path(@person, document) %>"
-                    data-sub-html="<%= document.filename %>">
-                  <%= document.filename %>
+                <li class="list-group-item">
+                  <a class="document-filename pointer"
+                     href="<%= staff_person_document_path(@person, document) %>"
+                     data-download-url="<%= download_staff_person_document_path(@person, document) %>"
+                     data-sub-html="<%= document.filename %>">
+                    <%= document.filename %>
+                  </a>
                 </li>
               <% end %>
             </ul>
@@ -54,12 +56,12 @@
       share: false,
       autoplay: false,
       autoplayControls: false,
-      zoom: false
+      zoom: false,
+      selector: '.document-filename'
     });
 
     $('[data-module=fileupload]').fileupload({
       dataType: 'json',
-//      singleFileUploads: false,
       autoUpload: true,
       url: '<%= staff_person_documents_path(@person) %>',
       add: function (e, data) {

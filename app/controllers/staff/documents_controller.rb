@@ -34,11 +34,25 @@ class Staff::DocumentsController < Staff::BaseController
     send_file document.physic_path, type: document.content_type
   end
 
-  # Show single file
+  #
+  # Show person's document
+  # GET /staff/people/:person_id/documents/:id
+  #
   def show
     document = @person.documents.find(params[:id])
 
     send_file document.physic_path, type: document.content_type, disposition: 'inline'
+  end
+
+  #
+  # Delete person's document
+  # DELETE /staff/people/:person_id/documents/:id
+  #
+  def destroy
+    document = @person.documents.find(params[:id])
+    document.destroy
+
+    head 204
   end
 
 
