@@ -27,10 +27,7 @@ class Person < SoftDeleteBaseModel
 
     ActiveRecord::Base.transaction do
       if update(person_params)
-        # Save to form_values
         save_form_values(form_values_params, object_id, form_id)
-
-        # Save to support_profiles
         save_support_profiles(support_profiles_params, object_id)
       end
       raise ActiveRecord::Rollback if errors.any?
@@ -54,6 +51,7 @@ class Person < SoftDeleteBaseModel
   def save_support_profiles(params, object_id)
     # Save to support_profiles
     params&.each do |id, obj_value|
+      next if obj_value.values.reject(&:blank?).empty?
       profile = SupportProfile.find_or_create_by(id: id)
       profile.assign_attributes(obj_value.permit!.to_h)
       profile.person_id = object_id

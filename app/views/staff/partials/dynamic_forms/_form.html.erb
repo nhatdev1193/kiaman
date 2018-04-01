@@ -88,112 +88,114 @@
 
 <script>
   $(function () {
-    let $btnEditProfile = $('#btn-edit-profile'),
-        $btnUpdateProfile = $('#btn-update-profile'),
-        $btnCancelProfileUpdate = $('#btn-cancel-profile-update'),
-        $btnArchiveProfile = $('#btn-archive-profile'),
-        $btnCreateContract = $('#btn-create-contract'),
-        $btnAssignStaff = $('#btn-assign-staff'),
-        $profileForm = $('#profile-form'),
-        $addMoreProfileBtn = $('#add-more-profile'),
-        $addMoreInstitution = $('#add-more-institution');
+    (function dynamicForm(){
+      let $btnEditProfile = $('#btn-edit-profile'),
+          $btnUpdateProfile = $('#btn-update-profile'),
+          $btnCancelProfileUpdate = $('#btn-cancel-profile-update'),
+          $btnArchiveProfile = $('#btn-archive-profile'),
+          $btnCreateContract = $('#btn-create-contract'),
+          $btnAssignStaff = $('#btn-assign-staff'),
+          $profileForm = $('#profile-form'),
+          $addMoreProfileBtn = $('#add-more-profile'),
+          $addMoreInstitution = $('#add-more-institution');
 
-    let toShowMode = function(){
-      let $editableFormControls = $profileForm.find('.editable'),
-          $selectableFormControls = $profileForm.find('.selectable'),
-          $hasErrorControls = $profileForm.find('.has-error'),
-          $helpBlockSpans = $profileForm.find('.help-block');
+      let toShowMode = function(){
+        let $editableFormControls = $profileForm.find('.editable'),
+            $selectableFormControls = $profileForm.find('.selectable'),
+            $hasErrorControls = $profileForm.find('.has-error'),
+            $helpBlockSpans = $profileForm.find('.help-block');
 
-      // Hide update + cancel buttons
-      $btnUpdateProfile.addClass('hidden');
-      $btnCancelProfileUpdate.addClass('hidden');
-      $addMoreProfileBtn.addClass('hidden');
-      $addMoreInstitution.addClass('hidden');
+        // Hide update + cancel buttons
+        $btnUpdateProfile.addClass('hidden');
+        $btnCancelProfileUpdate.addClass('hidden');
+        $addMoreProfileBtn.addClass('hidden');
+        $addMoreInstitution.addClass('hidden');
 
-      // Show up edit profile button
-      $btnEditProfile.removeClass('hidden');
-      $btnArchiveProfile.removeClass('hidden');
-      $btnCreateContract.removeClass('hidden');
-      $btnAssignStaff.removeClass('hidden');
+        // Show up edit profile button
+        $btnEditProfile.removeClass('hidden');
+        $btnArchiveProfile.removeClass('hidden');
+        $btnCreateContract.removeClass('hidden');
+        $btnAssignStaff.removeClass('hidden');
 
-      // Disallow the form fields to be edited
-      $editableFormControls.attr('readonly', true);
-      $editableFormControls.attr('disabled', true);
-      $editableFormControls.addClass('form-control-plaintext');
-      $editableFormControls.removeClass('form-control');
+        // Disallow the form fields to be edited
+        $editableFormControls.attr('readonly', true);
+        $editableFormControls.attr('disabled', true);
+        $editableFormControls.addClass('form-control-plaintext');
+        $editableFormControls.removeClass('form-control');
 
-      $selectableFormControls.attr('disabled', true);
+        $selectableFormControls.attr('disabled', true);
 
-      // Remove errors messages
-      $hasErrorControls.removeClass('has-error');
-      $helpBlockSpans.remove();
-    }
-
-    //
-    // Update profile
-    //
-    $btnEditProfile.click(function () {
-      let $t = $(this);
-      let $editableFormControls = $profileForm.find('.editable'),
-          $selectableFormControls = $profileForm.find('.selectable');
-      $t.addClass('hidden');
-
-      // Allow the form fields to be edited
-      $editableFormControls.removeAttr('readonly');
-      $editableFormControls.removeAttr('disabled');
-      $editableFormControls.removeClass('form-control-plaintext');
-      $editableFormControls.addClass('form-control');
-
-      $selectableFormControls.removeAttr('disabled');
-
-      // Show up update + cancel buttons
-      $btnUpdateProfile.removeClass('hidden');
-      $btnCancelProfileUpdate.removeClass('hidden');
-      $addMoreProfileBtn.removeClass('hidden');
-      $addMoreInstitution.removeClass('hidden');
-
-      // Hide archive, create and assign staff buttons
-      $btnArchiveProfile.addClass('hidden');
-      $btnCreateContract.addClass('hidden');
-      $btnAssignStaff.addClass('hidden');
-    });
-
-    //
-    // Submit profile form
-    //
-    $btnUpdateProfile.click(function () {
-      $.ajax({
-        url: $profileForm.action,
-        data: $profileForm.serialize(),
-        type: ($("input[name='_method']").val() || $profileForm.method),
-        success: function(res){
-          if($.isEmptyObject(res.errors)){
-            toShowMode();
-          } else {
-            $.each(res.errors, function(key, value) {
-              let prefix = $.isNumeric(key) ? '#form_values' : '#person',
-                  $input = $(prefix + "_" + key);
-              $input.parent().parent().addClass('has-error');
-              $('<span class="help-block">' + value.join('<br>') +'</span>').insertAfter($input)
-            });
-          }
-        }
-      });
-    });
-
-    //
-    // Cancel profile update
-    //
-    $btnCancelProfileUpdate.click(function () {
-      let changed = $profileForm.data('changed');
-      if(changed){
-        alert('The changes may not be saved');
+        // Remove errors messages
+        $hasErrorControls.removeClass('has-error');
+        $helpBlockSpans.remove();
       }
-      location.reload();
-    });
 
-    $('#profile-form :input').change(function() {
-      $profileForm.data("changed", true);
-    });
+      //
+      // Update profile
+      //
+      $btnEditProfile.click(function () {
+        let $t = $(this);
+        let $editableFormControls = $profileForm.find('.editable'),
+            $selectableFormControls = $profileForm.find('.selectable');
+        $t.addClass('hidden');
+
+        // Allow the form fields to be edited
+        $editableFormControls.removeAttr('readonly');
+        $editableFormControls.removeAttr('disabled');
+        $editableFormControls.removeClass('form-control-plaintext');
+        $editableFormControls.addClass('form-control');
+
+        $selectableFormControls.removeAttr('disabled');
+
+        // Show up update + cancel buttons
+        $btnUpdateProfile.removeClass('hidden');
+        $btnCancelProfileUpdate.removeClass('hidden');
+        $addMoreProfileBtn.removeClass('hidden');
+        $addMoreInstitution.removeClass('hidden');
+
+        // Hide archive, create and assign staff buttons
+        $btnArchiveProfile.addClass('hidden');
+        $btnCreateContract.addClass('hidden');
+        $btnAssignStaff.addClass('hidden');
+      });
+
+      //
+      // Submit profile form
+      //
+      $btnUpdateProfile.click(function () {
+        $.ajax({
+          url: $profileForm.action,
+          data: $profileForm.serialize(),
+          type: ($("input[name='_method']").val() || $profileForm.method),
+          success: function(res){
+            if($.isEmptyObject(res.errors)){
+              toShowMode();
+            } else {
+              $.each(res.errors, function(key, value) {
+                let prefix = $.isNumeric(key) ? '#form_values' : '#person',
+                    $input = $(prefix + "_" + key);
+                $input.parent().parent().addClass('has-error');
+                $('<span class="help-block">' + value.join('<br>') +'</span>').insertAfter($input)
+              });
+            }
+          }
+        });
+      });
+
+      //
+      // Cancel profile update
+      //
+      $btnCancelProfileUpdate.click(function () {
+        let changed = $profileForm.data('changed');
+        if(changed){
+          alert('The changes may not be saved');
+        }
+        location.reload();
+      });
+
+      $('#profile-form :input').change(function() {
+        $profileForm.data("changed", true);
+      });
+    })();
   });
 </script>
