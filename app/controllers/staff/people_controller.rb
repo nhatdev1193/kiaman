@@ -80,7 +80,9 @@ class Staff::PeopleController < Staff::BaseController
 
   def update
     @person = @person.update_fields(params[:object_id], @current_step.form_id, person_params, params)
-    flash[:errors] = @person.errors.messages if @person.errors.any?
+    respond_to do |format|
+      format.json { render json: {resouce: @person, errors: @person.errors.messages } }
+    end
   end
 
   def display_institution?(form_id, number, person_id)

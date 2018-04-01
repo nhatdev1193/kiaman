@@ -8,7 +8,7 @@ class FormValue < ApplicationRecord
     condition = self.form_field&.condition_group&.condition&.condition
     value = self.value
     if condition && condition['validator'] == 'presence' && value&.empty?
-      self.errors.add(self.form_field.field_name, "can't be blank")
+      self.errors.add(self.form_field.field_name, "là bắt buộc")
     end
   end
 

@@ -1,5 +1,5 @@
 <% @is_student_product = @current_step.product.name == 'Student Loan' %>
-<%= form_tag(staff_person_path(@person), {role: 'form', method: 'put', id: 'profile-form', class: 'form-horizontal'}) do %>
+<%= form_tag(staff_person_path(@person), {remote: true, role: 'form', method: 'put', id: 'profile-form', class: 'form-horizontal'}) do %>
   <!--Hidden field for sending necessary params to server -->
   <%= hidden_field_tag 'object_id', @person.id %>
   <%= hidden_field_tag 'step', @current_step.id %>
@@ -34,7 +34,6 @@
     </div>
 
     <div class="box-body">
-      <%= flash.now[:errors] %>
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#personal_info_tab" data-toggle="tab">CÁ NHÂN</a></li>
@@ -101,7 +100,9 @@
 
     let toShowMode = function(){
       let $editableFormControls = $profileForm.find('.editable'),
-          $selectableFormControls = $profileForm.find('.selectable');
+          $selectableFormControls = $profileForm.find('.selectable'),
+          $hasErrorControls = $profileForm.find('.has-error'),
+          $helpBlockSpans = $profileForm.find('.help-block');
 
       // Hide update + cancel buttons
       $btnUpdateProfile.addClass('hidden');
@@ -122,6 +123,10 @@
       $editableFormControls.removeClass('form-control');
 
       $selectableFormControls.attr('disabled', true);
+
+      // Remove errors messages
+      $hasErrorControls.removeClass('has-error');
+      $helpBlockSpans.remove();
     }
 
     //
@@ -157,15 +162,38 @@
     // Submit profile form
     //
     $btnUpdateProfile.click(function () {
-      $profileForm.submit();
-      toShowMode();
+      $.ajax({
+        url: $profileForm.action,
+        data: $profileForm.serialize(),
+        type: ($("input[name='_method']").val() || $profileForm.method),
+        success: function(res){
+          if($.isEmptyObject(res.errors)){
+            toShowMode();
+          } else {
+            $.each(res.errors, function(key, value) {
+              let prefix = $.isNumeric(key) ? '#form_values' : '#person',
+                  $input = $(prefix + "_" + key);
+              $input.parent().parent().addClass('has-error');
+              $('<span class="help-block">' + value.join('<br>') +'</span>').insertAfter($input)
+            });
+          }
+        }
+      });
     });
 
     //
     // Cancel profile update
     //
     $btnCancelProfileUpdate.click(function () {
-      toShowMode();
+      let changed = $profileForm.data('changed');
+      if(changed){
+        alert('The changes may not be saved');
+      }
+      location.reload();
+    });
+
+    $('#profile-form :input').change(function() {
+      $profileForm.data("changed", true);
     });
   });
 </script>
