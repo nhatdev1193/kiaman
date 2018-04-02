@@ -1,0 +1,80 @@
+<% # Set the title attribute for this page
+   content_for :title do %>
+  Change logs
+<% end %>
+
+<% # Set the title of content
+   content_for :content_header do %>
+  <div class="row">
+    <div class="col-sm-12">
+      <ol class="breadcrumb">
+        <li>
+          <%= link_to staff_people_path do %>
+            Khách hàng
+          <% end %>
+        </li>
+        <li>
+          <%= link_to staff_person_path(@person, step: @person.current_step) do %>
+            <%= @person.fullname %> - <%= @person.id %>
+          <% end %>
+        </li>
+        <li class="active">Change logs</li>
+      </ol>
+    </div>
+  </div>
+<% end %>
+
+<div class="box box-success">
+  <div class="box-body">
+    <div class="table-responsive">
+      <%= form_with url: staff_people_path, method: :get, local: true, id: 'prospect-seach-form' do %>
+        <table class="table table-hover table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Thông tin</th>
+            <th>ID thông tin</th>
+            <th>Giá trị cũ</th>
+            <th>Giá trị mới</th>
+            <th>Thời gian</th>
+            <th>Người thực hiện</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= search_field_tag 's[thong_tin]', params[:s].try(:[], :thong_tin) || nil, class: 'form-control' %></td>
+            <td><%= search_field_tag 's[id_thong_tin]', params[:s].try(:[], :id_thong_tin) || nil, class: 'form-control' %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% @change_logs.each_with_index do |c, idx| %>
+            <tr>
+              <td><%= "THONG_TIN_#{idx}" %></td>
+              <td><%= "ID_THONG_TIN_#{idx}" %></td>
+              <td><%= "GIA_TRI_CU_#{idx}" %></td>
+              <td><%= "GIA_TRI_MOI_#{idx}" %></td>
+              <td><%= "THOI_GIAN_#{idx}" %></td>
+              <td><%= "NAME_NGUOI_THUC_HIEN_#{idx} - ID_NGUOI_THUC_HIEN_#{idx}" %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div><!-- /.table-responsive -->
+
+    <div class="table-pagination">
+      <div class="form-inline rows-per-page">
+        Số mục hiển thị trên trang
+
+        <%= select_tag('',
+                       options_for_select([25, 50, 100], params[:per_page]),
+                       { class: 'form-control will_paginate_per_page' }) %>
+      </div>
+
+      <div class="text-center">
+        <%= will_paginate @change_logs, renderer: BootstrapPagination::Rails, class: 'no-margin' %>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->

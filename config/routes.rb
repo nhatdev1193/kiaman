@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
       member do
         delete '/', to: 'people#archive_person'
+        get '/change_logs', to: 'people#view_change_logs'
       end
 
       resources :documents, only: [:show] do
