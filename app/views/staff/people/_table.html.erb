@@ -18,7 +18,9 @@
         </tr>
         <tr data-row_with_action_buttons class="hidden">
           <th colspan="11" class="text-right">
-            <button type="button" class="btn btn-success">
+            <button data-toggle="modal" data-target="#modal-assign-people-owner"
+                    data-module="mass_assign_owner"
+                    type="button" class="btn btn-success">
               <%= fa_icon 'user-circle' %> Chỉ định người phụ trách
             </button>
 
@@ -111,6 +113,14 @@
       if (selectedPersonIds.length === 0) {
         $rowWithActionButtons.addClass('hidden');
       }
+    });
+
+    $('[data-module=mass_assign_owner]').on('click', function (e) {
+      let $t = $(this),
+          $massAssignOwnerForm = $('#mass_assign_owner_form'),
+          $peopleIdsHiddenInput = $massAssignOwnerForm.find("input[name='mass_assign_owner[people_ids]']");
+
+      $peopleIdsHiddenInput.val($rowWithActionButtons.data('selected_person_ids'));
     });
   });
 </script>

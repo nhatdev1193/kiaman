@@ -44,6 +44,11 @@ class Person < SoftDeleteBaseModel
     self
   end
 
+  def current_step
+    people_steps.order(created_at: :desc).first
+  end
+
+
   private
 
   def save_form_values(params, object_id, form_id)
@@ -73,10 +78,6 @@ class Person < SoftDeleteBaseModel
 
   def set_default_status
     self.status = :prospect if new_record?
-  end
-
-  def first_person_step
-    people_steps.order(created_at: :desc).first
   end
 
   def product_validate

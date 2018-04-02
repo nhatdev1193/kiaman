@@ -23,14 +23,12 @@ class Staff::PeopleController < Staff::BaseController
   # Show person detail profile
   # GET /staff/people/:id
   #
-  # @param step: step_id
-  #
   def show
     # Get all reference (support) profiles for this person
     @support_profiles = SupportProfile.where(person_id: @person.id).order(:id)
-    
+
     # Get documents belong to this person
-    doc_kind_field_names = ['cmnd', 'ho_khau', 'don_de_nghi_vay_von', 'the_sinh_vien', 'bang_cap', 'bang_diem', 'phieu_luong']
+    doc_kind_field_names = %w(cmnd ho_khau don_de_nghi_vay_von the_sinh_vien bang_cap bang_diem phieu_luong)
     @doc_kinds = DocumentKind.where(field_name: doc_kind_field_names).order(:id)
   end
 
@@ -170,6 +168,28 @@ class Staff::PeopleController < Staff::BaseController
       end
     else
       # TODO: need to handler fail case when the profile cannot be archived
+    end
+  end
+
+  #
+  # Mass assign owner for list of profile
+  # PUT /staff/people/assign_owner
+  #
+  def mass_assign_owner
+    mass_assign_owner_params = params.require(:mass_assign_owner).permit(:people_ids, :assigned_staff_id)
+
+    people = Person.where(id: mass_assign_owner_params[:people_ids].split(','))
+
+    ActiveRecord::Base.transaction do
+      people.map do |p|
+        p.current_step.update(assigned_staff_id: mass_assign_owner_params[:assigned_staff_id])
+        p.save!
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to staff_people_path, notice: 'Chỉ định người phụ trách thành công.' }
+      format.json { head :no_content }
     end
   end
 
