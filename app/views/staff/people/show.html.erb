@@ -30,3 +30,18 @@
     <%= render partial: 'staff/partials/dynamic_forms/form' %>
   </div>
 </div>
+
+<!-- Assign people owner modal form
+================================= -->
+<%= render partial: 'assign_people_owner_form.modal' %>
+
+<script>
+  $(function () {
+    (function setPeopleIdsForAssignPeopleOwnerForm() {
+      let $massAssignOwnerForm = $('#mass_assign_owner_form'),
+          $peopleIdsHiddenInput = $massAssignOwnerForm.find("input[name='mass_assign_owner[people_ids]']");
+
+      $peopleIdsHiddenInput.val(<%= @person.id %>);
+    })();
+  });
+</script>
