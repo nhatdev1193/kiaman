@@ -28,7 +28,7 @@
 //= require_tree ./staff
 
 $(function () {
-  $('.select2').select2();
+  $('.select2').select2({ width: '100%' });
 
   // Flat red color scheme for iCheck
   $('input[type="checkbox"].i-check, input[type="radio"].i-check').iCheck({

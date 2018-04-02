@@ -10,12 +10,11 @@
 
       <!-- form start -->
       <%= form_with url: staff_people_mass_assign_owner_path, method: :put,
-                    scope: :mass_assign_owner,
+                    scope: :mass_assign_owner, local: true,
                     id: 'mass_assign_owner_form', class: 'form-horizontal',
                     html:  { role: 'form' } do |f| %>
         <div class="box-body">
           <%= f.hidden_field :people_ids %>
-          <%= f.hidden_field :assigned_staff_id, value: 1 %>
           <%= hidden_field_tag :form_id, 'mass_assign_owner_form' %>
 
           <div class="form_error_messages"></div>
@@ -24,7 +23,11 @@
             <%= f.label 'Thẩm tele *', class: 'control-label col-sm-4' %>
 
             <div class="col-sm-8">
-
+              <%= f.collection_select :assigned_staff_id,
+                                      Staff.all,
+                                      :id, :name,
+                                      { :prompt => 'Select' },
+                                      { :class => 'form-control select2' } %>
             </div>
           </div>
         </div><!-- /.box-body -->
