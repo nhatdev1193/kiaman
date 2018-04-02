@@ -16,6 +16,22 @@
           <th><%= sortable 'updated_at', 'Cập nhật lần cuối', @condition_params %></th>
           <th></th>
         </tr>
+        <tr data-row_with_action_buttons class="hidden">
+          <th colspan="11" class="text-right">
+            <button data-toggle="modal" data-target="#modal-assign-people-owner"
+                    data-module="mass_assign_owner"
+                    type="button" class="btn btn-success">
+              <%= fa_icon 'user-circle' %> Chỉ định người phụ trách
+            </button>
+
+            <%= link_to staff_person_path(1),
+                        method: :delete,
+                        class: 'btn btn-danger',
+                        data: { confirm: 'Bạn có chắc chắn muốn archive hồ sơ này không ?' } do %>
+              <%= fa_icon 'archive' %> Archive hồ sơ
+            <% end %>
+          </th>
+        </tr>
         </thead>
         <tbody>
         <%= render 'search' %>
@@ -24,7 +40,10 @@
             <td>
               <div class="checkbox no-margin">
                 <label class="no-padding">
-                  <input type="checkbox" class="i-check">
+                  <input type="checkbox"
+                         class="i-check"
+                         value="<%= person_step.person_id %>"
+                         data-module="select_person">
                 </label>
               </div>
             </td>
@@ -66,3 +85,42 @@
 <% else %>
   Không có kêt quả nào
 <% end %>
+
+
+<script>
+  $(function() {
+    let $rowWithActionButtons = $('[data-row_with_action_buttons]');
+
+    $('[data-module=select_person]').on('ifChecked', function(e) {
+      let $t = $(this),
+          personId = $t.val(),
+          selectedPersonIds = $rowWithActionButtons.data('selected_person_ids') || [];
+
+      // Store the selected person id & show the row contain action buttons
+      $rowWithActionButtons.data('selected_person_ids', _.union(selectedPersonIds, [personId]))
+                           .removeClass('hidden');
+    }).on('ifUnchecked', function () {
+      let $t = $(this),
+          personId = $t.val(),
+          selectedPersonIds = $rowWithActionButtons.data('selected_person_ids') || [];
+
+      selectedPersonIds = _.without(selectedPersonIds, personId);
+
+      // Store the selected person
+      $rowWithActionButtons.data('selected_person_ids', selectedPersonIds);
+
+      // If there is no selected person_id, hide the row contain action buttons
+      if (selectedPersonIds.length === 0) {
+        $rowWithActionButtons.addClass('hidden');
+      }
+    });
+
+    $('[data-module=mass_assign_owner]').on('click', function (e) {
+      let $t = $(this),
+          $massAssignOwnerForm = $('#mass_assign_owner_form'),
+          $peopleIdsHiddenInput = $massAssignOwnerForm.find("input[name='mass_assign_owner[people_ids]']");
+
+      $peopleIdsHiddenInput.val($rowWithActionButtons.data('selected_person_ids'));
+    });
+  });
+</script>

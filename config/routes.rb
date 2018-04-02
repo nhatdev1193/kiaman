@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     post 'people/create_normal_prospect', to: 'people#create_normal_prospect'
     get 'people/fast_prospect', to: 'people#new_fast_prospect'
     post 'people/fast_prospect', to: 'people#create_fast_prospect'
+    put 'people/mass_assign_owner', to: 'people#mass_assign_owner'
     post 'people/csv_upload', to: 'people#csv_upload'
     post 'people/nic_check', to: 'people#nic_check'
 
