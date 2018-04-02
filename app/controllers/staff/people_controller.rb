@@ -1,6 +1,6 @@
 class Staff::PeopleController < Staff::BaseController
   before_action :person_service, only: [:index, :nic_check, :create_normal_prospect, :csv_upload, :create_fast_prospect]
-  before_action :set_person, only: [:show, :update, :archive_person]
+  before_action :set_person, only: [:show, :update, :archive_person, :view_change_logs]
   before_action :set_step_and_dynamic_form, only: [:show, :update]
   before_action :set_cities, only: [:show]
   before_action :retrieve_form_values, only: [:show]
@@ -193,6 +193,26 @@ class Staff::PeopleController < Staff::BaseController
     end
   end
 
+  #
+  # Show the change logs of 1 person
+  # GET /staff/people/:person_id/change_logs
+  #
+  def view_change_logs
+    # TODO: Get change logs data from DB
+    @change_logs = []
+
+    100.times do
+      @change_logs.push(0)
+    end
+
+    @change_logs = @change_logs.paginate(page: params[:page], per_page: params[:per_page])
+  end
+
+
+  # ========================================
+  # PRIVATE METHODS
+  # ========================================
+
   private
 
   def set_person
@@ -204,6 +224,9 @@ class Staff::PeopleController < Staff::BaseController
   end
 
   def set_step_and_dynamic_form
+    # Require step param
+    params.require(:step)
+
     @current_step = Step.find(params[:step])
     @dynamic_form = Form.includes(form_fields: :form_input).find_by_id(@current_step.form_id)
     @form_fields = @dynamic_form.form_fields

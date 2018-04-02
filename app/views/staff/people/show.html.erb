@@ -12,9 +12,9 @@
 
     <div class="col-sm-9">
       <div class="pull-right">
-        <button type="button" class="btn btn-default bg-black">
+        <%= link_to change_logs_staff_person_path(@person), class: 'btn btn-default bg-black' do %>
           <%= fa_icon 'history' %> Xem change log
-        </button>
+        <% end %>
       </div>
     </div>
   </div>

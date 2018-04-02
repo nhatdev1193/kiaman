@@ -48,6 +48,10 @@ class Person < SoftDeleteBaseModel
     people_steps.order(created_at: :desc).first
   end
 
+  def fullname
+    [last_name, first_name].join(' ')
+  end
+
 
   private
 
