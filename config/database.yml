@@ -21,6 +21,20 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
+  username: <%= ENV.fetch('DB_USERNAME', 'postgres') %>
+
+  # The password associated with the postgres role (username).
+  password: <%= ENV.fetch('DB_PASSWORD', '') %>
+
+  # Connect on a TCP socket. Omitted by default since the client uses a
+  # domain socket that doesn't need configuration. Windows does not have
+  # domain sockets, so uncomment these lines.
+  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
+
+  # The TCP port the server listens on. Defaults to 5432.
+  # If your server runs on a different port number, change accordingly.
+  port: <%= ENV.fetch('DB_PORT', '5432') %>
+
 development:
   <<: *default
   database: kiman_crm_development
@@ -29,19 +43,19 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  username: postgres
+  #username
 
   # The password associated with the postgres role (username).
-  password:
+  #password
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: localhost
+  #host
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: 5432
+  #port
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -60,31 +74,24 @@ test:
   # url: <%= ENV['DB_TEST_URL'] %>
   database: kiman_crm_test
 
-# As with config/secrets.yml, you never want to store sensitive information,
-# like your database password, in your source code. If your source code is
-# ever seen by anyone, they now have access to your database.
-#
-# Instead, provide the password as a unix environment variable when you boot
-# the app. Read http://guides.rubyonrails.org/configuring.html#configuring-a-database
-# for a full rundown on how to provide these environment variables in a
-# production deployment.
-#
-# On Heroku and other platform providers, you may have a full connection URL
-# available as an environment variable. For example:
-#
-username: postgres
-
-password:
-
-host: localhost
-
-port: 5432
-#
-# You can use this database configuration with:
-#
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
+  # As with config/secrets.yml, you never want to store sensitive information,
+  # like your database password, in your source code. If your source code is
+  # ever seen by anyone, they now have access to your database.
+  #
+  # Instead, provide the password as a unix environment variable when you boot
+  # the app. Read http://guides.rubyonrails.org/configuring.html#configuring-a-database
+  # for a full rundown on how to provide these environment variables in a
+  # production deployment.
+  #
+  # On Heroku and other platform providers, you may have a full connection URL
+  # available as an environment variable. For example:
+  #
+  #
+  # You can use this database configuration with:
+  #
+  #   production:
+  #     url: <%= ENV['DATABASE_URL'] %>
+  #
 production:
   <<: *default
   database: kiman_crm_production
