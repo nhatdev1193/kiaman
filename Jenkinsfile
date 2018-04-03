@@ -1,7 +1,3 @@
-env.POSTGRES_USER = 'postgres'
-env.POSTGRES_PASSWORD = '123456789'
-env.PORT = '3000'
-
 node {
 
   checkout scm
@@ -17,11 +13,23 @@ node {
 
       gem install bundler
 
-      bundle install
+      bundle install'''
+  }
 
-      rails db:create
+  stage("Create DB") {
+    sh '''#!/bin/bash -l
 
-      rails db:migrate
+      rails db:create'''
+  }
+
+  stage("Migrate DB") {
+    sh '''#!/bin/bash -l
+
+      rails db:migrate'''
+  }
+
+  stage("Testing") {
+    sh '''#!/bin/bash -l
 
       rspec'''
   }
