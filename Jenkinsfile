@@ -6,13 +6,22 @@ pipeline {
       steps {
         sh '''#!/bin/bash -l
 
-type rvm | head -1'''
-        sh 'rvm install 2.5.0'
-        sh 'gem install bundler'
-        sh 'bundle'
-        sh 'rails db:create'
-        sh 'rails db:migrate'
-        sh 'rspec'
+rvm install 2.5.0'''
+        sh '''#!/bin/bash -l
+
+gem install bundler'''
+        sh '''#!/bin/bash -l
+
+bundle install'''
+        sh '''#!/bin/bash -l
+
+rails db:create'''
+        sh '''#!/bin/bash -l
+
+rails db:migrate'''
+        sh '''#!/bin/bash -l
+
+rspec'''
       }
     }
   }
