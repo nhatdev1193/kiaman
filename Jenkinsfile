@@ -23,5 +23,16 @@ rails db:migrate
 rspec'''
       }
     }
+    stage('Deploy') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+        }
+        
+      }
+      steps {
+        echo 'Deploying'
+      }
+    }
   }
 }
