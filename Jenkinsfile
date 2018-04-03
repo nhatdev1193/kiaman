@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''#!/bin/bash
+        sh '''#!/bin/bash -l
 
 type rvm | head -1'''
       }
