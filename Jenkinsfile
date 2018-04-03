@@ -1,38 +1,52 @@
-pipeline {
-  agent any
-  stages {
-    stage('Test') {
-      agent any
-      steps {
-        sh '''#!/bin/bash -l
+env.POSTGRES_USER = 'postgres'
+env.POSTGRES_PASSWORD = '123456789'
+env.PORT = 3000
 
-rvm use 2.5.0
+node {
+  stage("Set up RVM Component") {
+    sh '''#!/bin/bash -l
 
-gem install bundler
+      rvm use 2.5.0'''
+  }
 
-printenv
+  stage("Bundle Install") {
+    sh '''#!/bin/bash -l
 
-bundle install
+      rvm use 2.5.0
 
-echo "$env"
+      gem install bundler
 
-rails db:create
+      bundle install
 
-rails db:migrate
+      rails db:create
 
-rspec'''
+      rails db:migrate
+
+      rspec'''
+  }
+
+  stage("Build Staging") {
+    environment { 
+
+    }
+    try {
+      if(env.BRANCH_NAME == 'develop') {
+        sh "docker-compose build"
       }
     }
-    stage('Deploy') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile'
-        }
-        
+    catch(e) {
+      error "Build Staging server failed"
+    }
+  }
+
+  stage("Build Production") {
+    try {
+      if(env.BRANCH_NAME == 'master') {
+        sh "docker-compose build"
       }
-      steps {
-        echo 'Deploying'
-      }
+    }
+    catch(e) {
+      error "Build production server failed"
     }
   }
 }
