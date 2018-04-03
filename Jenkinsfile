@@ -10,6 +10,8 @@ rvm use 2.5.0
 
 gem install bundler
 
+printenv
+
 bundle install
 
 echo "$env"
