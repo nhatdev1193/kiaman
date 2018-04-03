@@ -32,16 +32,16 @@ development:
   username: postgres
 
   # The password associated with the postgres role (username).
-  password: 123456789
+  # password: 123456789
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: postgres
+  # host: postgres
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: 5432
+  # port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -72,13 +72,13 @@ test:
 # On Heroku and other platform providers, you may have a full connection URL
 # available as an environment variable. For example:
 #
-  username: postgres
+username: postgres
 
-  password: 123456789
+# password: 123456789
 
-  host: postgres
+# host: postgres
 
-  port: 5432
+# port: 5432
 #
 # You can use this database configuration with:
 #

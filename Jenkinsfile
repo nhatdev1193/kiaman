@@ -5,7 +5,7 @@ env.PORT = '3000'
 node {
 
   checkout scm
-  
+
   stage("Set up RVM Component") {
     sh '''#!/bin/bash -l
 
@@ -29,7 +29,9 @@ node {
   stage("Build Staging") {
     try {
       if(env.BRANCH_NAME == 'develop') {
-        sh "docker-compose build"
+        sh "docker build -t app ."
+        sh "docker rm -f app || true"
+        sh "docker run -e PORT=3000 -d -p 3000:3000 --name=app app"
       }
     }
     catch(e) {
