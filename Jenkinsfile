@@ -12,12 +12,13 @@ gem install bundler
 
 bundle install
 
+echo "$env.BRANCH_NAME"
+
 rails db:create
 
 rails db:migrate
 
 rspec'''
-        sh 'ruby -v'
       }
     }
   }
