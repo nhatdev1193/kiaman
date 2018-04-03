@@ -12,7 +12,7 @@ gem install bundler
 
 bundle install
 
-echo "$env.BRANCH_NAME"
+echo "$env"
 
 rails db:create
 
