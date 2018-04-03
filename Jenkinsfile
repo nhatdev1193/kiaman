@@ -6,7 +6,22 @@ pipeline {
       steps {
         sh '''#!/bin/bash -l
 
-rvm install 2.5.0'''
+# Use the correct ruby
+
+rvm install 2.5.0
+
+# Set "fail on error" in bash
+
+set -e
+
+# Do any setup
+
+# e.g. possibly do \'rake db:migrate db:test:prepare\' here
+
+bundle install
+
+# Finally, run your tests
+rails db:migrate'''
         sh '''#!/bin/bash -l
 
 gem install bundler'''
