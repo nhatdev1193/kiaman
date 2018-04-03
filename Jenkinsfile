@@ -1,7 +1,3 @@
-env.POSTGRES_USER = 'postgres'
-env.POSTGRES_PASSWORD = '123456789'
-env.PORT = '3000'
-
 node {
 
   checkout scm
